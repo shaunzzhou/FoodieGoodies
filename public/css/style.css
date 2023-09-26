@@ -1,0 +1,35 @@
+:root {
+    --primary: rgb(48, 174, 48);
+    --secondary: rgb(221, 145, 83);
+    --light: #F6FFF2;
+    --dark: #263A4F;
+}
+
+.bgBasic1{
+    background-color: rgb(48, 174, 48)
+}
+.bgBasic2{
+    background-color: rgb(221, 145, 83);
+}
+
+.basic1{
+    color:rgb(48, 174, 48);
+}
+
+.basic2{
+    color: rgb(221, 145, 83);
+}
+
+.btn {
+    transition: .5s;
+}
+
+.lighten:hover {
+    transition: 3s;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+
+
+
+
