@@ -6,7 +6,7 @@
 }
 
 .bgBasic1{
-    background-color: rgb(48, 174, 48)
+    background-color: rgb(48, 174, 48);
 }
 .bgBasic2{
     background-color: rgb(221, 145, 83);
@@ -28,6 +28,25 @@
     transition: 3s;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
+
+/* Current background styling, if want to change let John know!! */
+.container::after{
+    content: "";
+   background: url('../images/foodies_background.jpg');
+   background-size:cover;
+   opacity: 0.1;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   position: absolute;
+   z-index: -1;
+}
+
+.mainBackground{
+background-image: url('../images/meatballs2.jpg');
+}
+
 
 
 
