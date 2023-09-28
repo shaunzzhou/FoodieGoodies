@@ -30,7 +30,7 @@
   }
 
 /* Current background styling, if want to change let John know!! */
-.container::after{
+/* .container::after{
     content: "";
    background: url('../images/foodies_background.jpg');
    background-size:cover;
@@ -45,7 +45,7 @@
 
 .mainBackground{
 background-image: url('../images/meatballs2.jpg');
-}
+} */
 
 
 
