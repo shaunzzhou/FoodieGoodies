@@ -24,7 +24,7 @@
     />
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
   </head>
 
   <body>
@@ -111,40 +111,151 @@
     <!-- Livetime Update Text -->
     <h1 id="target"></h1>
 
-    <!-- Signup -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-4">
-          <label for="signupemail">Email Address</label>
+    <!-- Login/Signup -->
+    <div class="container-fluid text-center">
+      <!-- Pills navs -->
+      <ul
+        class="nav nav-pills justify-content-center mb-3"
+        id="ex1"
+        role="tablist"
+      >
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="tab-login"
+            data-bs-toggle="pill"
+            href="#pills-login"
+            role="tab"
+            aria-controls="pills-login"
+            aria-selected="true"
+          >
+            Login
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="tab-register"
+            data-bs-toggle="pill"
+            href="#pills-register"
+            role="tab"
+            aria-controls="pills-register"
+            aria-selected="false"
+          >
+            Register
+          </button>
+        </li>
+      </ul>
+      <!-- End Pills navs -->
+
+      <!-- Pills content -->
+      <div class="tab-content col-md-4 mx-auto">
+        <!-- Login tab -->
+        <div
+          class="tab-pane fade show active"
+          id="pills-login"
+          role="tabpanel"
+          aria-labelledby="tab-login"
+        >
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="loginEmail">Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              class="form-control"
+              placeholder="Enter Email"
+            />
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+          </div>
+
+          <!-- Submit button -->
           <input
-            type="email"
-            class="form-control"
-            id="signupemail"
-            placeholder="Enter email"
+            type="submit"
+            onclick="login()"
+            id="login"
+            class="btn btn-primary"
+            value="Login"
+          />
+        </div>
+        <!-- Register tab -->
+        <div
+          class="tab-pane fade"
+          id="pills-register"
+          role="tabpanel"
+          aria-labelledby="tab-register"
+        >
+          <!-- Name input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="registerName">Name</label>
+            <input
+              type="text"
+              id="registerName"
+              class="form-control"
+              placeholder="Enter Name"
+            />
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="registerEmail">Email</label>
+            <input
+              type="email"
+              id="registerEmail"
+              class="form-control"
+              placeholder="Enter Email"
+            />
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="registerPassword">Password</label>
+            <input
+              type="password"
+              id="registerPassword"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+          </div>
+
+          <!-- Confirm Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="registerRepeatPassword"
+              >Confirm password</label
+            >
+            <input
+              type="password"
+              id="registerConfirmPassword"
+              class="form-control"
+              placeholder="Enter Password Again"
+            />
+          </div>
+
+          <!-- Submit button -->
+          <input
+            type="submit"
+            onclick="signUp()"
+            id="signup"
+            class="btn btn-primary"
+            value="Sign Up"
           />
         </div>
       </div>
-      <div class="row">
-        <div class="col-4">
-          <label for="signuppassword">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="signuppassword"
-            placeholder="Password"
-          />
-        </div>
-      </div>
-      <input
-        type="submit"
-        onclick="signUp()"
-        id="signup"
-        class="btn btn-primary"
-        value="Sign Up"
-      />
+      <!-- End Pills content -->
     </div>
 
-    <p id="status"></p>
+    <!-- User Registration Status -->
+    <p id="status" class="mt-3 text-center"></p>
 
     <script type="module">
       // Import the functions you need from the SDKs you need
@@ -152,11 +263,15 @@
       import {
         getAuth,
         createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
       } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
       import {
         getDatabase,
         ref,
         onValue,
+        set,
+        update,
       } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
@@ -193,25 +308,61 @@
 
       const auth = getAuth();
 
-      // signUp
+      // signUp function
       var signup = document.getElementById("signup");
       signup.addEventListener("click", signUp);
       function signUp() {
-        var email = document.getElementById("signupemail").value;
-        var password = document.getElementById("signuppassword").value;
+        let name = document.getElementById("registerName").value;
+        let email = document.getElementById("registerEmail").value;
+        let password = document.getElementById("registerPassword").value;
+        let confirmPassword = document.getElementById(
+          "registerConfirmPassword"
+        ).value;
+        if (password != confirmPassword) {
+          alert("Passwords are not the same!");
+          return;
+        }
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             const user = userCredential.user;
             alert("User Created!");
+            set(ref(db, "users/" + user.uid), {
+              name: name,
+              email: email,
+            });
             document.getElementById("status").innerText =
               "User Registration Done!";
           })
           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            var errorCode = error.code;
+            var errorMessage = error.message;
             alert(errorMessage);
             document.getElementById("status").innerText =
               "User Registration Failed!";
+          });
+      }
+
+      // login function
+      var loginbtn = document.getElementById("login");
+      loginbtn.addEventListener("click", login);
+      function login() {
+        let email = document.getElementById("loginEmail").value;
+        let password = document.getElementById("loginPassword").value;
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const dt = new Date();
+            const user = userCredential.user;
+            update(ref(db, "users/" + user.uid), {
+              last_login: dt,
+            });
+            alert("User logged in");
+            document.getElementById("status").innerText = "User logged in!";
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+            document.getElementById("status").innerText = "User login failed!";
           });
       }
     </script>
