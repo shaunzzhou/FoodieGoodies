@@ -25,6 +25,9 @@
 
     <!-- Template Stylesheet -->
     <link href="./css/style.css" rel="stylesheet" />
+
+    <!-- javascript libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   </head>
 
   <body>
@@ -79,103 +82,21 @@
     </nav>
     <!-- Navbar End -->
 
-    <style>
-      .fadeInLeft{
-        -webkit-animation: fadeInLeft 2s both;
-        -moz-animation: fadeInLeft 2s both;
-        -o-animation: fadeInLeft 2s both;
-        animation: fadeInLeft 2s both;
-      }
-      @-webkit-keyframes fadeInLeft{
-        0%{
-          opacity:0;
-          -webkit-transform: translateX(-500px);
-        }
-        100%{
-          opacity:1;
-          -webkit-transform: translateX(0) ;
-        }
-      }
-      @-moz-keyframes fadeInLeft{0%{
-          opacity:0;
-          -moz-transform: translateX(-500px);
-        }
-        100%{
-          opacity:1;
-          -moz-transform: translateX(0) ;
-        }}
-      @-o-keyframes fadeInLeft{0%{
-          opacity:0;
-          -o-transform: translateX(-500px);
-        }
-        100%{
-          opacity:1;
-          -o-transform: translateX(0) ;
-        }} 
-      @keyframes fadeInLeft{
-        0%{
-          opacity:0;
-          transform: translateX(-500px);
-        }
-        100%{
-          opacity:1;
-          transform: translateX(0) ;
-        }
-      }  
-      .fadeInRight{
-        -webkit-animation: fadeInRight 2s both;
-        -moz-animation: fadeInRight 2s both;
-        -o-animation: fadeInRight 2s both;
-        animation: fadeInRight 2s both;
-      }
-      @-webkit-keyframes fadeInRight{
-        0%{
-          opacity:0;
-          -webkit-transform: translateX(500px);
-        }
-        100%{
-          opacity:1;
-          -webkit-transform: translateX(0) ;
-        }
-      }
-      @-moz-keyframes fadeInRight{0%{
-          opacity:0;
-          -moz-transform: translateX(500opx);
-        }
-        100%{
-          opacity:1;
-          -moz-transform: translateX(0) ;
-        }}
-      @-o-keyframes fadeInRight{0%{
-          opacity:0;
-          -o-transform: translateX(500px);
-        }
-        100%{
-          opacity:1;
-          -o-transform: translateX(0) ;
-        }} 
-      @keyframes fadeInRight{
-        0%{
-          opacity:0;
-          transform: translateX(500px);
-        }
-        100%{
-          opacity:1;
-          transform: translateX(0) ;
-        }
-      }  
-    </style>
-    
 
     <!-- Hero 1 -->
-    <div
-      class="bgBasic2 bgHero container-fluid py-5 bg-hero animated fadeInLeft"
-    >
+    <div class="bgHero1 container-fluid py-5 bg-hero animated fadeInLeft">
       <div class="container py-5">
         <div class="row justify-content-start">
           <div class="col-lg-8 text-lg-start text-white">
             <h1>Checkout our newest Restaurants!</h1>
-            Many new restaurants have joined foodie goodies recently... Let's go find out who they are and support them right now!
+            Many new restaurants have joined foodie goodies recently... Let's go
+            find out who they are and support them right now!<br />
+
+            <a
+              href="./restaurantSelection.html"
+              class="btn bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
+              >Let's see those restaurants!</a
+            >
           </div>
         </div>
       </div>
@@ -183,16 +104,28 @@
     <!-- Hero 1 End -->
 
     <!-- Hero 2 -->
-    <div
-      class="bgBasic1 bgHero container-fluid py-5 bg-hero animated fadeInRight"
-    >
+    <div class="bgHero2 container-fluid py-5 bg-hero animated fadeInRight">
       <div class="container py-5">
         <div class="row justify-content-start">
-          <div class="col-lg-8 text-lg-start text-white">
-            <h1>Our Vision</h1>
-            Foodie Goodies was established due to our mssion of reducing food wastage in Singapore with the only way we know how: <b>BY EATING IT!</b><br><br>
-            What better way to combat food wastage by ensuring that it does not get wasted in the first place!
+          <div class="col-lg-4 text-white ps-4 mb-5">
+            <h5 class="">Bags of goodies sold</h5>
+            <h1 class="display-5 mb-0" data-toggle="counter-up">6071 bags</h1>
+            <br />
+            <h5 class="">Carbon Emssions offset</h5>
+            <h1 class="display-5 mb-0" data-toggle="counter-up">371 tons</h1>
+          </div>
 
+          <div class="col-lg-8 text-lg-start text-white">
+            <h1 class="">Our Vision</h1>
+            Foodie Goodies was established due to our mission of reducing food
+            wastage in Singapore with the only way we know how:
+            <b>BY EATING IT!</b><br /><br />
+            What better way to combat food wastage by ensuring that it does not
+            get wasted in the first place! Reducing food waste in Singapore not
+            only helps us to reduce the amount of usage of our land fills, but
+            also helps to reduce the amount of carbon emissions into our
+            atmosphere by lessening the amount of wasted food that's being
+            incinerated!
           </div>
         </div>
       </div>
@@ -200,14 +133,18 @@
     <!-- Hero 2 End -->
 
     <!-- Hero 3 -->
-    <div
-      class="bgBasic2 bgHero container-fluid py-5 bg-hero animated fadeInLeft"
-    >
+    <div class="bgHero3 container-fluid py-5 bg-hero animated fadeInLeft">
       <div class="container py-5">
         <div class="row justify-content-start">
           <div class="col-lg-8 text-lg-start text-white">
             <h1>Did You Know:</h1>
-            Everyday in Singapore, we throw away more than <b>2 million kilograms</b> of food? That's equivalent to every single person in Singapore throwing away 2 bowls of rice simultaenously!<br><br> I guess we're lucky that foodie goodies is here to help save the day eh?
+            Everyday in Singapore, we throw away more than
+            <b>2 million kilograms</b> of food? That's equivalent to every
+            single person in Singapore throwing away 2 bowls of rice
+            simultaenously!<br /><br />
+            The average person only eats around 35 tons of food in their entire
+            life. That means that the amount of food that is wasted in a single
+            day in Singapore, can feed you a little over 57 lifetimes!!!
           </div>
         </div>
       </div>

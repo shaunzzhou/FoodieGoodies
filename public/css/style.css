@@ -1,37 +1,38 @@
 :root {
-    --primary: rgb(48, 174, 48);
-    --secondary: rgb(1, 134, 6);
-    --light: #F6FFF2;
-    --dark: #263A4F;
+  --primary: rgb(48, 174, 48);
+  --secondary: rgb(1, 134, 6);
+  --light: #f6fff2;
+  --dark: #263a4f;
 }
 
 body{
-    background-image: url('../images/backgroundImage.jpeg');
+    background-image: url('../images/backgroundImage.jpg');
 }
 
-.bgBasic1{
-    background-color: rgb(48, 174, 48);
+.bgBasic1 {
+  background-color: rgb(48, 174, 48);
 }
-.bgBasic2{
-    background-color: rgb(1, 134, 6);
-}
-
-.basic1{
-    color:rgb(48, 174, 48);
+.bgBasic2 {
+  background-color: rgb(1, 134, 6);
 }
 
-.basic2{
-    color: rgb(1, 134, 6);
+.basic1 {
+  color: rgb(48, 174, 48);
+}
+
+.basic2 {
+  color: rgb(1, 134, 6);
 }
 
 .btn {
-    transition: .5s;
+  transition: 0.5s;
 }
 
 .lighten:hover {
-    transition: 3s;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-  }
+  transition: 3s;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
 
 /* Current background styling, if want to change let John know!! */
 /* .container::after{
@@ -52,8 +53,8 @@ background-image: url('../images/meatballs2.jpg');
 } */
 
 ul {
-    list-style: none; /* Remove default bullets */
- }
+  list-style: none; /* Remove default bullets */
+}
 ul li::before {
     content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
     color: white; /* Change the color */
@@ -63,72 +64,108 @@ ul li::before {
     margin-left: -1em; /* Also needed for space (tweak if needed) */
  }
 
+.fadeInLeft {
+    -webkit-animation: fadeInLeft 2s both;
+    -moz-animation: fadeInLeft 2s both;
+    -o-animation: fadeInLeft 2s both;
+    animation: fadeInLeft 2s both;
+  }
+  @-webkit-keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(-500px);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+    }
+  }
+  @-moz-keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      -moz-transform: translateX(-500px);
+    }
+    100% {
+      opacity: 1;
+      -moz-transform: translateX(0);
+    }
+  }
+  @-o-keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      -o-transform: translateX(-500px);
+    }
+    100% {
+      opacity: 1;
+      -o-transform: translateX(0);
+    }
+  }
+  @keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-500px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .fadeInRight {
+    -webkit-animation: fadeInRight 2s both;
+    -moz-animation: fadeInRight 2s both;
+    -o-animation: fadeInRight 2s both;
+    animation: fadeInRight 2s both;
+  }
+  @-webkit-keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(500px);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+    }
+  }
+  @-moz-keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      -moz-transform: translateX(500opx);
+    }
+    100% {
+      opacity: 1;
+      -moz-transform: translateX(0);
+    }
+  }
+  @-o-keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      -o-transform: translateX(500px);
+    }
+    100% {
+      opacity: 1;
+      -o-transform: translateX(0);
+    }
+  }
+  @keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(500px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
-
-
- /* Darius profile page */
-
-.image {
-    width : 300px;
-    height: 250px;
-}
-
-.btn-default {
-    border-color: rgba(24, 28, 33, 0.1);
-    background  : rgba(0, 0, 0, 0);
-    color       : #4E5155;
-}
-
-/* for labels of buttons */
-label.btn {
-    margin-bottom: 0;
-}
-
-
-
-.btn-outline-primary {
-    border-color: #18c736;
-    background  : transparent;
-    color       : #25850d;
-}
-
-.btn {
-    cursor: pointer;
-}
-
-.text-light {
-    color: #babbbc !important;
-}
-
-
-.card {
-    background-clip: padding-box;
-    box-shadow     : 0 1px 4px rgba(24, 28, 33, 0.012);
-}
-
-.row-bordered {
-    overflow: hidden;
-}
-
-.account-settings-fileinput {
-    position  : absolute;
-    visibility: hidden;
-    width     : 1px;
-    height    : 1px;
-    opacity   : 0;
-}
-
-.account-settings-links .list-group-item.active {
-    font-weight: bold !important;
-}
-
-
-
-.account-settings-multiselect~.select2-container {
-    width: 100% !important;
-}
-
-
-
-
-
+  .bgHero1 {
+    background: url(../images/moreFood.jpg) center no-repeat;
+    background-size: cover;
+  }
+  .bgHero2 {
+    background: url(../images/blur.avif) center no-repeat;
+    background-size: cover;
+  }
+  .bgHero3 {
+    background: url(../images/carousel-1.jpg) top right no-repeat;
+    background-size: cover;
+  }
