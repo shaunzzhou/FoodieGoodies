@@ -47,7 +47,7 @@
         </div>
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-center">
-            <a href="index.html" class="navbar-brand ms-lg-5">
+            <a href="landingPage.html" class="navbar-brand ms-lg-5">
               <h1 class="m-0">
                 <span class="basic1 font-weight-bold">Foodie</span
                 ><span class="basic2 font-weight-bold">Goodies</span>
@@ -75,8 +75,15 @@
     </div>
     <!-- Topbar End -->
 
+    <style>
+      .bgHero {
+        background: url(./images/carousel-1.jpg) top right no-repeat;
+        background-size: cover;
+      }
+    </style>
+
     <!-- Hero Start -->
-    <div class="bgBasic1 container-fluid py-5 bg-hero mb-5">
+    <div class="bgBasic1 bgHero container-fluid py-5 bg-hero mb-5">
       <div class="container py-5">
         <div class="row justify-content-start">
           <div class="col-lg-8 text-center text-lg-start">
@@ -106,16 +113,6 @@
       <div class="container">
         <!-- gx: gutter width to keep the distance between my header info constant -->
         <div class="row gx-5">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <!-- display flex needed to let my justify content center work -->
-            <div
-              class="d-flex h-100 border border-5 border-warning border-bottom-0 pt-4 justify-content-center"
-            >
-              <!-- Image2 of restaurant websites, optional -->
-              <img class="" id="pics2" src="someshiet.url" />
-            </div>
-          </div>
-
           <!-- about us info  -->
           <div class="col-lg-6 pb-5">
             <!-- Main info div -->
@@ -141,10 +138,9 @@
             <!-- dual feature section -->
             <div class="row gx-5 gy-4">
               <!-- feature 1 -->
-              <div class="col-sm-6">
+              <div class="col-sm-6 mt-5">
                 <!-- icon1 noting is here currently -->
                 <!-- fa calls bootstraps icons -->
-                <i class="fa fa-seedling display-1 basic2"></i>
                 <h4 id="feat1">Feature 1</h4>
                 <p class="mb-0">
                   Elaboration on your first feature(modify these such that it
@@ -154,9 +150,8 @@
               </div>
 
               <!-- feature 2 -->
-              <div class="col-sm-6">
+              <div class="col-sm-6 mt-5">
                 <!-- icon 2, nothing is here currently-->
-                <i class="fa fa-award display-1 basic2"></i>
                 <h4 id="feat2">Feature 2</h4>
                 <p class="mb-0">Elaboration on your second feature</p>
               </div>
@@ -164,6 +159,52 @@
             <!-- closure of dual features -->
           </div>
           <!-- closure of about us info  -->
+
+          <div class="col-lg-6 mb-lg-0">
+            <!-- display flex needed to let my justify content center work -->
+
+            <!-- Image2 of restaurant websites, optional -->
+            <img
+              class="d-flex justify-content-center border border-5 border-success w-100"
+              id="pics1"
+              src="./images/meatballs3.jpg"
+            />
+
+            <div class="container row bgBasic2 mt-5">
+              <div class="col-sm-6">
+                <div class="p-3">
+                  <h4 class="text-white">Possible Goodies:</h4>
+      
+                  <div id="goodies text-white">
+                    <ul>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-sm-6">
+                <div class="p-3">
+                  <h4 class="text-white">Allergent Information</h4>
+      
+                  <div id="allergentInfo text-white">
+                    <ul>
+                      <li></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
         </div>
         <!-- closure of internal container -->
       </div>
@@ -173,40 +214,7 @@
 
     <!-- List of possible goodies -->
     <div id="ingredients" class="container fluid bg-hero bgBasic2">
-      <div class="container row">
-        <div class="col-sm-6">
-          <div class="p-3">
-            <h4 class="text-white">Possible Goodies:</h4>
-
-            <div id="goodies text-white">
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6">
-          <div class="p-3">
-            <h4 class="text-white">Allergent Information</h4>
-
-            <div id="allergentInfo text-white">
-              <ul>
-                <li></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        
-
-      </div>
+      
     </div>
     <!-- End of goodies list -->
 
