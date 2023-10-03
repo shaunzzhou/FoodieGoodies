@@ -83,7 +83,7 @@
     </style>
 
     <!-- Hero Start -->
-    <div class="bgBasic1 bgHero container-fluid py-5 bg-hero mb-5">
+    <div class="bgBasic1 bgHero shadow-lg container-fluid py-5 bg-hero mb-5">
       <div class="container py-5">
         <div class="row justify-content-start">
           <div class="col-lg-8 text-center text-lg-start">
@@ -92,10 +92,12 @@
             <div class="justify-content-center">
               <a
                 href="./restaurantSelection.html"
-                class="btn bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
+                class="btn shadow bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
                 >Return to Restaurant Selection</a
               >
-              <a href="" class="btn bgBasic2 py-md-3 px-md-5 text-light lighten"
+              <a
+                href=""
+                class="btn shadow bgBasic2 py-md-3 px-md-5 text-light lighten"
                 >Check us out!(external website link)</a
               >
             </div>
@@ -120,10 +122,10 @@
               <!-- optional about us small text -->
               <h6 class="basic1">About Us</h6>
               <!-- main header -->
-              <h1 class="display-5">
+              <h3 class="">
                 Header for your restaurant: <br />Welcome to Big Meatballs Pte
                 Ltd!
-              </h1>
+              </h3>
 
               <!-- main description -->
               <p id="details" class="mb-4">
@@ -134,6 +136,17 @@
               </p>
             </div>
             <!-- closure of main info div -->
+            <div class="mb-3 pb-2">
+              <!-- optional about us small text -->
+              <h6 class="basic1">Rated</h6>
+              <!-- main header -->
+              <h1 class="display-5"> <span id="rating">3</span>/5<img style="width:100px" src="images/basic-star-flat-vector_78370-1483.avif" >'s</h1>
+
+              <!-- main description -->
+              <p id="details" class="mb-4">
+                Calculated through sentiment analysis of all reviews left behind by customers!
+              </p>
+            </div>
 
             <!-- dual feature section -->
             <div class="row gx-5 gy-4">
@@ -165,16 +178,16 @@
 
             <!-- Image2 of restaurant websites, optional -->
             <img
-              class="d-flex justify-content-center border border-5 border-success w-100"
+              class="d-flex shadow-lg justify-content-center my-5 border border-5 border-success w-100"
               id="pics1"
               src="./images/meatballs3.jpg"
             />
 
-            <div class="container row bgBasic2 mt-5">
+            <div class="container shadow-lg row bgBasic2 my-5 rounded">
               <div class="col-sm-6">
                 <div class="p-3">
                   <h4 class="text-white">Possible Goodies:</h4>
-      
+
                   <div id="goodies text-white">
                     <ul>
                       <li></li>
@@ -185,23 +198,73 @@
                   </div>
                 </div>
               </div>
-      
+
               <div class="col-sm-6">
                 <div class="p-3">
                   <h4 class="text-white">Allergent Information</h4>
-      
-                  <div id="allergentInfo text-white">
+
+                  <div id="allergentInfo" class="text-white">
                     <ul>
-                      <li></li>
+                      <li>Contains wheat</li>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
-
-
-
           </div>
+          <hr class="my-4" />
+
+          <div
+            class="row mb-4 d-flex justify-content-between align-items-center"
+          >
+            <div class="col-md-2 col-lg-2 col-xl-2">
+              <img
+                src="images/logo.png"
+                class="img-fluid rounded-3 h-100px"
+                alt="Cotton T-shirt"
+              />
+            </div>
+            <!-- restaurant name -->
+
+            <div class="col d-flex">
+              <div class="row">
+                <h6 class="text-black mb-0">Quantity:</h6>
+                <div class="col">
+                  <button class="btn btn-link px-2" onclick="removeBag()">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+                <!-- button to minus -->
+
+                <!-- current item quantity -->
+                <div id="qty" class="col mt-2">1</div>
+                <!-- button to add -->
+                <div class="col">
+                  <button class="btn btn-link px-2" onclick="addBag()">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row mt-3 ms-3">
+                <button
+                  onclick="addToCart()"
+                  style="border-radius: 10%"
+                  class="border-0 bgBasic1 text-white"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            function addToCart() {
+              alert("Goodies have been added to cart successfuly!");
+            }
+          </script>
+
+          <hr class="my-4" />
         </div>
         <!-- closure of internal container -->
       </div>
@@ -209,13 +272,8 @@
     </div>
     <!-- restaurant info end -->
 
-    <!-- List of possible goodies -->
-    <div id="ingredients" class="container fluid bg-hero bgBasic2">
-      
-    </div>
+    <div id="ingredients" class="container fluid bg-hero bgBasic2"></div>
     <!-- End of goodies list -->
-
-
 
     <!-- Bootstrap Bundle with Popper -->
     <script
