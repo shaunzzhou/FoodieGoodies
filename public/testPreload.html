@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foodie Goodie</title>
-
-    <!-- Custom Tab Icon -->
-    <link 
-        href="../public/images/favicon.ico" rel="icon" 
-    />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodieGoodies</title>
 
     <!-- Icon Font Stylesheet -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
       rel="stylesheet"
     />
-
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
       rel="stylesheet"
@@ -30,53 +24,436 @@
     />
 
     <!-- Template Stylesheet -->
-    <link 
-        href="./css/style.css" rel="stylesheet" 
-    />
-</head>
-<body>
+    <link href="./css/style.css" rel="stylesheet" />
+
+    <!-- Custom Stylesheet for Preload Page -->
+    <link href="./css/preloadStyle.css" rel="stylesheet" />
+
+     <!-- Custom Tab Icon -->
+     <link 
+     href="../public/images/favicon.ico" rel="icon" 
+     />
+
+  </head>
+
+  <body>
     <!-- Topbar Start -->
-    <div class="container">
-        <div class="topbar row">
-            <!-- Website Logo -->
-            <div class="topbar icon col">
-                <img src="../public/images/logo.png" alt="FoodieGoodies Website Logo" style="height: 100px; width: 100px;">
-            </div>
-
-            <!-- Website Name -->
-            <div class="topbar webname col">
-                <h1>
-                    <span class="basic1">Foodie</span>
-                    <span class="basic2">Goodie</span>
-                </h1>
-            </div>
-
-            <!-- Login Button -->
+    <div class="container-fluid px-5 d-none d-lg-block bgTopBar">
+      <div class="row gx-5 py-3 align-items-center">
+        <div class="col-lg-3">
+          <div class="d-flex align-items-center justify-content-start">
+            <a href="index.html">
+                <img src="../public/images/logo.png" alt="FoodieGoodies Website Logo" style="height: 80px; width: 80px;">
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-center">
+              <h1 class="m-0">
+                <span class="basic1">Foodie </span
+                ><span class="basic2">Goodies</span>
+              </h1>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="d-flex align-items-center justify-content-end">
             <div class="col">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button>
-                
+                <!-- Login Pop Up Button Start -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <!-- Login Pop Up Button End -->
+
                 <!-- Login Modal Start -->
-                <div class="modal" id="loginModal" role="dialog">
-                    <div class="modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2>Login Form</h2>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="loginModal">Login Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Login Form Content Start -->
+                        <div class="modal-body">
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="loginEmail">Email</label>
+                                <input
+                                type="email"
+                                id="loginEmail"
+                                class="form-control"
+                                placeholder="Enter Email"
+                                />
                             </div>
-                            <div class="modal-body">
-                                testing
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="loginPassword">Password</label>
+                                <input
+                                type="password"
+                                id="loginPassword"
+                                class="form-control"
+                                placeholder="Enter Password"
+                                />
                             </div>
                         </div>
+
+                        <!-- Login Form Content End -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <!-- Login button -->
+                            <input
+                            type="submit"
+                            onclick="signUp()"
+                            id="login"
+                            class="btn btn-success"
+                            value="Login"
+                            />
+
+                            <!-- User Registration Status -->
+                            <p id="status" class="mt-3"></p>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <!-- Login Modal End -->
-            </div>
+                
+                <!-- Sign Up Pop Up Button Start -->
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                <!-- Sign Up Pop Up Button End -->
 
-            <!-- Sign Up Button -->
-            <div class="col"></div>
+                <!-- Sign Up Modal Start -->
+                <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="signUpModal">Sign Up Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Sign Up Form Content Start -->
+                        <div class="modal-body">
+                            <!-- Name input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerName">Name</label>
+                                <input
+                                type="text"
+                                id="registerName"
+                                class="form-control"
+                                placeholder="Enter Name"
+                                />
+                            </div>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerEmail">Email</label>
+                                <input
+                                type="email"
+                                id="registerEmail"
+                                class="form-control"
+                                placeholder="Enter Email"
+                                />
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerPassword">Password</label>
+                                <input
+                                type="password"
+                                id="registerPassword"
+                                class="form-control"
+                                placeholder="Enter Password"
+                                />
+                            </div>
+
+                            <!-- Confirm Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerRepeatPassword"
+                                >Confirm password</label
+                                >
+                                <input
+                                type="password"
+                                id="registerConfirmPassword"
+                                class="form-control"
+                                placeholder="Enter Password Again"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Sign Up Form Content End -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <!-- Submit button -->
+                            <input
+                            type="submit"
+                            onclick="signUp()"
+                            id="signup"
+                            class="btn btn-success"
+                            value="Sign Up"
+                            />
+
+                            <!-- User Registration Status -->
+                            <p id="status" class="mt-3"></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- Sign Up Modal End -->
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- Top bar end -->
+
+
+    <!-- Livetime Update Text -->
+    <!-- <h1 id="target"></h1> -->
+
+    <!-- [Section 1] Statistics Start -->
+    <div class="container-fluid ">
+        <div class="row section1Img">
+            <div class="col caption">
+                <h3>Each year, 40% of food waste are generated by commercial retailers such as restaurant.</h3>
+                <caption>Source: National Environment Agency (NEA)</caption>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col caption">
+                <h3>Each year, 40% of food waste are generated by commercial retailers such as restaurant.</h3>
+                <caption>Source: National Environment Agency (NEA)</caption>
+            </div>
         </div>
     </div>
-    <!-- Topbar End -->
+    <!-- [Section 1] Statistics End -->
 
-</body>
+    <!-- [Section 2] Feature 1 Start -->
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col section2Img m-4"></div>
+            <div class="col bgBasic1 m-4 p-4" style="text-align: justify; color: whitesmoke;">
+                <h3 style="text-align: center;"> Up for a sustainability challenge? </h3>
+
+                <p class="m-5">Every day, your favourite restaurants throws aways food just because it is blemish or unsold FoodieGoodie website enables conscious consumer, like you, to be a sustainable hero and save these food from going to waste.</p> 
+                
+                <h6 style="text-align: center;">Saving both food and your money</h6>
+            </div>
+        </div>
+    </div>
+    <!-- [Section 2] Feature 1 End -->
+
+    <!-- [Section 3] Feature 2  Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col section3Img">
+                
+            </div>
+            <div class="col basic2" style="background-color: whitesmoke;">
+                <h3 style="text-align: center;">How FoodieGoodie Works?</h3>
+                <p>
+                    <ol class="m-5" style="text-align: justify;">
+                        <li>
+                            Simply log on to FoodieGoodies and search for your preferred restaurant.
+                        </li>
+                        <li>
+                            Confirm your order and reserve your mystery box. To collect, go to the restaurant at the designated pick-up time.
+                        </li>
+                        <li>
+                            Go home, explore your mystery box and start cooking. You have just saved a box of food from going to waste!
+                        </li>
+                    </ol>
+                    </p>
+            </div>
+        </div>
+    </div>
+    <!-- [Section 3] Feature 2 End -->
+
+    <!-- [Section 4] Sign Up  Start -->
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="../public/images/preloadImages/girlwPhone.png" alt="">
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="col signup bgBasic1">
+                <!-- Name input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerName">Name</label>
+                    <input
+                    type="text"
+                    id="registerName"
+                    class="form-control"
+                    placeholder="Enter Name"
+                    />
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerEmail">Email</label>
+                    <input
+                    type="email"
+                    id="registerEmail"
+                    class="form-control"
+                    placeholder="Enter Email"
+                    />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerPassword">Password</label>
+                    <input
+                    type="password"
+                    id="registerPassword"
+                    class="form-control"
+                    placeholder="Enter Password"
+                    />
+                </div>
+
+                <!-- Confirm Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerRepeatPassword"
+                    >Confirm password</label
+                    >
+                    <input
+                    type="password"
+                    id="registerConfirmPassword"
+                    class="form-control"
+                    placeholder="Enter Password Again"
+                    />
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-outline mb-4">
+                    <input
+                    type="submit"
+                    onclick="signUp()"
+                    id="signup"
+                    class="btn btn-success"
+                    value="Sign Up"
+                    />
+                </div>
+                <!-- User Registration Status -->
+                <p id="status" class="mt-3"></p>
+            </div>
+        </div>
+    </div>
+    <!-- [Section 4] Sign Up End -->
+    
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        update,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDa8KSaPoutvNzQyCKC-1QBOLzWBhCmhyY",
+        authDomain: "wad2-project-eb2e7.firebaseapp.com",
+        databaseURL:
+          "https://wad2-project-eb2e7-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "wad2-project-eb2e7",
+        storageBucket: "wad2-project-eb2e7.appspot.com",
+        messagingSenderId: "816210275459",
+        appId: "1:816210275459:web:b9984b2f681463def03fb6",
+        measurementId: "G-E43B8MCPGH",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      // Import the functions needed to read from realtime database
+
+      // connect to the realtime database
+      const db = getDatabase();
+
+      // get a reference to the data 'title'
+      const title = ref(db, "title");
+
+      // when value of 'title' changes, update to our <h1 id='target'>
+      onValue(title, (snapshot) => {
+        const data = snapshot.val(); // get the new value
+        document.getElementById("target").innerText = data;
+      });
+
+      const auth = getAuth();
+
+      // signUp function
+      var signup = document.getElementById("signup");
+      signup.addEventListener("click", signUp);
+      function signUp() {
+        let name = document.getElementById("registerName").value;
+        let email = document.getElementById("registerEmail").value;
+        let password = document.getElementById("registerPassword").value;
+        let confirmPassword = document.getElementById(
+          "registerConfirmPassword"
+        ).value;
+        if (password != confirmPassword) {
+          alert("Passwords are not the same!");
+          return;
+        }
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            alert("User Created!");
+            set(ref(db, "users/" + user.uid), {
+              name: name,
+              email: email,
+            });
+            document.getElementById("status").innerText =
+              "User Registration Done!";
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+            document.getElementById("status").innerText =
+              "User Registration Failed!";
+          });
+      }
+
+      // login function
+      var loginbtn = document.getElementById("login");
+      loginbtn.addEventListener("click", login);
+      function login() {
+        let email = document.getElementById("loginEmail").value;
+        let password = document.getElementById("loginPassword").value;
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const dt = new Date();
+            const user = userCredential.user;
+            update(ref(db, "users/" + user.uid), {
+              last_login: dt,
+            });
+            alert("User logged in");
+            document.getElementById("status").innerText = "User logged in!";
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+            document.getElementById("status").innerText = "User login failed!";
+          });
+      }
+    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
