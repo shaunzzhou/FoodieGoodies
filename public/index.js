@@ -90,6 +90,7 @@ export function login() {
       alert("User logged in");
       document.getElementById("status").innerText = "User logged in!";
       checkUser();
+      window.location.replace("./landingPage.html");
     })
     .catch((error) => {
       var errorMessage = error.message;
