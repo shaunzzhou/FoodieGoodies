@@ -48,42 +48,46 @@
     </div>
     <!-- Top bar end -->
 
-        <!-- Navbar Start -->
-        <nav
-        class="navbar navbar-expand-lg bgBasic1 navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5"
+    <!-- Navbar Start -->
+    <nav
+      class="navbar navbar-expand-lg bgBasic1 navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5"
+    >
+      <div class="navbar-brand d-flex d-lg-none">
+        <h1 class="m-0 display-4">
+          <span class="text-light">Foodie </span>Goodies
+        </h1>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
       >
-        <div class="navbar-brand d-flex d-lg-none">
-          <h1 class="m-0 display-4">
-            <span class="text-light">Foodie </span>Goodies
-          </h1>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav mx-auto py-0">
+          <a href="landingPage.html" class="nav-item nav-link mx-2">Home</a>
+          <a href="restaurantSelection.html" class="nav-item nav-link mx-2"
+            >Restaurant Selection</a
+          >
+          <a href="shoppingCart.html" class="nav-item nav-link mx-2"
+            >Shopping Cart</a
+          >
+          <a href="orderHistory.html" class="nav-item nav-link mx-2"
+            >Order History</a
+          >
+          <a href="personalProfile.html" class="nav-item nav-link mx-2 active"
+            >Profile</a
+          >
         </div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav mx-auto py-0">
-            <a href="landingPage.html" class="nav-item nav-link mx-2">Home</a>
-            <a href="restaurantSelection.html" class="nav-item nav-link mx-2"
-              >Restaurant Selection</a
-            >
-            <a href="shoppingCart.html" class="nav-item nav-link mx-2"
-              >Shopping Cart</a
-            >
-            <a href="orderHistory.html" class="nav-item nav-link mx-2">Order History</a>
-            <a href="personalProfile.html" class="nav-item nav-link mx-2 active">Profile</a>
-          </div>
-        </div>
-      </nav>
-      <!-- Navbar End -->
+      </div>
+    </nav>
+    <!-- Navbar End -->
 
     <!--Profile Page Start-->
-    <div class="container light-style flex-grow-1 container-p-y">
-      <h3 class="font-weight-bold py-3 mb-4">Your Profile</h3>
+    <div class="container light-style flex-grow-1 container-p-y mt-3">
+      
       <div class="card shadow overflow-hidden">
         <div class="row no-gutters row-bordered row-border-light">
           <div class="col-md-3 pt-0">
@@ -114,12 +118,21 @@
           <div class="col-md-9">
             <div class="tab-content">
               <div class="tab-pane fade active show" id="account-general">
+                <h3 class="font-weight-bold py-1 mx-4 basic2">Edit Profile</h3>
                 <div class="card-body media align-items-center">
-                  <img src="./images/meatballs.jpg" alt class="d-block image" />
+                  <img
+                    src="./images/gigachad.png"
+                    alt
+                    class="d-block image rounded w-25 my-2"
+                  />
                   <div class="media-body ml-4">
+                    Edit Profile Photo:<br />
                     <label class="btn btn-outline-primary">
-                      Upload new photo
-                      <input type="file" class="account-settings-fileinput" />
+                      <input
+                        type="file"
+                        class="account-settings-fileinput"
+                        name="Change Profile Photo"
+                      />
                     </label>
                     &nbsp;
                     <button type="button" class="btn btn-default md-btn-flat">
@@ -191,14 +204,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, digni
                       value="+65 84181577"
                     />
                   </div>
-                  
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
 
       <!--save changes button-->
       <div class="text-right mt-3">
