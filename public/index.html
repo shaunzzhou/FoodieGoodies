@@ -25,8 +25,8 @@
 
     <!-- Template Stylesheet -->
     <link href="./css/style.css" rel="stylesheet" />
+    <!-- import index.js -->
   </head>
-
   <body>
     <!-- Topbar Start -->
     <div class="container-fluid px-5 d-none d-lg-block">
@@ -136,9 +136,9 @@
           <!-- Submit button -->
           <input
             type="submit"
-            onclick="login()"
             id="login"
             class="btn btn-primary"
+            onclick="login()"
             value="Login"
           />
         </div>
@@ -211,7 +211,14 @@
     <!-- User Registration Status -->
     <p id="status" class="mt-3 text-center"></p>
 
-    <script type="module" src="index.js"></script>
+    <!-- import index.js -->
+    <script type="module">
+      import { signUp, login, checkUser } from "./index.js";
+      var signup = document.getElementById("signup");
+      signup.addEventListener("click", signUp);
+      var loginbtn = document.getElementById("login");
+      loginbtn.addEventListener("click", login);
+    </script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script

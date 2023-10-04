@@ -32,26 +32,23 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Import the functions needed to read from realtime database
-
 // connect to the realtime database
 const db = getDatabase();
 
 // get a reference to the data 'title'
-const title = ref(db, "title");
+// const title = ref(db, "title");
 
-// when value of 'title' changes, update to our <h1 id='target'>
-onValue(title, (snapshot) => {
-  const data = snapshot.val(); // get the new value
-  document.getElementById("target").innerText = data;
-});
+// // when value of 'title' changes, update to our <h1 id='target'>
+// onValue(title, (snapshot) => {
+//   const data = snapshot.val(); // get the new value
+//   document.getElementById("target").innerText = data;
+// });
 
+// connect to authentication
 const auth = getAuth();
 
 // signUp function
-var signup = document.getElementById("signup");
-signup.addEventListener("click", signUp);
-function signUp() {
+export function signUp() {
   let name = document.getElementById("registerName").value;
   let email = document.getElementById("registerEmail").value;
   let password = document.getElementById("registerPassword").value;
@@ -64,16 +61,15 @@ function signUp() {
   }
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      let signUpUser = userCredential.user;
       alert("User Created!");
-      set(ref(db, "users/" + user.uid), {
+      set(ref(db, "users/" + signUpUser.uid), {
         name: name,
         email: email,
       });
       document.getElementById("status").innerText = "User Registration Done!";
     })
     .catch((error) => {
-      var errorCode = error.code;
       var errorMessage = error.message;
       alert(errorMessage);
       document.getElementById("status").innerText = "User Registration Failed!";
@@ -81,9 +77,7 @@ function signUp() {
 }
 
 // login function
-var loginbtn = document.getElementById("login");
-loginbtn.addEventListener("click", login);
-function login() {
+export function login() {
   let email = document.getElementById("loginEmail").value;
   let password = document.getElementById("loginPassword").value;
   signInWithEmailAndPassword(auth, email, password)
@@ -95,11 +89,26 @@ function login() {
       });
       alert("User logged in");
       document.getElementById("status").innerText = "User logged in!";
+      checkUser();
     })
     .catch((error) => {
-      var errorCode = error.code;
       var errorMessage = error.message;
       alert(errorMessage);
       document.getElementById("status").innerText = "User login failed!";
     });
+}
+
+// check if user is logged in function
+export function checkUser() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      onValue(ref(db, "users/" + uid), (snapshot) => {
+        const uname = snapshot.val().name; // get the new value
+        console.log(uname);
+      });
+    } else {
+      window.location.replace("./404.html");
+    }
+  });
 }
