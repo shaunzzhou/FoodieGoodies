@@ -24,7 +24,7 @@
     />
 
     <!-- Template Stylesheet -->
-    <link rel="stylesheet" href="./css/restaurants.css"/>
+    <link rel="stylesheet" href="./css/restaurants.css" />
   </head>
 
   <body>
@@ -44,96 +44,117 @@
             </a>
           </div>
         </div>
-        
       </div>
     </div>
     <!-- Top bar end -->
 
-        <!-- Navbar Start -->
-        <nav
-        class="navbar navbar-expand-lg bgBasic1 navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5"
+    <!-- Navbar Start -->
+    <nav
+      class="navbar navbar-expand-lg bgBasic1 navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5 sticky-top"
+    >
+      <div class="navbar-brand d-flex d-lg-none">
+        <h1 class="m-0 display-4">
+          <span class="text-light">Foodie </span>Goodies
+        </h1>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
       >
-        <div class="navbar-brand d-flex d-lg-none">
-          <h1 class="m-0 display-4">
-            <span class="text-light">Foodie </span>Goodies
-          </h1>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav mx-auto py-0">
+          <a href="landingPage.html" class="nav-item nav-link mx-2">Home</a>
+          <a
+            href="restaurantSelection.html"
+            class="nav-item nav-link mx-2 active"
+            >Restaurant Selection</a
+          >
+          <a href="shoppingCart.html" class="nav-item nav-link mx-2"
+            >Shopping Cart</a
+          >
+          <a href="orderHistory.html" class="nav-item nav-link mx-2"
+            >Order History</a
+          >
+          <a href="personalProfile.html" class="nav-item nav-link mx-2"
+            >Profile</a
+          >
         </div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav mx-auto py-0">
-            <a href="landingPage.html" class="nav-item nav-link mx-2 ">Home</a>
-            <a href="restaurantSelection.html" class="nav-item nav-link mx-2 active"
-              >Restaurant Selection</a
-            >
-            <a href="shoppingCart.html" class="nav-item nav-link mx-2"
-              >Shopping Cart</a
-            >
-            <a href="orderHistory.html" class="nav-item nav-link mx-2">Order History</a>
-            <a href="personalProfile.html" class="nav-item nav-link mx-2">Profile</a>
-          </div>
-        </div>
-      </nav>
-      <!-- Navbar End -->
+      </div>
+    </nav>
+    <!-- Navbar End -->
 
     <!--Restaurant Selection Screen-->
     <div class="blog-card">
-    <div class="meta">
-      <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
-      <ul class="details">
-        <li class="author"><a href="#">John Doe</a></li>
-        <li class="date">Aug. 24, 2015</li>
-        <li class="tags">
-          <ul>
-            <li><a href="#">Learn</a></li>
-            <li><a href="#">Code</a></li>
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-          </ul>
-        </li>
-      </ul>
+      <div class="meta">
+        <div
+          class="photo"
+          style="
+            background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg);
+          "
+        ></div>
+        <ul class="details">
+          <li class="author"><a href="#">John Doe</a></li>
+          <li class="date">Aug. 24, 2015</li>
+          <li class="tags">
+            <ul>
+              <li><a href="#">Learn</a></li>
+              <li><a href="#">Code</a></li>
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="description">
+        <h1>Learning to Code</h1>
+        <h2>Opening a door to the future</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+          dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque
+          ad aliquam facilis numquam. Veritatis, sit.
+        </p>
+        <p class="read-more">
+          <a href="#">Read More</a>
+        </p>
+      </div>
     </div>
-    <div class="description">
-      <h1>Learning to Code</h1>
-      <h2>Opening a door to the future</h2>
-      <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-      <p class="read-more">
-        <a href="#">Read More</a>
-      </p>
+    <div class="blog-card alt">
+      <div class="meta">
+        <div
+          class="photo"
+          style="
+            background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg);
+          "
+        ></div>
+        <ul class="details">
+          <li class="author"><a href="#">Jane Doe</a></li>
+          <li class="date">July. 15, 2015</li>
+          <li class="tags">
+            <ul>
+              <li><a href="#">Learn</a></li>
+              <li><a href="#">Code</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="description">
+        <h1>Mastering the Language</h1>
+        <h2>Java is not the same as JavaScript</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+          dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque
+          ad aliquam facilis numquam. Veritatis, sit.
+        </p>
+        <p class="read-more">
+          <a href="#">Read More</a>
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="blog-card alt">
-    <div class="meta">
-      <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)"></div>
-      <ul class="details">
-        <li class="author"><a href="#">Jane Doe</a></li>
-        <li class="date">July. 15, 2015</li>
-        <li class="tags">
-          <ul>
-            <li><a href="#">Learn</a></li>
-            <li><a href="#">Code</a></li>
-            <li><a href="#">JavaScript</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div class="description">
-      <h1>Mastering the Language</h1>
-      <h2>Java is not the same as JavaScript</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
-      <p class="read-more">
-        <a href="#">Read More</a>
-      </p>
-    </div>
-  </div>
-
-
 
     <!-- Bootstrap Bundle with Popper -->
     <script
