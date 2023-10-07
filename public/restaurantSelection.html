@@ -24,7 +24,7 @@
     />
 
     <!-- Template Stylesheet -->
-    <link rel="stylesheet" href="./css/restaurants.css" />
+    <link rel="stylesheet" href="./css/restaurantSelection.css" />
   </head>
 
   <body>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-center">
-            <a href="landingPage.html" class="navbar-brand ms-lg-5">
+            <a href="index.html" class="navbar-brand ms-lg-5">
               <h1 class="m-0">
                 <span class="basic1">Foodie </span
                 ><span class="basic2">Goodies</span>
@@ -87,74 +87,112 @@
     </nav>
     <!-- Navbar End -->
 
-    <!--Restaurant Selection Screen-->
-    <div class="blog-card">
-      <div class="meta">
-        <div
-          class="photo"
-          style="
-            background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg);
-          "
-        ></div>
-        <ul class="details">
-          <li class="author"><a href="#">John Doe</a></li>
-          <li class="date">Aug. 24, 2015</li>
-          <li class="tags">
-            <ul>
-              <li><a href="#">Learn</a></li>
-              <li><a href="#">Code</a></li>
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-            </ul>
-          </li>
-        </ul>
+    <!--Restaurant Cards Begin-->
+    <div class="cardContainer">
+      <div class="blog-card">
+        <div class="meta">
+          <div
+            class="photo"
+            style="background-image: url(./images/imaSushi.jpeg)"
+          ></div>
+          <ul class="details">
+            <li class="openHours">Open from 9.00am to 9.00pm</li>
+            <li class="openDays">Mondays to Fridays</li>
+          </ul>
+        </div>
+        <div class="description">
+          <h1>Ima-Sushi</h1>
+          <p>
+            IMA-SUSHI is a fast casual sushi restaurant that offers fresh
+            sashimi at affordable prices.
+          </p>
+          <p class="read-more">
+            <a class="btn btn-success" href="restaurantProfile.html"
+              >View Restaurant</a
+            >
+          </p>
+        </div>
       </div>
-      <div class="description">
-        <h1>Learning to Code</h1>
-        <h2>Opening a door to the future</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
-          dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque
-          ad aliquam facilis numquam. Veritatis, sit.
-        </p>
-        <p class="read-more">
-          <a href="#">Read More</a>
-        </p>
+      <div class="blog-card">
+        <div class="meta">
+          <div
+            class="photo"
+            style="background-image: url(./images/jumboSeafood.jpeg)"
+          ></div>
+          <ul class="details">
+            <li class="openHours">Open from 10.00am to 10.00pm</li>
+            <li class="openDays">Closed on Sundays</li>
+          </ul>
+        </div>
+        <div class="description">
+          <h1>Jumbo Seafood</h1>
+          <p>
+            Jumbo Seafood is a Singaporean restaurant chain specialising in the
+            seafood aspects of Singaporean cuisine and dishes, such as Chili
+            crab.
+          </p>
+          <p class="read-more">
+            <a class="btn btn-success" href="restaurantProfile.html"
+              >View Restaurant</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="meta">
+          <div
+            class="photo"
+            style="background-image: url(./images/jumboSeafood.jpeg)"
+          ></div>
+          <ul class="details">
+            <li class="openHours">Open from 10.00am to 10.00pm</li>
+            <li class="openDays">Closed on Sundays</li>
+          </ul>
+        </div>
+        <div class="description">
+          <h1>Restaurant Name</h1>
+          <p>
+            Jumbo Seafood is a Singaporean restaurant chain specialising in the
+            seafood aspects of Singaporean cuisine and dishes, such as Chili
+            crab.
+          </p>
+          <p class="read-more">
+            <a class="btn btn-success" href="restaurantProfile.html"
+              >View Restaurant</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="meta">
+          <div
+            class="photo"
+            style="background-image: url(./images/jumboSeafood.jpeg)"
+          ></div>
+          <ul class="details">
+            <li class="openHours">Open from 10.00am to 10.00pm</li>
+            <li class="openDays">Closed on Sundays</li>
+          </ul>
+        </div>
+        <div class="description">
+          <h1>Restaurant Name</h1>
+          <p>
+            Jumbo Seafood is a Singaporean restaurant chain specialising in the
+            seafood aspects of Singaporean cuisine and dishes, such as Chili
+            crab.
+          </p>
+          <p class="read-more">
+            <a class="btn btn-success" href="restaurantProfile.html"
+              >View Restaurant</a
+            >
+          </p>
+        </div>
       </div>
     </div>
-    <div class="blog-card alt">
-      <div class="meta">
-        <div
-          class="photo"
-          style="
-            background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg);
-          "
-        ></div>
-        <ul class="details">
-          <li class="author"><a href="#">Jane Doe</a></li>
-          <li class="date">July. 15, 2015</li>
-          <li class="tags">
-            <ul>
-              <li><a href="#">Learn</a></li>
-              <li><a href="#">Code</a></li>
-              <li><a href="#">JavaScript</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="description">
-        <h1>Mastering the Language</h1>
-        <h2>Java is not the same as JavaScript</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
-          dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque
-          ad aliquam facilis numquam. Veritatis, sit.
-        </p>
-        <p class="read-more">
-          <a href="#">Read More</a>
-        </p>
-      </div>
-    </div>
+
+    <!--Restaurant Cards End-->
 
     <!-- Bootstrap Bundle with Popper -->
     <script

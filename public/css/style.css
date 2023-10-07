@@ -7,8 +7,6 @@
 
 body {
   background-image: url("../images/backgroundImage.jpeg");
-  font-family: "Roboto", sans-serif;
-  line-height: 1.6;
 }
 
 .card {
@@ -21,6 +19,8 @@ body {
     transform: translateY(-2px);
 }
 
+
+/* profile styling start */
 .list-group-item {
     transition: all 0.3s;
 }
@@ -30,8 +30,8 @@ body {
 }
 
 .list-group-item.active {
-    background-color: #4CAF50;  /* Adjust to your branding color */
-    border-color: #4CAF50;  /* Adjust to your branding color */
+    background-color: #4CAF50;  
+    border-color: #4CAF50;  
     color: white;
 }
 
@@ -42,6 +42,8 @@ body {
   height: 250px;
   object-fit: cover; /* Keeps the aspect ratio of the image */
 }
+
+/* profile styling end */
 
 
 /* use in reference to root colours defined on */
