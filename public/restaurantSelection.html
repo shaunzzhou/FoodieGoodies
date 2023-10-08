@@ -25,15 +25,22 @@
 
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="./css/restaurantSelection.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
     <!-- Topbar Start -->
     <div class="container-fluid px-5 d-none d-lg-block">
       <div class="row gx-5 py-3 align-items-center">
-        <div class="col-lg-3">
-          <div class="d-flex align-items-center justify-content-start"></div>
-        </div>
+        <div class="col-lg-3"></div>
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-center">
             <a href="index.html" class="navbar-brand ms-lg-5">
@@ -88,106 +95,133 @@
     <!-- Navbar End -->
 
     <!--Restaurant Cards Begin-->
-    <div class="cardContainer">
-      <div class="blog-card">
-        <div class="meta">
+    <div class="bigCard container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
           <div
-            class="photo"
-            style="background-image: url(./images/imaSushi.jpeg)"
-          ></div>
-          <ul class="details">
-            <li class="openHours">Open from 9.00am to 9.00pm</li>
-            <li class="openDays">Mondays to Fridays</li>
-          </ul>
-        </div>
-        <div class="description">
-          <h1>Ima-Sushi</h1>
-          <p>
-            IMA-SUSHI is a fast casual sushi restaurant that offers fresh
-            sashimi at affordable prices.
-          </p>
-          <p class="read-more">
-            <a class="btn btn-success" href="restaurantProfile.html"
-              >View Restaurant</a
-            >
-          </p>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="meta">
-          <div
-            class="photo"
-            style="background-image: url(./images/jumboSeafood.jpeg)"
-          ></div>
-          <ul class="details">
-            <li class="openHours">Open from 10.00am to 10.00pm</li>
-            <li class="openDays">Closed on Sundays</li>
-          </ul>
-        </div>
-        <div class="description">
-          <h1>Jumbo Seafood</h1>
-          <p>
-            Jumbo Seafood is a Singaporean restaurant chain specialising in the
-            seafood aspects of Singaporean cuisine and dishes, such as Chili
-            crab.
-          </p>
-          <p class="read-more">
-            <a class="btn btn-success" href="restaurantProfile.html"
-              >View Restaurant</a
-            >
-          </p>
-        </div>
-      </div>
+            class="card shadow card-registration card-registration-2"
+            style="border-radius: 15px"
+          >
+            <!--search bar begin-->
+            <div class="searchBox justify-content-center">
+              <input
+                class="searchInput"
+                type="text"
+                name="searchBox"
+                placeholder="Search for a restaurant's name!"
+              />
+              <button class="searchButton" href="restaurantProfile.html">
+                <!-- search icon -->
+                <i class="material-icons"> search </i>
+              </button>
+            </div>
+            <!--search bar end-->
 
-      <div class="blog-card">
-        <div class="meta">
-          <div
-            class="photo"
-            style="background-image: url(./images/jumboSeafood.jpeg)"
-          ></div>
-          <ul class="details">
-            <li class="openHours">Open from 10.00am to 10.00pm</li>
-            <li class="openDays">Closed on Sundays</li>
-          </ul>
-        </div>
-        <div class="description">
-          <h1>Restaurant Name</h1>
-          <p>
-            Jumbo Seafood is a Singaporean restaurant chain specialising in the
-            seafood aspects of Singaporean cuisine and dishes, such as Chili
-            crab.
-          </p>
-          <p class="read-more">
-            <a class="btn btn-success" href="restaurantProfile.html"
-              >View Restaurant</a
-            >
-          </p>
-        </div>
-      </div>
+            <div class="cardContent">
+              <div class="meta">
+                <div
+                  class="photo"
+                  style="background-image: url(./images/imaSushi.jpeg)"
+                ></div>
+                <ul class="details">
+                  <li class="openHours">Open from 9.00am to 9.00pm</li>
+                  <li class="openDays">Mondays to Fridays</li>
+                </ul>
+              </div>
+              <div class="description">
+                <h1>Ima-Sushi</h1>
+                <p>
+                  IMA-SUSHI is a fast casual sushi restaurant that offers fresh
+                  sashimi at affordable prices.
+                </p>
+                <p class="read-more">
+                  <a class="btn btn-success" href="restaurantProfile.html"
+                    >View Restaurant</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="cardContent">
+              <div class="meta">
+                <div
+                  class="photo"
+                  style="background-image: url(./images/jumboSeafood.jpeg)"
+                ></div>
+                <ul class="details">
+                  <li class="openHours">Open from 10.00am to 10.00pm</li>
+                  <li class="openDays">Closed on Sundays</li>
+                </ul>
+              </div>
+              <div class="description">
+                <h1>Jumbo Seafood</h1>
+                <p>
+                  Jumbo Seafood is a Singaporean restaurant chain specialising
+                  in the seafood aspects of Singaporean cuisine and dishes, such
+                  as Chili crab.
+                </p>
+                <p class="read-more">
+                  <a class="btn btn-success" href="restaurantProfile.html"
+                    >View Restaurant</a
+                  >
+                </p>
+              </div>
+            </div>
 
-      <div class="blog-card">
-        <div class="meta">
-          <div
-            class="photo"
-            style="background-image: url(./images/jumboSeafood.jpeg)"
-          ></div>
-          <ul class="details">
-            <li class="openHours">Open from 10.00am to 10.00pm</li>
-            <li class="openDays">Closed on Sundays</li>
-          </ul>
-        </div>
-        <div class="description">
-          <h1>Restaurant Name</h1>
-          <p>
-            Jumbo Seafood is a Singaporean restaurant chain specialising in the
-            seafood aspects of Singaporean cuisine and dishes, such as Chili
-            crab.
-          </p>
-          <p class="read-more">
-            <a class="btn btn-success" href="restaurantProfile.html"
-              >View Restaurant</a
-            >
-          </p>
+            <div class="cardContent">
+              <div class="meta">
+                <div
+                  class="photo"
+                  style="background-image: url(./images/jumboSeafood.jpeg)"
+                ></div>
+                <ul class="details">
+                  <li class="openHours">Open from 10.00am to 10.00pm</li>
+                  <li class="openDays">Closed on Sundays</li>
+                </ul>
+              </div>
+              <div class="description">
+                <h1>Restaurant Name</h1>
+                <p>
+                  Jumbo Seafood is a Singaporean restaurant chain specialising
+                  in the seafood aspects of Singaporean cuisine and dishes, such
+                  as Chili crab.
+                </p>
+                <p class="read-more">
+                  <a class="btn btn-success" href="restaurantProfile.html"
+                    >View Restaurant</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="cardContent">
+              <div class="meta">
+                <div
+                  class="photo"
+                  style="background-image: url(./images/jumboSeafood.jpeg)"
+                ></div>
+                <ul class="details">
+                  <li class="openHours">Open from 10.00am to 10.00pm</li>
+                  <li class="openDays">Closed on Sundays</li>
+                </ul>
+              </div>
+              <div class="description">
+                <h1>Restaurant Name</h1>
+                <p>
+                  Jumbo Seafood is a Singaporean restaurant chain specialising
+                  in the seafood aspects of Singaporean cuisine and dishes, such
+                  as Chili crab.
+                </p>
+                <p class="read-more">
+                  <a class="btn btn-success" href="restaurantProfile.html"
+                    >View Restaurant</a
+                  >
+                  <!-- <a href="restaurantProfile.html">
+                      <button class="btn btn-success">View Restaurant</button>
+                    </a> -->
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
