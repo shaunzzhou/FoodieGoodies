@@ -5,7 +5,7 @@
   --dark: #263a4f;
 }
 
-body {
+.topBar {
   background-image: url("../images/backgroundImage.jpeg");
 }
 
