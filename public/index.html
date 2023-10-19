@@ -25,191 +25,319 @@
 
     <!-- Template Stylesheet -->
     <link href="./css/style.css" rel="stylesheet" />
-    <!-- import index.js -->
+
+    <!-- Custom Stylesheet for Preload Page -->
+    <link href="./css/preloadStyle.css" rel="stylesheet" />
+
+     <!-- Custom Tab Icon -->
+     <link 
+     href="../public/images/favicon.ico" rel="icon" 
+     />
+
   </head>
+
   <body>
     <!-- Topbar Start -->
-    <div class="container-fluid px-5 d-none d-lg-block">
+    <div class="container-fluid px-5 d-none d-lg-block bgTopBar">
       <div class="row gx-5 py-3 align-items-center">
         <div class="col-lg-3">
-          <div class="d-flex align-items-center justify-content-start"></div>
+          <div class="d-flex align-items-center justify-content-start">
+            <a href="index.html">
+                <img src="images/logo.png" alt="FoodieGoodies Website Logo" style="height: 80px; width: 80px;">
+            </a>
+          </div>
         </div>
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-center">
-            <h1 class="m-0">
-              <span class="basic1">Foodie </span
-              ><span class="basic2">Goodies</span>
-            </h1>
+              <h1 class="m-0">
+                <span class="basic1">Foodie </span
+                ><span class="basic2">Goodies</span>
+              </h1>
           </div>
         </div>
         <div class="col-lg-3">
           <div class="d-flex align-items-center justify-content-end">
-            <a class="btn basic1 btn-square rounded-circle me-2" href="#"
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a class="btn basic1 btn-square rounded-circle me-2" href="#"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a class="btn basic1 btn-square rounded-circle me-2" href="#"
-              ><i class="fab fa-linkedin-in"></i
-            ></a>
-            <a class="btn basic1 btn-square rounded-circle" href="#"
-              ><i class="fab fa-instagram"></i
-            ></a>
+            <div class="col">
+                <!-- Login Pop Up Button Start -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <!-- Login Pop Up Button End -->
+
+                <!-- Login Modal Start -->
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="loginModal">Login Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Login Form Content Start -->
+                        <div class="modal-body">
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="loginEmail">Email</label>
+                                <input
+                                type="email"
+                                id="loginEmail"
+                                class="form-control"
+                                placeholder="Enter Email"
+                                />
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="loginPassword">Password</label>
+                                <input
+                                type="password"
+                                id="loginPassword"
+                                class="form-control"
+                                placeholder="Enter Password"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Login Form Content End -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <!-- Login button -->
+                            <input
+                            type="submit"
+                            onclick="signUp()"
+                            id="login"
+                            class="btn btn-success"
+                            value="Login"
+                            />
+
+                            <!-- User Registration Status -->
+                            <p id="status" class="mt-3"></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- Login Modal End -->
+                
+                <!-- Sign Up Pop Up Button Start -->
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                <!-- Sign Up Pop Up Button End -->
+
+                <!-- Sign Up Modal Start -->
+                <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="signUpModal">Sign Up Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Sign Up Form Content Start -->
+                        <div class="modal-body">
+                            <!-- Name input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerName">Name</label>
+                                <input
+                                type="text"
+                                id="registerName"
+                                class="form-control"
+                                placeholder="Enter Name"
+                                />
+                            </div>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerEmail">Email</label>
+                                <input
+                                type="email"
+                                id="registerEmail"
+                                class="form-control"
+                                placeholder="Enter Email"
+                                />
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerPassword">Password</label>
+                                <input
+                                type="password"
+                                id="registerPassword"
+                                class="form-control"
+                                placeholder="Enter Password"
+                                />
+                            </div>
+
+                            <!-- Confirm Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="registerRepeatPassword"
+                                >Confirm password</label
+                                >
+                                <input
+                                type="password"
+                                id="registerConfirmPassword"
+                                class="form-control"
+                                placeholder="Enter Password Again"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Sign Up Form Content End -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <!-- Submit button -->
+                            <input
+                            type="submit"
+                            onclick="signUp()"
+                            id="signup"
+                            class="btn btn-success"
+                            value="Sign Up"
+                            />
+
+                            <!-- User Registration Status -->
+                            <p id="status" class="mt-3"></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- Sign Up Modal End -->
           </div>
         </div>
       </div>
+    </div>
     </div>
     <!-- Top bar end -->
 
+
     <!-- Livetime Update Text -->
-    <h1 id="target"></h1>
+    <!-- <h1 id="target"></h1> -->
 
-    <!-- Login/Signup -->
-    <div class="container-fluid text-center">
-      <!-- Pills navs -->
-      <ul
-        class="nav nav-pills justify-content-center mb-3"
-        id="ex1"
-        role="tablist"
-      >
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="tab-login"
-            data-bs-toggle="pill"
-            href="#pills-login"
-            role="tab"
-            aria-controls="pills-login"
-            aria-selected="true"
-          >
-            Login
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="tab-register"
-            data-bs-toggle="pill"
-            href="#pills-register"
-            role="tab"
-            aria-controls="pills-register"
-            aria-selected="false"
-          >
-            Register
-          </button>
-        </li>
-      </ul>
-      <!-- End Pills navs -->
-
-      <!-- Pills content -->
-      <div class="tab-content col-md-4 mx-auto">
-        <!-- Login tab -->
-        <div
-          class="tab-pane fade show active"
-          id="pills-login"
-          role="tabpanel"
-          aria-labelledby="tab-login"
-        >
-          <!-- Email input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="loginEmail">Email</label>
-            <input
-              type="email"
-              id="loginEmail"
-              class="form-control"
-              placeholder="Enter Email"
-            />
-          </div>
-
-          <!-- Password input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="loginPassword">Password</label>
-            <input
-              type="password"
-              id="loginPassword"
-              class="form-control"
-              placeholder="Enter Password"
-            />
-          </div>
-
-          <!-- Submit button -->
-          <input
-            type="submit"
-            id="login"
-            class="btn btn-primary"
-            onclick="login()"
-            value="Login"
-          />
+    <!-- [Section 1] Statistics Start -->
+    <div class="container-fluid ">
+        <div class="row section1Img">
+            <div class="col caption">
+                <h3>Each year, 40% of food waste are generated by commercial retailers such as restaurant.</h3>
+                <caption>Source: National Environment Agency (NEA)</caption>
+            </div>
         </div>
-        <!-- Register tab -->
-        <div
-          class="tab-pane fade"
-          id="pills-register"
-          role="tabpanel"
-          aria-labelledby="tab-register"
-        >
-          <!-- Name input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerName">Name</label>
-            <input
-              type="text"
-              id="registerName"
-              class="form-control"
-              placeholder="Enter Name"
-            />
-          </div>
 
-          <!-- Email input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerEmail">Email</label>
-            <input
-              type="email"
-              id="registerEmail"
-              class="form-control"
-              placeholder="Enter Email"
-            />
-          </div>
-
-          <!-- Password input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerPassword">Password</label>
-            <input
-              type="password"
-              id="registerPassword"
-              class="form-control"
-              placeholder="Enter Password"
-            />
-          </div>
-
-          <!-- Confirm Password input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerRepeatPassword"
-              >Confirm password</label
-            >
-            <input
-              type="password"
-              id="registerConfirmPassword"
-              class="form-control"
-              placeholder="Enter Password Again"
-            />
-          </div>
-
-          <!-- Submit button -->
-          <input
-            type="submit"
-            onclick="signUp()"
-            id="signup"
-            class="btn btn-primary"
-            value="Sign Up"
-          />
+        <div class="row">
+            <div class="col caption">
+                <h3>Each year, 40% of food waste are generated by commercial retailers such as restaurant.</h3>
+                <caption>Source: National Environment Agency (NEA)</caption>
+            </div>
         </div>
-      </div>
-      <!-- End Pills content -->
     </div>
+    <!-- [Section 1] Statistics End -->
 
-    <!-- User Registration Status -->
-    <p id="status" class="mt-3 text-center"></p>
+    <!-- [Section 2] Feature 1 Start -->
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col section2Img m-4"></div>
+            <div class="col bgBasic1 m-4 p-4" style="text-align: justify; color: whitesmoke;">
+                <h3 style="text-align: center;"> Up for a sustainability challenge? </h3>
+
+                <p class="m-5">Every day, your favourite restaurants throws aways food just because it is blemish or unsold FoodieGoodie website enables conscious consumer, like you, to be a sustainable hero and save these food from going to waste.</p> 
+                
+                <h6 style="text-align: center;">Saving both food and your money</h6>
+            </div>
+        </div>
+    </div>
+    <!-- [Section 2] Feature 1 End -->
+
+    <!-- [Section 3] Feature 2  Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col section3Img">
+                
+            </div>
+            <div class="col basic2" style="background-color: whitesmoke;">
+                <h3 style="text-align: center;">How FoodieGoodie Works?</h3>
+                <p>
+                    <ol class="m-5" style="text-align: justify;">
+                        <li>
+                            Simply log on to FoodieGoodies and search for your preferred restaurant.
+                        </li>
+                        <li>
+                            Confirm your order and reserve your mystery box. To collect, go to the restaurant at the designated pick-up time.
+                        </li>
+                        <li>
+                            Go home, explore your mystery box and start cooking. You have just saved a box of food from going to waste!
+                        </li>
+                    </ol>
+                    </p>
+            </div>
+        </div>
+    </div>
+    <!-- [Section 3] Feature 2 End -->
+
+    <!-- [Section 4] Sign Up  Start -->
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="../public/images/preloadImages/girlwPhone.png" alt="">
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="col signup bgBasic1">
+                <!-- Name input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerName">Name</label>
+                    <input
+                    type="text"
+                    id="registerName"
+                    class="form-control"
+                    placeholder="Enter Name"
+                    />
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerEmail">Email</label>
+                    <input
+                    type="email"
+                    id="registerEmail"
+                    class="form-control"
+                    placeholder="Enter Email"
+                    />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerPassword">Password</label>
+                    <input
+                    type="password"
+                    id="registerPassword"
+                    class="form-control"
+                    placeholder="Enter Password"
+                    />
+                </div>
+
+                <!-- Confirm Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="registerRepeatPassword"
+                    >Confirm password</label
+                    >
+                    <input
+                    type="password"
+                    id="registerConfirmPassword"
+                    class="form-control"
+                    placeholder="Enter Password Again"
+                    />
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-outline mb-4">
+                    <input
+                    type="submit"
+                    onclick="signUp()"
+                    id="signup"
+                    class="btn btn-success"
+                    value="Sign Up"
+                    />
+                </div>
+                <!-- User Registration Status -->
+                <p id="status" class="mt-3"></p>
+            </div>
+        </div>
+    </div>
+    <!-- [Section 4] Sign Up End -->
 
     <!-- import index.js -->
     <script type="module">
