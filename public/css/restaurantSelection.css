@@ -28,11 +28,10 @@
   color: var(--secondary);
 }
 
-body {
+.topBar {
   background-image: url("../images/backgroundImage.jpeg");
   overflow-y: auto;
 }
-
 
 /* search bar styling */
 
@@ -50,11 +49,6 @@ body {
 .searchBox:hover > .searchInput {
   width: 240px;
   padding: 0 6px;
-}
-
-.searchBox:hover > .searchButton {
-  background: blue;
-  color: white;
 }
 
 .searchButton {
@@ -83,19 +77,7 @@ body {
   width: 0px;
 }
 
-@media screen and (max-width: 620px) {
-  .searchBox:hover > .searchInput {
-    width: 150px;
-    padding: 0 6px;
-  }
-}
 /* blog card styling */
-
-.bigCard {
-  position: relative;
-  width: 100%;
-  margin: 2rem auto;
-}
 
 .cardContent {
   width: 1100px;
@@ -114,6 +96,9 @@ body {
   z-index: 0;
 }
 
+
+
+/* card content styling */
 .cardContent a {
   color: inherit;
 }

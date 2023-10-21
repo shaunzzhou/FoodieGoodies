@@ -34,6 +34,9 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- import chart.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   </head>
 
   <body>
@@ -94,5 +97,68 @@
       </div>
     </nav>
     <!-- Navbar End -->
+
+    <!-- line chart -->
+    <!-- always start with canvas tag -->
+    <canvas id="lineChart" style="width: 50%; max-width: 700px"></canvas>
+    <script>
+      const xlineValues = ["January","February","March","April","May"]
+      const ylineValues = [1,2,3,4,5]
+
+      new Chart("lineChart", {
+        //must insert id of chart insides
+        type: "line",
+        data: {
+          labels: xlineValues,
+          // one array per dataset
+          datasets: [
+            {
+              backgroundColor: "rgba(0,0,255,1.0)",
+              borderColor: "rgba(0,0,255,0.1)",
+              fill: false,
+              data: ylineValues,
+            },
+          ],
+        },
+      });
+    </script>
+
+    <!-- bar chart  -->
+    <canvas id="barChart" style="width: 50%; max-width: 700px"></canvas>
+    <script>
+      // Bar chart
+      new Chart("barChart", {
+        type: "bar",
+        data: {
+          labels: [
+            "Africa",
+            "Asia",
+            "Europe",
+            "Latin America",
+            "North America",
+          ],
+          datasets: [
+            {
+              label: "Population (millions)",
+              backgroundColor: [
+                "#3e95cd",
+                "#8e5ea2",
+                "#3cba9f",
+                "#e8c3b9",
+                "#c45850",
+              ],
+              data: [2478, 5267, 734, 784, 433],
+            },
+          ],
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Predicted world population (millions) in 2050",
+          },
+        },
+      });
+    </script>
   </body>
 </html>
