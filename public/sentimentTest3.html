@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="event.preventDefault(); analyzeSentiment();">
+      <h2>Sentiment Analysis Using Google Cloud Langauge Model API</h2>  
+      <textarea id="userInput" rows="4" cols="50" placeholder="Enter Review"></textarea>
+      <br>
+      <button type="submit">Analyze Sentiment</button>
+    </form>
+      
+      <div id="score"></div>
+</body>
+<script>
+    // Function to handle form submission
+    function analyzeSentiment() {
+  // Retrieve user input from the textarea
+  const userInput = document.getElementById('userInput').value;
+
+  // Make API call to Google Cloud Natural Language API
+  fetch('https://language.googleapis.com/v1/documents:analyzeSentiment?key=AIzaSyBZlXeGZE8SdP6qo-cda6pa7oQH86UuXeE', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      document: {
+        content: userInput,
+        type: 'PLAIN_TEXT',
+      },
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Extract sentiment score and label from API response
+      const sentimentScore = data.documentSentiment.score;
+
+      // Update HTML page to display sentiment analysis results
+      document.getElementById('score').textContent = `Sentiment Score: ${sentimentScore}`;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+</script>
+</html>
