@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodieGoodies</title>
+    <link href="images/logo.png" type="image/x-icon" rel="icon" />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="./css/restaurantSelection.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Does prof care if we are using the production version of vue or the development version? This currently is the development version -->
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <style>
+      header {
+        overflow: hidden;
+      }
+
+      .restaurantSelectionBanner {
+        position: relative;
+        z-index: -1;
+        margin: -5px;
+        height: 360px;
+        background: center
+          url("https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg");
+        background-size: cover;
+        filter: blur(3px);
+      }
+
+      .search-bar .search-bar-outer {
+        margin: 0 auto;
+        max-width: 680px;
+        border-radius: 8px;
+        padding: 20px 30px;
+        border: 0;
+        margin-top: -60px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-bar .search-bar-inner h4 {
+        color: rgb(163, 241, 163);
+      }
+
+      .form-control::placeholder {
+        color: #aaaaaa;
+        font-size: 0.8rem;
+      }
+
+      .card {
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+    </style>
+    <!-- Topbar Start -->
+    <div class="container-fluid px-5 d-none d-lg-block topBar">
+      <div class="row gx-5 py-3 align-items-center">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-center">
+            <a href="index.html" class="navbar-brand ms-lg-5">
+              <h1 class="m-0">
+                <span class="basic1">Foodie </span
+                ><span class="basic2">Goodies</span>
+              </h1>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Top bar end -->
+
+    <!-- Navbar Start -->
+    <nav
+      class="navbar navbar-expand-lg bgBasic1 navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5 sticky-top"
+    >
+      <div class="navbar-brand d-flex d-lg-none">
+        <h1 class="m-0 display-4">
+          <span class="text-light">Foodie </span>Goodies
+        </h1>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav mx-auto py-0">
+          <a href="landingPage.html" class="nav-item nav-link mx-2">Home</a>
+          <a
+            href="restaurantSelection.html"
+            class="nav-item nav-link mx-2 active"
+            >Restaurant Selection</a
+          >
+          <a href="shoppingCart.html" class="nav-item nav-link mx-2"
+            >Shopping Cart</a
+          >
+          <a href="orderHistory.html" class="nav-item nav-link mx-2"
+            >Order History</a
+          >
+          <a href="personalProfile.html" class="nav-item nav-link mx-2"
+            >Profile</a
+          >
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <header>
+      <!-- navigation -->
+
+      <div class="restaurantSelectionBanner">words</div>
+    </header>
+
+    <!-- search bar -->
+    <div class="container search-bar">
+      <div class="search-bar-outer bgBasic1">
+        <div class="search-bar-inner">
+          <form action="/search">
+            <h4 class="mb-2 text-white">Search Restaurant by Location:</h4>
+            <!-- searchParameters submit -->
+            <div class="input-group">
+              <input
+                v-model="searchParameters"
+                type="text"
+                name="keyword"
+                class="form-control"
+                placeholder="Input your current location here!"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-major bgBasic2"
+                  @click="submit"
+                  id="search-button"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newest cards -->
+    <div class="container-fluid mt-3">
+      <div class="row" v-for="restaurant in restauraunts">
+        <div class="col-lg-3 col-md-6 mt-2 mb-md-5 mb-sm-2">
+          <div
+            class="card"
+            style="width: 20rem; margin-left: auto; margin-right: auto"
+          >
+            <img
+              class="card-img-top h-75 mx-auto p-1 float-lg-start"
+              src="images/logo.png"
+              alt="Card image cap"
+            />
+            <!-- :images -->
+            <div class="card-body float-lg-end">
+              <!-- :restaurantName -->
+              <h5 class="card-title">Ima-Sushi</h5>
+              <!-- :restaurantDescription -->
+              <p class="card-text">
+                restaurant description/food genre information
+              </p>
+
+              <!-- :restaurantMeta -->
+              <p class="card-text text-secondary">
+                restaurant meta information list
+              </p>
+
+              <!-- :restaurantURL -->
+              <a href="./restaurantProfile.html" class="btn btn-success"
+                >View Restaurant</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Newest cards end -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
