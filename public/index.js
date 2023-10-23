@@ -101,9 +101,10 @@ export function login() {
 
 // check if user is logged in function
 export function checkUser() {
+  var uid = null;
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const uid = user.uid;
+      uid = user.uid;
       onValue(ref(db, "users/" + uid), (snapshot) => {
         const uname = snapshot.val().name; // get the new value
         console.log(uname);
@@ -112,4 +113,83 @@ export function checkUser() {
       window.location.replace("./404.html");
     }
   });
+  return uid;
+}
+
+//check user's carbon emissions by month
+export function getcarbonEmissions(userId, year) {
+  onValue(
+    ref(db, `users/${userId}/carbonEmissionsSaved/${year}`),
+    (snapshot) => {
+      const emissions = snapshot.val();
+      //if emissions exist, create emissions chart
+      if (emissions) {
+        renderemissionsChart(emissions,year);
+      }
+      // Use the emissions data for that year
+    }
+  );
+}
+
+function renderemissionsChart(emissions,year) {
+  const allMonths = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  // Extract months from the emissions object that have values
+  const monthsWithData = allMonths.filter(
+    (month) => emissions[month] && emissions[month] !== 0
+  );
+  console.log(monthsWithData); //array of months with data
+
+  // Extract emission values for the months
+  const monthlyEmissions = monthsWithData.map((month) => emissions[month]);
+  console.log(monthlyEmissions); //array of the corresponding emissions with the month
+
+  const ctx = document.getElementById("emissionsChart").getContext("2d");
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: monthsWithData.map(
+        (month) => month.charAt(0).toUpperCase() + month.slice(1)
+      ), // Capitalize the first letter of each month
+      datasets: [
+        {
+          label: `Carbon Emissions prevented by month (${year})`,
+          data: monthlyEmissions,
+          borderColor: "rgb(75, 192, 192)",
+          fill: false,
+          tension: 0
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+export function gettopPurchases() {
+  onValue(
+    ref(db, `users/${userId}/carbonEmissionsSaved/`),
+    (snapshot) => {
+      
+    }
+  );
 }
