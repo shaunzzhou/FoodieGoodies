@@ -1,55 +1,61 @@
-/* Custom CSS Styling for Preload Page */  
-.bgTopBar{
-    background-color: rgb(249, 255, 249);
+/* Custom CSS Styling for Preload Page */
+.bgTopBar {
+  background-color: rgb(249, 255, 249);
 }
 
 /* Parallax Scrolling */
-body, html {
-    height: 100%;
+body,
+html {
+  height: 100%;
 }
 
 .section1Img {
-    background-image: url("../images/preloadImages/foodBox.jpg");
+  background-image: url("../images/preloadImages/foodBox.jpg");
 
-    /* Set a specific height */
-    min-height: 500px;
+  /* Set a specific height */
+  min-height: 500px;
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-  
+
 .section2Img {
-    background-image: url("../images/preloadImages/foodBg.jpg");
-    min-height: 200px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("../images/preloadImages/foodBg.jpg");
+  min-height: 200px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-  
+
 .section3Img {
-    background-image: url("../images/preloadImages/computerMockUp.jpg");
-    min-height: 400px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-image: url("../images/preloadImages/computerMockUp.jpg");
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-  
+
 .caption {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    text-align: center;
-    color: whitesmoke;
-    background-color: rgb(48, 174, 48);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: whitesmoke;
+  background-color: rgb(48, 174, 48);
 }
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-device-width: 1024px) {
-    .section1Img, .section2Img {
-        background-attachment: scroll;
-    }
+  .section1Img,
+  .section2Img {
+    background-attachment: scroll;
+  }
+}
+
+.bgtheme {
+  background-image: url("../images/backgroundImage.jpeg");
 }

@@ -38,6 +38,9 @@
 
     <!-- Import chart.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
   <body>
@@ -99,14 +102,16 @@
     </nav>
     <!-- Navbar End -->
 
-    <!-- user emissions chart -->
-    <div class="mx-auto w-50">
-      <canvas id="emissionsChart"></canvas>
-    </div>
+    <div id="app">
+      <div class="mx-auto w-50">
+        <canvas id="emissionsChart">{{getCarbonEmissions()}}</canvas>
+      </div>
 
-    <div class="mx-auto w-50">
-      <canvas id="toppurchasesChart"></canvas>
+      <div class="mx-auto w-50">
+        <canvas id="toppurchasesChart"></canvas>
+      </div>
     </div>
+    <!-- user emissions chart -->
 
     <!-- bar chart  -->
     <!-- <canvas id="barChart" width="100" height="20"></canvas>
@@ -172,10 +177,100 @@
 
     <!-- functions -->
     <script type="module">
-      import { getcarbonEmissions } from "./index.js";
-      const uid = "0RikLHfzYTSOd1Nx46LKdKavZNd2";
-      const year = 2022;
-      getcarbonEmissions(uid, year);
+      import { onValue, ref, db } from "./index.js";
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            uid: "0RikLHfzYTSOd1Nx46LKdKavZNd2",
+            year: 2022,
+          };
+        },
+        methods: {
+          //get user's carbon emissions by month
+          getCarbonEmissions() {
+            onValue(
+              ref(db, `users/${this.uid}/carbonEmissionsSaved/${this.year}`),
+              (snapshot) => {
+                const emissions = snapshot.val();
+                //if emissions exist, create emissions chart
+                if (emissions) {
+                  this.renderEmissionsChart(emissions, this.year);
+                }
+                // Use the emissions data for that year
+              }
+            );
+          },
+
+          // generate user's carbon emissions graph
+          renderEmissionsChart(emissions, year) {
+            const allMonths = [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December",
+            ];
+            // Extract months from the emissions object that have values
+            const monthsWithData = allMonths.filter(
+              (month) => emissions[month] && emissions[month] !== 0
+            );
+            console.log(monthsWithData); //array of months with data
+
+            // Extract emission values for the months
+            const monthlyEmissions = monthsWithData.map(
+              (month) => emissions[month]
+            );
+            console.log(monthlyEmissions); //array of the corresponding emissions with the month
+
+            const ctx = document
+              .getElementById("emissionsChart")
+              .getContext("2d");
+
+            new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: monthsWithData.map(
+                  (month) => month.charAt(0).toUpperCase() + month.slice(1)
+                ), // Capitalize the first letter of each month
+                datasets: [
+                  {
+                    label: `Carbon Emissions prevented by month (${year})`,
+                    data: monthlyEmissions,
+                    borderColor: "rgb(75, 192, 192)",
+                    fill: false,
+                    tension: 0,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+          },
+
+          // get user's top purchases
+          getTopPurchases() {
+            onValue(
+              ref(db, `users/${userId}/carbonEmissionsSaved/`),
+              (snapshot) => {}
+            );
+          },
+        },
+      });
+      const vm = app.mount("#app");
     </script>
   </body>
 </html>
