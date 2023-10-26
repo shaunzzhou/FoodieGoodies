@@ -26,6 +26,9 @@
 
     <!-- Template Stylesheet -->
     <link href="./css/style.css" rel="stylesheet" />
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
   <body>
@@ -85,167 +88,46 @@
       </div>
     </nav>
     <!-- Navbar End -->
-
-    <div class="container h-100 h-custom">
-      <div class="container py-5 h-100">
-        <div class="row justify-content-center align-items-center">
-          <div class="col">
-            <div class="card shadow card-registration card-registration">
-              <div class="card-body p-0">
-                <div class="row g-0">
-                  <div>
-                    <div class="p-5">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-5"
-                      >
-                        <h1 class="fw-bold mb-0 text-black">
-                          <img
-                            src="./images/logo.png"
-                            alt=""
-                            style="width: 100px"
-                          />
-                          Order History
-                        </h1>
-                      </div>
-
-                      <div>
-                        <p class="text-muted">
-                          Here you can easily order again form your previously
-                          frequented restaurants!
-                        </p>
-                        <p class="text-muted">
-                          Consider leaving a review, you could help out these
-                          businesses alot!
-                        </p>
-                      </div>
-                      <hr class="my-4" />
-
-                      <div
-                        class="row mb-4 d-flex justify-content-between align-items-center"
-                      >
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img
-                            src="images/meatballs2.jpg"
-                            class="img-fluid rounded-3 h-100px"
-                            alt="Cotton T-shirt"
-                          />
-                        </div>
-                        <!-- restaurant name -->
-                        <div class="col-md-3 col-lg-3 col-xl-3 me-5">
-                          <h6 class="text-muted">Restaurant Name</h6>
-                          <h6 class="text-black mb-0">
-                            Ordered at 26 July 2023 at 20:05
-                          </h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- button to minus -->
-                          <a class="btn bgBasic1" href="restaurantProfile.html"
-                            >Order Again!</a
-                          >
-                        </div>
-
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- Button to Open the Review -->
-                          <button
-                            type="button"
-                            class="btn btn-dark btn-block"
-                            data-mdb-ripple-color="dark"
-                            data-bs-toggle="modal"
-                            data-bs-target="#myModal"
-                          >
-                            Leave a Review!
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- NEXT ITEM! -->
-                      <hr class="my-4" />
-
-                      <div
-                        class="row mb-4 d-flex justify-content-between align-items-center"
-                      >
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img
-                            src="images/meatballs2.jpg"
-                            class="img-fluid rounded-3 h-100px"
-                            alt="Cotton T-shirt"
-                          />
-                        </div>
-                        <!-- restaurant name -->
-                        <div class="col-md-3 col-lg-3 col-xl-3 me-5">
-                          <h6 class="text-muted">Restaurant Name</h6>
-                          <h6 class="text-black mb-0">
-                            Ordered at 26 July 2023 at 20:05
-                          </h6>
-                        </div>
-
-
-
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- button to minus -->
-                          <a class="btn bgBasic1" href="restaurantProfile.html"
-                            >Order Again!</a
-                          >
-                        </div>
-
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- Button to Open the Review -->
-                          <button
-                            type="button"
-                            class="btn btn-dark btn-block"
-                            data-mdb-ripple-color="dark"
-                            data-bs-toggle="modal"
-                            data-bs-target="#myModal"
-                          >
-                            Leave a Review!
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- NEXT ITEM! -->
-                      <hr class="my-4" />
-
-                      <div
-                        class="row mb-4 d-flex justify-content-between align-items-center"
-                      >
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img
-                            src="images/meatballs2.jpg"
-                            class="img-fluid rounded-3 h-100px"
-                            alt="Cotton T-shirt"
-                          />
-                        </div>
-                        <!-- restaurant name -->
-                        <div class="col-md-3 col-lg-3 col-xl-3 me-5">
-                          <h6 class="text-muted">Restaurant Name</h6>
-                          <h6 class="text-black mb-0">
-                            Ordered at 26 July 2023 at 20:05
-                          </h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- button to minus -->
-                          <a class="btn bgBasic1" href="restaurantProfile.html"
-                            >Order Again!</a
-                          >
-                        </div>
-
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- Button to Open the Review -->
-                          <button
-                            type="button"
-                            class="btn btn-dark btn-block"
-                            data-mdb-ripple-color="dark"
-                            data-bs-toggle="modal"
-                            data-bs-target="#myModal"
-                          >
-                            Leave a Review!
-                          </button>
-                        </div>
-                      </div>
-
-                      <!-- NEXT ITEM! -->
-                      <hr class="my-4" />
+    <div id="app">
+      <div class="container h-100 h-custom">
+        <div class="container py-5 h-100">
+          <div class="card shadow card-registration card-registration">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div>
+                  <div class="p-5">
+                    <div class="mb-4">
+                      <h1 class="fw-bold mb-0 text-black">
+                        <img
+                          src="./images/logo.png"
+                          alt=""
+                          style="width: 100px"
+                        />
+                        Order History
+                      </h1>
                     </div>
+
+                    <p class="text-muted">
+                      Here you can easily order again form your previously
+                      frequented restaurants!
+                    </p>
+                    <p class="text-muted">
+                      Consider leaving a review, you could help out these
+                      businesses alot!
+                    </p>
+
+                    <order-item
+                      v-for="order of orderHistory"
+                      :rname="order.restaurantName"
+                      :dt="order.datetime"
+                      :rd="`restaurantProfile.html?resname=` + order.restaurantName"
+                    >
+                      <br />
+                      <ul>
+                        <li v-for="o,k of order.bagsOrdered">{{k}}: {{o}}</li>
+                      </ul>
+                      <h5>Spent: ${{order.totalAmount}}</h5>
+                    </order-item>
                   </div>
                 </div>
               </div>
@@ -255,44 +137,141 @@
       </div>
     </div>
 
-    <!-- Review Modal -->
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title" id="restaurantTitle">Restaurant Title</h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
+    <script type="module">
+      import {
+        db,
+        auth,
+        ref,
+        onValue,
+        onAuthStateChanged,
+        update,
+      } from "./index.js";
 
-          <!-- Modal body -->
-          <div class="modal-body">
-            <textarea class="form-control" name="review" id="" cols="30" rows="5" placeholder="Write your review here!"></textarea>
-          </div>
+      const app = Vue.createApp({
+        data() {
+          return {
+            orderHistory: [],
+            uid: "",
+          };
+        },
+        methods: {
+          getOrderHistory() {
+            onValue(ref(db, `users/${this.uid}/orderHistory/`), (snapshot) => {
+              const history = snapshot.val();
+              if (history) {
+                for (let item of history) {
+                  this.orderHistory.push(item);
+                }
+              }
+            });
+          },
+        },
+        created() {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              this.uid = user.uid;
+              this.getOrderHistory();
+            } else {
+              location.href = "404.html";
+            }
+          });
+        },
+      });
 
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-success"
-              onclick="submitReview()"
-              data-bs-dismiss="modal"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      app.component("order-item", {
+        data() {
+          return {
+            review: "",
+            send: false,
+            uname: "",
+          };
+        },
+        methods: {
+          submitReview() {
+            if (this.review == "") {
+              alert("Cannot submit empty review!");
+              return;
+            }
+            onAuthStateChanged(auth, (user) => {
+              if (user) {
+                onValue(ref(db, `users/${user.uid}/name/`), (snapshot) => {
+                  this.uname = snapshot.val();
+                  console.log(this.uname);
+                  update(
+                    ref(db, `restaurants/${this.rname}/metaInfo/reviews/`),
+                    {
+                      [this.uname]: this.review,
+                    }
+                  ).then((data) => {
+                    alert("Review submitted!");
+                    this.send = true;
+                  });
+                  update(ref(db, `users/${user.uid}/ratingsGiven/`), {
+                    [this.rname]: this.review,
+                  });
+                });
+              }
+            });
+          },
+        },
+        template: `<hr class="my-4" />
+                    <div
+                      class="row mb-4 d-flex justify-content-between align-items-center"
+                    >
+                      <div class="col-md-2 col-lg-2 ">
+                        <img
+                          src="images/meatballs2.jpg"
+                          class="img-fluid rounded-3 h-100px"
+                        />
+                      </div>
+                      <div class="col-md-3 col-lg-3 me-5">
+                        <h3 class="text-muted">{{rname}}</h3>
+                        <h5 class="text-black mb-0">
+                          {{dt}}
+                        </h5>
+                        <slot></slot>
+                      </div>
+                      <div class="col-md-3 col-lg-3  d-flex">
 
-    <script>
-      function submitReview(){
-        
-      }
+                        <a class="btn bgBasic1 mb-2" v-bind:href="rd"
+                          >Order Again!</a
+                        >
+                      </div>
+
+                      <div class="col-md-3 col-lg-3  d-flex">
+                        <form v-if='!this.send'>
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1"
+                              ></label
+                            >
+                            <textarea
+                              class="form-control"
+                              id="exampleFormControlTextarea1"
+                              rows="5"
+                              col="10"
+                              v-model='this.review'
+                              required
+                              placeholder='Type your review here'
+                            ></textarea>
+                            <br/>
+                          </div>
+                          <button type="button" class="btn btn-dark btn-block mb-2" @click='submitReview'>
+                          Leave a Review!
+                          </button>
+                        </form>
+                        <button v-else type="btn" class="btn btn-dark btn-block mb-2 disabled">
+                          Review Submitted!
+                        </button>
+
+                      </div>
+                    </div>
+
+
+        `,
+        props: ["rname", "dt", "rd"],
+        emits: [],
+      });
+      const vm = app.mount("#app");
     </script>
 
     <!-- Bootstrap Bundle with Popper -->

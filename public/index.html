@@ -364,11 +364,12 @@
               this.loginPassword
             )
               .then((userCredential) => {
-                const dt = new Date();
+                const dt = String(new Date());
+                const newdt = dt.slice(0, 24);
                 const user = userCredential.user;
                 console.log(user);
                 update(ref(db, "users/" + user.uid), {
-                  last_login: dt,
+                  last_login: newdt,
                 }).then((data) => {
                   location.href = "landingPage.html";
                 });
