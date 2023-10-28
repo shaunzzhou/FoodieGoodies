@@ -103,9 +103,12 @@
         <canvas id="emissionsChart">{{getCarbonEmissions()}}</canvas>
       </div>
 
-      <div class="mx-auto w-50">
-        <canvas id="toppurchasesChart">{{getTopPurchases()}}</canvas>
-      </div>
+      <!-- get restaurants information -->
+
+      <!-- get user's purchase -->
+      <div>{{getPurchasedInfo()}}</div>
+
+      <div>{{calculateMoneySaved()}}</div>
 
       <div class="mx-auto w-50">
         <canvas id=""></canvas>
@@ -119,31 +122,14 @@
       const app = Vue.createApp({
         data() {
           return {
+            purchaseInfo: {},
+            totalSaved: 0,
             userID: null,
+            userAmountSaved: 0,
+            restaurants: null,
             year: null,
-          };
-        },
-
-        methods: {
-          //get user's carbon emissions by month
-          getCarbonEmissions() {
-            onValue(
-              ref(db, `users/${this.userID}/carbonEmissionsSaved/${this.year}`),
-              (snapshot) => {
-                const emissions = snapshot.val();
-                console.log(emissions);
-                //if emissions exist, create emissions chart
-                if (emissions) {
-                  this.renderEmissionsChart(emissions, this.year);
-                }
-                // Use the emissions data for that year
-              }
-            );
-          },
-
-          // generate user's carbon emissions graph
-          renderEmissionsChart(emissions, year) {
-            const allMonths = [
+            sizes: ["large", "medium", "small"],
+            allMonths: [
               "January",
               "February",
               "March",
@@ -156,18 +142,105 @@
               "October",
               "November",
               "December",
-            ];
+            ],
+            userSavingsLeaderboard: [],
+          };
+        },
+
+        computed: {},
+
+        methods: {
+          getPurchasedInfo() {
+            onValue(
+              ref(db, `users/${this.userID}/orderHistory`),
+              (snapshot) => {
+                const purchaseHistory = snapshot.val();
+                // console.log(purchaseHistory);
+
+                for (let purchase in purchaseHistory) {
+                  const transaction = purchaseHistory[purchase];
+                  // console.log(transaction);
+                  const restaurant = transaction.restaurantName;
+                  const bagsOrdered = transaction.bagsOrdered;
+                  // console.log(bagsOrdered);
+                  // console.log(restaurant);
+                  //initialize an object for each restaurant
+                  this.purchaseInfo[restaurant] = {};
+                  for (let bag in bagsOrdered) {
+                    const bagQuantity = bagsOrdered[bag];
+                    this.purchaseInfo[restaurant][bag] = bagQuantity;
+                  }
+                }
+              }
+            );
+            return this.purchaseInfo;
+          },
+
+          calculateMoneySaved() {
+            onValue(ref(db, `restaurants/`), (snapshot) => {
+              this.restaurants = snapshot.val();
+            });
+
+            const purchaseInfo = this.purchaseInfo;
+
+            let totalSavings = 0;
+
+            // loop through each restaurant in purchaseInfo
+            for (let restaurantName in purchaseInfo) {
+              // check if the restaurant exists in the restaurants data
+              if (this.restaurants[restaurantName]) {
+                // loop through each bag type in purchaseInfo for that restaurant
+                for (let bagType in purchaseInfo[restaurantName]) {
+                  // check if the bag type exists for that restaurant in the restaurants data
+                  if (this.restaurants[restaurantName].bagsInfo[bagType]) {
+                    const originalPrice =
+                      this.restaurants[restaurantName].bagsInfo[bagType]
+                        .originalPrice;
+                    console.log(originalPrice);
+                    const discountedPrice =
+                      this.restaurants[restaurantName].bagsInfo[bagType].price;
+                    console.log(discountedPrice);
+                    const priceDifference = originalPrice - discountedPrice;
+                    const quantityPurchased =
+                      purchaseInfo[restaurantName][bagType];
+
+                    totalSavings += priceDifference * quantityPurchased;
+                  }
+                }
+              }
+            }
+
+            return totalSavings;
+            this.userAmountSaved = totalSavings;
+          },
+          //get user's carbon emissions by month
+          getCarbonEmissions() {
+            onValue(
+              ref(db, `users/${this.userID}/carbonEmissionsSaved/${this.year}`),
+              (snapshot) => {
+                const emissions = snapshot.val();
+                // console.log(emissions);
+                //if emissions exist, create emissions chart
+                if (emissions) {
+                  this.renderEmissionsChart(emissions, this.year);
+                }
+                // Use the emissions data for that year
+              }
+            );
+          },
+          // generate user's carbon emissions graph
+          renderEmissionsChart(emissions, year) {
             // Extract months from the emissions object that have values
-            const monthsWithData = allMonths.filter(
+            const monthsWithData = this.allMonths.filter(
               (month) => emissions[month] && emissions[month] !== 0
             );
-            console.log(monthsWithData); //array of months with data
+            // console.log(monthsWithData); //array of months with data
 
             // Extract emission values for the months
             const monthlyEmissions = monthsWithData.map(
               (month) => emissions[month]
             );
-            console.log(monthlyEmissions); //array of the corresponding emissions with the month
+            // console.log(monthlyEmissions); //array of the corresponding emissions with the month
 
             const ctx = document
               .getElementById("emissionsChart")
@@ -203,18 +276,8 @@
               },
             });
           },
-
-          // get user's top purchases
-          getTopPurchases() {
-            onValue(
-              ref(db, `users/${this.userID}/orderHistory/`),
-              (snapshot) => {
-                const orderHistory = snapshot.val();
-                console.log(orderHistory);
-              }
-            );
-          },
         },
+
         created() {
           //check current user's login id
           onAuthStateChanged(auth, (user) => {
