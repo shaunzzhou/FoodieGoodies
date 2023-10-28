@@ -41,6 +41,9 @@
         background-size: cover;
       }
     </style>
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
     <!-- Topbar Start -->
@@ -102,213 +105,257 @@
     </nav>
     <!-- Navbar End -->
 
-    <!-- Hero Start -->
-    <div class="bgBasic1 bgHero shadow-lg container-fluid py-5 bg-hero mb-5">
-      <div class="container py-5">
-        <div class="row justify-content-start">
-          <div class="col-lg-8 text-center text-lg-start">
-            <h1 class="display-1 text-white mb-md-4">Restaurant Name</h1>
-            <!-- 2 buttons -->
-            <div class="justify-content-center">
-              <a
-                href="./restaurantSelection.html"
-                class="btn shadow bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
-                >Return to Restaurant Selection</a
-              >
-              <a
-                href=""
-                class="btn shadow bgBasic2 py-md-3 px-md-5 text-light lighten"
-                >Check us out!(external website link)</a
-              >
+    <div id="app">
+      <!-- Hero Start -->
+      <div class="bgBasic1 bgHero shadow-lg container-fluid py-5 bg-hero mb-5">
+        <div class="container py-5">
+          <div class="row justify-content-start">
+            <div class="col-lg-8 text-center text-lg-start">
+              <h1 class="display-1 text-white mb-md-4 fw-bold">
+                {{restaurantName}}
+              </h1>
+              <!-- 2 buttons -->
+              <div class="justify-content-center">
+                <a
+                  href="./restaurantSelection.html"
+                  class="btn shadow bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
+                  >Return to Restaurant Selection</a
+                >
+                <a
+                  href=""
+                  class="btn shadow bgBasic2 py-md-3 px-md-5 text-light lighten"
+                  >Check us out! (external website link)</a
+                >
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Hero End -->
+      <!-- Hero End -->
 
-    <!-- restaurant info -->
-    <!-- About Start -->
-    <!-- pt: padding top to keep image away from my hero banner -->
-    <div class="container-fluid about bg-white pt-5">
-      <!-- inner container to have be manipulated by external bootstrap code -->
-      <div class="container">
-        <!-- gx: gutter width to keep the distance between my header info constant -->
-        <div class="row gx-5">
-          <!-- about us info  -->
-          <div class="col-lg-6 pb-5">
-            <!-- Main info div -->
-            <div class="mb-3 pb-2">
-              <!-- optional about us small text -->
-              <h6 class="basic1">About Us</h6>
-              <!-- main header -->
-              <h3 class="">
-                Header for your restaurant: <br />Welcome to Big Meatballs Pte
-                Ltd!
-              </h3>
+      <!-- restaurant info -->
+      <div class="container-fluid about bg-white pt-5">
+        <!-- inner container to have be manipulated by external bootstrap code -->
+        <div class="container">
+          <!-- gx: gutter width to keep the distance between my header info constant -->
+          <div class="row gx-5">
+            <!-- about us info  -->
+            <div class="col-lg-6 pb-5">
+              <!-- Main info div -->
+              <div class="mb-3 pb-2">
+                <!-- optional about us small text -->
+                <h6 class="basic1">About Us</h6>
+                <!-- main header -->
+                <h3 class="">{{title}}</h3>
 
-              <!-- main description -->
-              <p id="details" class="mb-4">
-                Explanation of what your restaurant does and more details:
-                <br />We are an intalian restaurant specialising in Spicy
-                Meatballs where all our balls are made by an Italian woman who
-                loves young children maybe a little too much
-              </p>
-            </div>
-            <!-- closure of main info div -->
-            <div class="mb-3 pb-2">
-              <!-- optional about us small text -->
-              <h6 class="basic1">Rated</h6>
-              <!-- main header -->
-              <h1 class="display-5">
-                <span id="rating">3</span>/5<img
-                  style="width: 100px"
-                  src="images/basic-star-flat-vector_78370-1483.avif"
-                />'s
-              </h1>
+                <!-- main description -->
+                <p id="details" class="mb-4">{{description}}</p>
+              </div>
+              <!-- closure of main info div -->
+              <div class="mb-3 pb-2">
+                <!-- optional about us small text -->
+                <h6 class="basic1">Rated</h6>
+                <!-- main header -->
+                <h1 class="display-5">
+                  <span id="rating">{{rating}}</span> / 5<img
+                    style="width: 100px"
+                    src="images/basic-star-flat-vector_78370-1483.avif"
+                  />
+                </h1>
 
-              <!-- main description -->
-              <p id="details" class="mb-4">
-                Calculated through sentiment analysis of all reviews left behind
-                by customers!
-              </p>
-            </div>
-
-            <!-- dual feature section -->
-            <div class="row gx-5 gy-4">
-              <!-- feature 1 -->
-              <div class="col-sm-6 mt-5">
-                <!-- icon1 noting is here currently -->
-                <!-- fa calls bootstraps icons -->
-                <h4 id="feat1">Feature 1</h4>
-                <p class="mb-0">
-                  Elaboration on your first feature(modify these such that it
-                  will not display if the restaurant does not have any unqiue or
-                  special features)
+                <!-- main description -->
+                <p id="details" class="mb-4">
+                  Calculated through sentiment analysis of all reviews left
+                  behind by customers!
                 </p>
               </div>
 
-              <!-- feature 2 -->
-              <div class="col-sm-6 mt-5">
-                <!-- icon 2, nothing is here currently-->
-                <h4 id="feat2">Feature 2</h4>
-                <p class="mb-0">Elaboration on your second feature</p>
-              </div>
-            </div>
-            <!-- closure of dual features -->
-          </div>
-          <!-- closure of about us info  -->
+              <!-- dual feature section -->
+              <div class="row gx-5 gy-4">
+                <!-- feature 1 -->
+                <div class="col-sm-6 mt-5">
+                  <!-- icon1 noting is here currently -->
+                  <!-- fa calls bootstraps icons -->
+                  <h4 id="feat1">{{feature1}}</h4>
+                  <p class="mb-0">{{feature1Info}}</p>
+                </div>
 
-          <div class="col-lg-6 mb-lg-0">
-            <!-- display flex needed to let my justify content center work -->
-
-            <!-- Image2 of restaurant websites, optional -->
-            <img
-              class="d-flex shadow-lg justify-content-center my-5 border border-5 border-success w-100"
-              id="pics1"
-              src="./images/meatballs3.jpg"
-            />
-
-            <div class="container shadow-lg row bgBasic2 my-5 rounded">
-              <div class="col-sm-6">
-                <div class="p-3">
-                  <h4 class="text-white">Possible Goodies:</h4>
-
-                  <div id="goodies text-white">
-                    <ul>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                    </ul>
-                  </div>
+                <!-- feature 2 -->
+                <div class="col-sm-6 mt-5">
+                  <!-- icon 2, nothing is here currently-->
+                  <h4 id="feat2">{{feature2}}</h4>
+                  <p class="mb-0">{{feature2Info}}</p>
                 </div>
               </div>
-
-              <div class="col-sm-6">
-                <div class="p-3">
-                  <h4 class="text-white">Allergent Information</h4>
-
-                  <div id="allergentInfo" class="text-white">
-                    <ul>
-                      <li>Contains wheat</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              <!-- closure of dual features -->
             </div>
-          </div>
-          <hr class="my-4" />
+            <!-- closure of about us info  -->
 
-          <div
-            class="row mb-4 d-flex justify-content-between align-items-center"
-          >
-            <div class="col-md-2 col-lg-2 col-xl-2">
+            <div class="col-lg-6 mb-lg-0">
+              <!-- display flex needed to let my justify content center work -->
+
+              <!-- Image2 of restaurant websites, optional -->
               <img
-                src="images/logo.png"
-                class="img-fluid rounded-3 h-100px"
-                alt="Cotton T-shirt"
+                class="d-flex shadow-lg justify-content-center my-5 border border-5 border-success w-100"
+                id="pics1"
+                src="./images/meatballs3.jpg"
               />
-            </div>
-            <!-- restaurant name -->
 
-            <div class="col d-flex">
-              <div class="row">
-                <h6 class="text-black mb-0">Quantity:</h6>
-                <div class="col">
-                  <button class="btn btn-link px-2" onclick="removeBag()">
-                    <i class="fas fa-minus"></i>
-                  </button>
+              <div class="container shadow-lg row bgBasic2 my-5 rounded">
+                <div class="col-sm-6">
+                  <div class="p-3">
+                    <h4 class="text-white">Possible Goodies:</h4>
+
+                    <div id="goodies text-white">
+                      <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <!-- button to minus -->
 
-                <!-- current item quantity -->
-                <div id="qty" class="col mt-2">1</div>
-                <!-- button to add -->
-                <div class="col">
-                  <button class="btn btn-link px-2" onclick="addBag()">
-                    <i class="fas fa-plus"></i>
+                <div class="col-sm-6">
+                  <div class="p-3">
+                    <h4 class="text-white">Allergent Information</h4>
+
+                    <div id="allergentInfo" class="text-white">
+                      <ul>
+                        <li>Contains wheat</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+
+            <div
+              class="row mb-4 d-flex justify-content-between align-items-center"
+            >
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img
+                  src="images/logo.png"
+                  class="img-fluid rounded-3 h-100px"
+                  alt="Cotton T-shirt"
+                />
+              </div>
+              <!-- restaurant name -->
+
+              <div class="col d-flex">
+                <div class="row">
+                  <h6 class="text-black mb-0">Quantity:</h6>
+                  <div class="col">
+                    <button class="btn btn-link px-2" onclick="removeBag()">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- button to minus -->
+
+                  <!-- current item quantity -->
+                  <div id="qty" class="col mt-2">1</div>
+                  <!-- button to add -->
+                  <div class="col">
+                    <button class="btn btn-link px-2" onclick="addBag()">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row mt-3 ms-3">
+                  <button
+                    onclick="addToCart()"
+                    style="border-radius: 10%"
+                    class="border-0 bgBasic1 text-white"
+                  >
+                    Add to Cart
                   </button>
                 </div>
               </div>
-
-              <div class="row mt-3 ms-3">
-                <button
-                  onclick="addToCart()"
-                  style="border-radius: 10%"
-                  class="border-0 bgBasic1 text-white"
-                >
-                  Add to Cart
-                </button>
-              </div>
             </div>
+
+            <hr class="my-4" />
           </div>
-
-          <script>
-            function addToCart() {
-              alert("Goodies have been added to cart successfuly!");
-            }
-            const params = new Proxy(
-              new URLSearchParams(window.location.search),
-              {
-                get: (searchParams, prop) => searchParams.get(prop),
-              }
-            );
-            // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-            let restaurantName = params.resname;
-            console.log(restaurantName); // "some_value"
-          </script>
-
-          <hr class="my-4" />
+          <!-- closure of internal container -->
         </div>
-        <!-- closure of internal container -->
+        <!-- closure of external container -->
       </div>
-      <!-- closure of external container -->
+      <!-- restaurant info end -->
     </div>
-    <!-- restaurant info end -->
 
-    <div id="ingredients" class="container fluid bg-hero bgBasic2"></div>
-    <!-- End of goodies list -->
+    <script type="module">
+      import {
+        db,
+        auth,
+        ref,
+        onValue,
+        onAuthStateChanged,
+        update,
+        push,
+        set,
+      } from "./index.js";
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            restaurantName: "",
+            category: "",
+            description: "",
+            feature1: "",
+            feature1Info: "",
+            feature2: "",
+            feature2Info: "",
+            location: "",
+            title: "",
+            rating: "",
+          };
+        },
+        created() {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              const params = new Proxy(
+                new URLSearchParams(window.location.search),
+                {
+                  get: (searchParams, prop) => searchParams.get(prop),
+                }
+              );
+              this.restaurantName = params.resname;
+              onValue(
+                ref(db, `restaurants/${this.restaurantName}/restaurantInfo/`),
+                (snapshot) => {
+                  const information = snapshot.val();
+                  if (information) {
+                    this.category = information["category"];
+                    this.description = information["description"];
+                    this.feature1 = information["feature1"];
+                    this.feature1Info = information["feature1Info"];
+                    this.feature2 = information["feature2"];
+                    this.feature2Info = information["feature2Info"];
+                    this.location = information["location"];
+                    this.title = information["title"];
+                  }
+                }
+              );
+              onValue(
+                ref(db, `restaurants/${this.restaurantName}/metaInfo/`),
+                (snapshot) => {
+                  const information = snapshot.val();
+                  if (information) {
+                    this.rating = information["starRating"];
+                  }
+                }
+              );
+            } else {
+              location.href = "404.html";
+            }
+          });
+        },
+      });
+
+      const vm = app.mount("#app");
+    </script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script

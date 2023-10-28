@@ -145,6 +145,8 @@
         onValue,
         onAuthStateChanged,
         update,
+        push,
+        set,
       } from "./index.js";
 
       const app = Vue.createApp({
@@ -197,18 +199,22 @@
                 onValue(ref(db, `users/${user.uid}/name/`), (snapshot) => {
                   this.uname = snapshot.val();
                   console.log(this.uname);
-                  update(
-                    ref(db, `restaurants/${this.rname}/metaInfo/reviews/`),
-                    {
-                      [this.uname]: this.review,
-                    }
-                  ).then((data) => {
-                    alert("Review submitted!");
+
+                  const resref = push(
+                    ref(
+                      db,
+                      `restaurants/${this.rname}/metaInfo/reviews/${this.uname}`
+                    )
+                  );
+                  set(resref, this.review).then((data) => {
+                    alert("Review submitted");
                     this.send = true;
                   });
-                  update(ref(db, `users/${user.uid}/ratingsGiven/`), {
-                    [this.rname]: this.review,
-                  });
+
+                  const userref = push(
+                    ref(db, `users/${user.uid}/ratingsGiven/${this.rname}`)
+                  );
+                  set(userref, this.review);
                 });
               }
             });
