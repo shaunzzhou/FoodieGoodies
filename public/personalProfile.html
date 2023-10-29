@@ -106,9 +106,6 @@
       <!-- get restaurants information -->
 
       <!-- get user's purchase -->
-      <div>{{getPurchasedInfo()}}</div>
-
-      <div>{{calculateMoneySaved()}}</div>
 
       <div class="mx-auto w-50">
         <canvas id=""></canvas>
@@ -117,16 +114,24 @@
 
     <!-- functions -->
     <script type="module">
-      import { onAuthStateChanged, auth, onValue, ref, db } from "./index.js";
+      import {
+        onAuthStateChanged,
+        auth,
+        onValue,
+        ref,
+        set,
+        db,
+        update,
+      } from "./index.js";
 
       const app = Vue.createApp({
         data() {
           return {
-            purchaseInfo: {},
+            purchaseInfo: "",
             totalSaved: 0,
-            userID: null,
+            userID: "",
             userAmountSaved: 0,
-            restaurants: null,
+            restaurants: "",
             year: null,
             sizes: ["large", "medium", "small"],
             allMonths: [
@@ -150,13 +155,14 @@
         computed: {},
 
         methods: {
-          getPurchasedInfo() {
+          getUserPurchasedInfo() {
             onValue(
               ref(db, `users/${this.userID}/orderHistory`),
               (snapshot) => {
                 const purchaseHistory = snapshot.val();
+                console.log(purchaseHistory);
                 // console.log(purchaseHistory);
-
+                const purchaseInfo = {};
                 for (let purchase in purchaseHistory) {
                   const transaction = purchaseHistory[purchase];
                   // console.log(transaction);
@@ -165,26 +171,32 @@
                   // console.log(bagsOrdered);
                   // console.log(restaurant);
                   //initialize an object for each restaurant
-                  this.purchaseInfo[restaurant] = {};
+                  if (!purchaseInfo[restaurant]) {
+                    purchaseInfo[restaurant] = {};
+                  }
                   for (let bag in bagsOrdered) {
                     const bagQuantity = bagsOrdered[bag];
-                    this.purchaseInfo[restaurant][bag] = bagQuantity;
+                    purchaseInfo[restaurant][bag] = bagQuantity;
                   }
                 }
+                this.purchaseInfo = purchaseInfo;
+                console.log(purchaseInfo);
               }
             );
-            return this.purchaseInfo;
+          },
+          fetchRestaurantsData() {
+            onValue(ref(db, `restaurants/`), (snapshot) => {
+              this.restaurants = snapshot.val();
+              if (this.restaurants) {
+                console.log(this.restaurants);
+                this.calculateMoneySaved();
+              }
+            });
           },
 
           calculateMoneySaved() {
-            onValue(ref(db, `restaurants/`), (snapshot) => {
-              this.restaurants = snapshot.val();
-            });
-
             const purchaseInfo = this.purchaseInfo;
-
             let totalSavings = 0;
-
             // loop through each restaurant in purchaseInfo
             for (let restaurantName in purchaseInfo) {
               // check if the restaurant exists in the restaurants data
@@ -196,23 +208,59 @@
                     const originalPrice =
                       this.restaurants[restaurantName].bagsInfo[bagType]
                         .originalPrice;
-                    console.log(originalPrice);
                     const discountedPrice =
                       this.restaurants[restaurantName].bagsInfo[bagType].price;
-                    console.log(discountedPrice);
                     const priceDifference = originalPrice - discountedPrice;
                     const quantityPurchased =
                       purchaseInfo[restaurantName][bagType];
-
                     totalSavings += priceDifference * quantityPurchased;
                   }
                 }
               }
             }
-
-            return totalSavings;
+            totalSavings = totalSavings.toFixed(2);
             this.userAmountSaved = totalSavings;
+            //proceed to update the user's amount saved
+            if (this.userAmountSaved) {
+              this.updateUserSavings();
+              this.fetchUserSavingsLeaderboard();
+            }
+            console.log(this.userAmountSaved);
+            return totalSavings;
           },
+
+          updateUserSavings() {
+            const savingsPath = `users/${this.userID}/`; // Modify the path as needed
+            const updatedSavings = { moneySaved: this.userAmountSaved };
+            update(ref(db, savingsPath), updatedSavings)
+              .then(() => {
+                console.log("User savings updated successfully!");
+              })
+              .catch((error) => {
+                console.error("Error updating user's savings: ", error);
+              });
+          },
+
+          fetchUserSavingsLeaderboard() {
+            onValue(ref(db, "users/"), (snapshot) => {
+              const users = snapshot.val();
+              const leaderboard = [];
+
+              for (let userId in users) {
+                const user = users[userId];
+                leaderboard.push({
+                  name: user.name,
+                  savings: user.moneySaved,
+                });
+              }
+
+              this.userSavingsLeaderboard = leaderboard
+                .sort((a, b) => b.savings - a.savings) // Sort users by savings, in descending order
+                .slice(0, 8); // Take top 8 users
+              console.log(this.userSavingsLeaderboard);
+            });
+          },
+
           //get user's carbon emissions by month
           getCarbonEmissions() {
             onValue(
@@ -242,11 +290,7 @@
             );
             // console.log(monthlyEmissions); //array of the corresponding emissions with the month
 
-            const ctx = document
-              .getElementById("emissionsChart")
-              .getContext("2d");
-
-            new Chart(ctx, {
+            new Chart("emissionsChart", {
               type: "line",
               data: {
                 labels: monthsWithData.map(
@@ -277,14 +321,18 @@
             });
           },
         },
-
         created() {
+          console.log("created");
           //check current user's login id
           onAuthStateChanged(auth, (user) => {
             if (user) {
               // User is signed in
-              this.userID = user.uid; //retrieve
+              this.userID = user.uid; //retrieve uid
               this.year = new Date().getFullYear();
+              //call functions
+              this.getUserPurchasedInfo();
+              this.fetchRestaurantsData();
+              // this.fetchUserSavingsLeaderboard();
             } else {
               // User is signed out
               this.userID = null;
