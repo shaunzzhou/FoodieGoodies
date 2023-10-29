@@ -82,6 +82,11 @@
       .card {
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
       }
+
+      .card-img-top {
+        max-height: 19vh;
+        object-fit: cover;
+      }
     </style>
     <!-- Topbar Start -->
     <div class="container-fluid px-5 d-none d-lg-block topBar">
@@ -183,7 +188,9 @@
 
       <!-- Newest cards -->
       <div class="container-fluid mt-3">
-        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+        <div
+          class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3"
+        >
           <restaurant-card
             v-for="info,name in restaurantList"
             :rname="name"
@@ -255,12 +262,11 @@
               <img
                 class="card-img-top h-100 mx-auto p-1"
                 v-bind:src="pic"
-                alt="Card image cap"
               />
 
               <div class="card-body float-lg-end">
 
-                <h5 class="card-title">{{rname}}</h5>
+                <h2 class="card-title">{{rname}}</h2>
 
                 <p class="card-text">
                   {{rinfo}}
