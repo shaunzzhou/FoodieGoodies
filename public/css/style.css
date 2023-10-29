@@ -10,68 +10,37 @@
 }
 
 .card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
-
-
-/* profile styling start */
-.list-group-item {
-    transition: all 0.3s;
-}
-
-.list-group-item:hover {
-    background-color: #f5f5f5; /* A light gray for hover effect */
-}
-
-.list-group-item.active {
-    background-color: #4CAF50;  
-    border-color: #4CAF50;  
-    color: white;
-}
-
-
-.image {
-  border-radius: 50%;
-  width: 250px; /* Adjust as needed */
-  height: 250px;
-  object-fit: cover; /* Keeps the aspect ratio of the image */
-}
-
-/* profile styling end */
-
 
 /* use in reference to root colours defined on */
 .bgBasic1 {
-    background-color: var(--primary); 
+  background-color: var(--primary);
 }
 
 .bgBasic2 {
-    background-color: var(--secondary);
+  background-color: var(--secondary);
 }
 
 .basic1 {
-    color: var(--primary);
+  color: var(--primary);
 }
 
 .basic2 {
-    color: var(--secondary);
+  color: var(--secondary);
 }
-
-
 
 .lighten:hover {
   transition: 10s;
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
-
-
 
 ul {
   list-style: none; /* Remove default bullets */

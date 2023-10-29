@@ -26,6 +26,7 @@
 
     <!-- Template Stylesheet -->
     <link href="./css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/leaderboard.css" />
 
     <!-- Custom Tab Icon -->
     <link href="../public/images/favicon.ico" rel="icon" />
@@ -35,9 +36,18 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Leaderboard styling -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Import chart.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!-- Import anime.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 
     <!-- Vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -109,19 +119,59 @@
     </nav>
     <!-- Navbar End -->
 
-    <div id="app">
-      <div class="mx-auto w-50">
-        <canvas id="emissionsChart">{{getCarbonEmissions()}}</canvas>
+    <!-- Main content -->
+
+    <div id="app" class="app-container animated">
+      <div class="leaderboard-section animated">
+        <header id="header" class="animated">
+          <h1>User Savings Leaderboard</h1>
+        </header>
+        <section id="leaderboard" class="animated">
+          <table>
+            <tr
+              v-for="(user,index) in userSavingsLeaderboard"
+              :class="{'highlighted-row':user.name === this.userName}"
+            >
+              <td class="number">{{index+1}}</td>
+              <td class="name">{{user.name}}</td>
+              <td class="points">
+                ${{parseFloat(user.savings).toFixed(2)}}
+                <img
+                  v-if="index === 0"
+                  class="medal"
+                  src="./images/gold-medal.png"
+                  alt="gold medal"
+                />
+                <img
+                  v-else-if="index === 1"
+                  class="medal"
+                  src="./images/silver-medal.png"
+                  alt="silver medal"
+                />
+                <img
+                  v-else-if="index === 2"
+                  class="medal"
+                  src="./images/bronze-medal.png"
+                  alt="bronze medal"
+                />
+              </td>
+            </tr>
+          </table>
+        </section>
       </div>
-
-      <!-- get restaurants information -->
-
-      <!-- get user's purchase -->
-
-      <div class="mx-auto w-50">
-        <canvas id=""></canvas>
+      <div class="graphs-section animated">
+        <div class="graph animated">
+          <h1>Your Top Purchases</h1>
+          <canvas id="topRestaurantsPolarChart"></canvas>
+        </div>
+        <div class="graph animated">
+          <h1>Your Carbon Emissions Prevented This Year!</h1>
+          <canvas id="emissionsChart"></canvas>
+        </div>
       </div>
     </div>
+
+    <!-- get restaurants information -->
 
     <!-- functions -->
     <script type="module">
@@ -160,12 +210,23 @@
               "December",
             ],
             userSavingsLeaderboard: [],
+            userName: "",
           };
         },
 
         computed: {},
 
         methods: {
+          fadeInFromTopAnimation() {
+            anime({
+              targets: ".animated",
+              translateY: [-40, 0], // Translate from -40px above to its original position
+              opacity: [0, 1], // Fade in from 0 opacity to full
+              duration: 800,
+              easing: "easeOutExpo",
+              delay: anime.stagger(100), // Delay of 100ms between each element
+            });
+          },
           getUserPurchasedInfo() {
             onValue(
               ref(db, `users/${this.userID}/orderHistory`),
@@ -191,7 +252,7 @@
                   }
                 }
                 this.purchaseInfo = purchaseInfo;
-                console.log(purchaseInfo);
+                this.renderTopRestaurantsPolarChart(this.purchaseInfo);
               }
             );
           },
@@ -229,8 +290,7 @@
                 }
               }
             }
-            totalSavings = totalSavings.toFixed(2);
-            this.userAmountSaved = totalSavings;
+            this.userAmountSaved = totalSavings.toFixed(2);
             //proceed to update the user's amount saved
             if (this.userAmountSaved) {
               this.updateUserSavings();
@@ -273,7 +333,7 @@
           },
 
           //get user's carbon emissions by month
-          getCarbonEmissions() {
+          getUserCarbonEmissions() {
             onValue(
               ref(db, `users/${this.userID}/carbonEmissionsSaved/${this.year}`),
               (snapshot) => {
@@ -331,6 +391,57 @@
               },
             });
           },
+          renderTopRestaurantsPolarChart(purchaseInfo) {
+            const restaurantCounts = {};
+            for (let restaurant in purchaseInfo) {
+              let totalBags = 0;
+              for (let bagType in purchaseInfo[restaurant]) {
+                totalBags += purchaseInfo[restaurant][bagType];
+              }
+              restaurantCounts[restaurant] = totalBags;
+            }
+
+            // Sort restaurants by the number of bags purchased and take the top 5
+            const topRestaurants = Object.keys(restaurantCounts)
+              .sort((a, b) => restaurantCounts[b] - restaurantCounts[a])
+              .slice(0, 5);
+
+            const data = {
+              labels: topRestaurants,
+              datasets: [
+                {
+                  data: topRestaurants.map(
+                    (restaurant) => restaurantCounts[restaurant]
+                  ),
+                  backgroundColor: [
+                    // You can modify these colors
+                    "rgba(255, 99, 132, 0.6)",
+                    "rgba(75, 192, 192, 0.6)",
+                    "rgba(255, 205, 86, 0.6)",
+                    "rgba(201, 203, 207, 0.6)",
+                    "rgba(54, 162, 235, 0.6)",
+                  ],
+                },
+              ],
+            };
+
+            const config = {
+              type: "polarArea",
+              data: data,
+              options: {
+                scales: {
+                  r: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            };
+
+            const ctx = document
+              .getElementById("topRestaurantsPolarChart")
+              .getContext("2d");
+            new Chart(ctx, config);
+          },
         },
         created() {
           console.log("created");
@@ -338,17 +449,27 @@
           onAuthStateChanged(auth, (user) => {
             if (user) {
               // User is signed in
+              console.log(user);
               this.userID = user.uid; //retrieve uid
               this.year = new Date().getFullYear();
+              onValue(ref(db, `users/${this.userID}/name`), (snapshot) => {
+                this.userName = snapshot.val();
+              });
+
               //call functions
               this.getUserPurchasedInfo();
               this.fetchRestaurantsData();
+              this.getUserCarbonEmissions();
+              this.renderTopRestaurantsPolarChart();
               // this.fetchUserSavingsLeaderboard();
             } else {
               // User is signed out
               this.userID = null;
             }
           });
+        },
+        mounted() {
+          this.fadeInFromTopAnimation();
         },
       });
 
