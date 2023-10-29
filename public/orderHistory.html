@@ -121,6 +121,7 @@
                       :rname="order.restaurantName"
                       :dt="order.datetime"
                       :rd="`restaurantProfile.html?resname=` + order.restaurantName"
+                      :pic="`images/restaurantImages/` + order.restaurantName + `/img2.jpg`"
                     >
                       <br />
                       <ul>
@@ -226,7 +227,7 @@
                     >
                       <div class="col-md-2 col-lg-2 ">
                         <img
-                          src="images/meatballs2.jpg"
+                          v-bind:src="pic"
                           class="img-fluid rounded-3 h-100px"
                         />
                       </div>
@@ -274,7 +275,7 @@
 
 
         `,
-        props: ["rname", "dt", "rd"],
+        props: ["rname", "dt", "rd", "pic"],
       });
       const vm = app.mount("#app");
     </script>

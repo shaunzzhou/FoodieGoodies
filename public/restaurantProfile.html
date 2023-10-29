@@ -107,7 +107,10 @@
 
     <div id="app">
       <!-- Hero Start -->
-      <div class="bgBasic1 bgHero shadow-lg container-fluid py-5 bg-hero mb-5">
+      <div
+        class="shadow-lg container-fluid py-5 bg-hero mb-5"
+        :style="{backgroundImage: `url('${pic1}')`}"
+      >
         <div class="container py-5">
           <div class="row justify-content-start">
             <div class="col-lg-8 text-center text-lg-start">
@@ -117,7 +120,7 @@
               <!-- 2 buttons -->
               <div class="justify-content-center">
                 <a
-                  href="./restaurantSelection.html"
+                  href="./restaurantSelection2.html"
                   class="btn shadow bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
                   >Return to Restaurant Selection</a
                 >
@@ -146,7 +149,7 @@
                 <!-- optional about us small text -->
                 <h6 class="basic1">About Us</h6>
                 <!-- main header -->
-                <h3 class="">{{title}}</h3>
+                <h3 class="">{{header}}</h3>
 
                 <!-- main description -->
                 <p id="details" class="mb-4">{{description}}</p>
@@ -198,7 +201,7 @@
               <img
                 class="d-flex shadow-lg justify-content-center my-5 border border-5 border-success w-100"
                 id="pics1"
-                src="./images/meatballs3.jpg"
+                :src="pic2"
               />
 
               <div class="container shadow-lg row bgBasic2 my-5 rounded">
@@ -206,12 +209,9 @@
                   <div class="p-3">
                     <h4 class="text-white">Possible Goodies:</h4>
 
-                    <div id="goodies text-white">
+                    <div class="goodies text-white">
                       <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li v-for="item of goodies">{{item}}</li>
                       </ul>
                     </div>
                   </div>
@@ -223,7 +223,7 @@
 
                     <div id="allergentInfo" class="text-white">
                       <ul>
-                        <li>Contains wheat</li>
+                        <li v-for="item of allergen">{{item}}</li>
                       </ul>
                     </div>
                   </div>
@@ -308,8 +308,12 @@
             feature2: "",
             feature2Info: "",
             location: "",
-            title: "",
+            header: "",
             rating: "",
+            goodies: [],
+            allergen: [],
+            pic1: "",
+            pic2: "",
           };
         },
         created() {
@@ -322,6 +326,8 @@
                 }
               );
               this.restaurantName = params.resname;
+              this.pic1 = `images/restaurantImages/${this.restaurantName}/img1.jpg`;
+              this.pic2 = `images/restaurantImages/${this.restaurantName}/img2.jpg`;
               onValue(
                 ref(db, `restaurants/${this.restaurantName}/restaurantInfo/`),
                 (snapshot) => {
@@ -334,7 +340,7 @@
                     this.feature2 = information["feature2"];
                     this.feature2Info = information["feature2Info"];
                     this.location = information["location"];
-                    this.title = information["title"];
+                    this.header = information["header"];
                   }
                 }
               );
@@ -344,6 +350,34 @@
                   const information = snapshot.val();
                   if (information) {
                     this.rating = information["starRating"];
+                  }
+                }
+              );
+              onValue(
+                ref(
+                  db,
+                  `restaurants/${this.restaurantName}/salesInfo/possibleGoodies`
+                ),
+                (snapshot) => {
+                  const information = snapshot.val();
+                  if (information) {
+                    for (let item in information) {
+                      this.goodies.push(information[item]);
+                    }
+                  }
+                }
+              );
+              onValue(
+                ref(
+                  db,
+                  `restaurants/${this.restaurantName}/salesInfo/allergenInfo`
+                ),
+                (snapshot) => {
+                  const information = snapshot.val();
+                  if (information) {
+                    for (let item in information) {
+                      this.allergen.push(information[item]);
+                    }
                   }
                 }
               );

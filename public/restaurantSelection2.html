@@ -139,76 +139,136 @@
 
     <header>
       <!-- navigation -->
-      <div class="restaurantSelectionBanner">words</div>
+      <div class="restaurantSelectionBanner"></div>
     </header>
 
-    <!-- search bar -->
-    <div class="container search-bar">
-      <div class="search-bar-outer bgBasic1">
-        <div class="search-bar-inner">
-          <form action="/search">
-            <h4 class="mb-2 text-white">Search Restaurant by Location:</h4>
-            <!-- searchParameters submit -->
-            <div class="input-group">
-              <input
-                v-model="searchParameters"
-                type="text"
-                name="keyword"
-                class="form-control"
-                placeholder="Input your current location here!"
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-major bgBasic2"
-                  @click="submit"
-                  id="search-button"
-                >
-                  <i class="fas fa-search"></i>
-                </button>
+    <div id="app">
+      <!-- search bar -->
+      <div class="container search-bar">
+        <div class="search-bar-outer bgBasic1">
+          <div class="search-bar-inner">
+            <form action="/search">
+              <h4 class="mb-2 text-white">Search Restaurant by Name:</h4>
+              <!-- searchParameters submit -->
+              <div class="input-group">
+                <input
+                  type="text"
+                  name="keyword"
+                  class="form-control"
+                  placeholder="Input the restaurant name here!"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-major bgBasic2" id="search-button">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Newest cards -->
-    <div class="container-fluid mt-3">
-      <div class="row" v-for="restaurant in restauraunts">
-        <div class="col-lg-3 col-md-6 mt-2 mb-md-5 mb-sm-2">
-          <div
-            class="card"
-            style="width: 20rem; margin-left: auto; margin-right: auto"
-          >
-            <img
-              class="card-img-top h-75 mx-auto p-1 float-lg-start"
-              src="images/logo.png"
-              alt="Card image cap"
-            />
-            <!-- :images -->
-            <div class="card-body float-lg-end">
-              <!-- :restaurantName -->
-              <h5 class="card-title">Ima-Sushi</h5>
-              <!-- :restaurantDescription -->
-              <p class="card-text">
-                restaurant description/food genre information
-              </p>
-
-              <!-- :restaurantMeta -->
-              <p class="card-text text-secondary">
-                restaurant meta information list
-              </p>
-
-              <!-- :restaurantURL -->
-              <a href="./restaurantProfile.html" class="btn btn-success"
-                >View Restaurant</a
-              >
-            </div>
+            </form>
           </div>
         </div>
       </div>
+
+      <!-- Newest cards -->
+      <div class="container-fluid mt-3">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+          <restaurant-card
+            v-for="info,name in restaurantList"
+            :rname="name"
+            :rinfo="info.restaurantInfo.header"
+            :rmetainfo="info.metaInfo.starRating"
+            :rd="`restaurantProfile.html?resname=` + name"
+            :pic="`images/restaurantImages/` + name + `/img2.jpg`"
+          >
+            ></restaurant-card
+          >
+        </div>
+      </div>
+      <!-- Newest cards end -->
     </div>
-    <!-- Newest cards end -->
+
+    <script type="module">
+      import {
+        db,
+        auth,
+        ref,
+        onValue,
+        onAuthStateChanged,
+        update,
+        push,
+        set,
+      } from "./index.js";
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            restaurantList: {},
+          };
+        },
+        methods: {
+          getRestaurants() {
+            onValue(ref(db, `restaurants/`), (snapshot) => {
+              const reslist = snapshot.val();
+              if (reslist) {
+                for (let res in reslist) {
+                  this.restaurantList[res] = reslist[res];
+                }
+              }
+            });
+          },
+        },
+        created() {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              this.uid = user.uid;
+              this.getRestaurants();
+            } else {
+              location.href = "404.html";
+            }
+          });
+        },
+      });
+
+      app.component("restaurant-card", {
+        data() {
+          return {};
+        },
+        template: `
+        <div class="col mt-2 mb-md-5 mb-sm-2">
+            <div
+              class="card"
+              style="width: 20rem; margin-left: auto; margin-right: auto"
+            >
+              <img
+                class="card-img-top h-100 mx-auto p-1"
+                v-bind:src="pic"
+                alt="Card image cap"
+              />
+
+              <div class="card-body float-lg-end">
+
+                <h5 class="card-title">{{rname}}</h5>
+
+                <p class="card-text">
+                  {{rinfo}}
+                </p>
+                <h5>
+                  <span id="rating">{{rmetainfo}}</span> / 5<img
+                    style="width: 50px"
+                    src="images/basic-star-flat-vector_78370-1483.avif"
+                  />
+                </h5>
+
+                <a v-bind:href="rd" class="btn btn-success"
+                  >View Restaurant</a
+                >
+              </div>
+            </div>
+          </div>`,
+        props: ["pic", "rname", "rinfo", "rmetainfo", "rd", "pic"],
+      });
+
+      const vm = app.mount("#app");
+    </script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script
