@@ -35,6 +35,9 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet" />
 
+    <!-- Custom Tab Icon -->
+    <link href="../public/images/favicon.ico" rel="icon" />
+
     <style>
       .bgHero {
         background: url("./images/moreFood.jpg") center no-repeat;
@@ -50,14 +53,22 @@
     <div class="container-fluid px-5 d-none d-lg-block topBar">
       <div class="row gx-5 py-3 align-items-center">
         <div class="col-lg-3">
-          <div></div>
+          <div class="d-flex align-items-center justify-content-start">
+            <a href="landingPage.html">
+              <img
+                src="images/logo.png"
+                alt="FoodieGoodies Website Logo"
+                style="height: 80px; width: 80px"
+              />
+            </a>
+          </div>
         </div>
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-center">
             <a href="landingPage.html" class="navbar-brand ms-lg-5">
               <h1 class="m-0">
-                <span class="basic1 font-weight-bold">Foodie</span
-                ><span class="basic2 font-weight-bold">Goodies</span>
+                <span class="basic1">Foodie </span
+                ><span class="basic2">Goodies</span>
               </h1>
             </a>
           </div>
@@ -109,7 +120,7 @@
       <!-- Hero Start -->
       <div
         class="shadow-lg container-fluid py-5 bg-hero mb-5"
-        :style="{backgroundImage: `url('${pic1}')`}"
+        :style="{backgroundImage: `url('${pic1}')`, 'background-size': 'cover'}"
       >
         <div class="container py-5">
           <div class="row justify-content-start">
@@ -125,7 +136,7 @@
                   >Return to Restaurant Selection</a
                 >
                 <a
-                  href=""
+                  :href="website"
                   class="btn shadow bgBasic2 py-md-3 px-md-5 text-light lighten"
                   >Check us out! (external website link)</a
                 >
@@ -314,6 +325,7 @@
             allergen: [],
             pic1: "",
             pic2: "",
+            website: "",
           };
         },
         created() {
@@ -341,6 +353,7 @@
                     this.feature2Info = information["feature2Info"];
                     this.location = information["location"];
                     this.header = information["header"];
+                    this.website = information["website"];
                   }
                 }
               );
