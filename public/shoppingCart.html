@@ -29,6 +29,9 @@
 
     <!-- Custom Tab Icon -->
     <link href="../public/images/favicon.ico" rel="icon" />
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
   <body>
@@ -329,6 +332,46 @@
         </div>
       </div>
     </div>
+
+    <script type="module">
+      import {
+        db,
+        auth,
+        createUserWithEmailAndPassword,
+        set,
+        ref,
+        signInWithEmailAndPassword,
+        update,
+        onAuthStateChanged,
+        onValue,
+      } from "./index.js";
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            key: value,
+          };
+        },
+        methods: {
+          name() {},
+        },
+      });
+
+      app.component("cart-item", {
+        data() {
+          return {
+            key: value,
+          };
+        },
+        methods: {
+          name() {},
+        },
+        template: ``,
+        props: [],
+      });
+
+      const vm = app.mount("#app");
+    </script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script
