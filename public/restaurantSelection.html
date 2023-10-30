@@ -27,6 +27,9 @@
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="./css/restaurantSelection.css" />
 
+    <!-- Custom Tab Icon -->
+    <link href="../public/images/favicon.ico" rel="icon" />
+
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:400,700"
       rel="stylesheet"
@@ -35,34 +38,78 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
   <body>
-    <!-- Topbar Start -->
-    <div class="container-fluid px-5 d-none d-lg-block topBar">
-      <div class="row gx-5 py-3 align-items-center">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
-          <div class="d-flex align-items-center justify-content-center">
-            <a href="index.html" class="navbar-brand ms-lg-5">
-              <h1 class="m-0">
-                <span class="basic1">Foodie </span
-                ><span class="basic2">Goodies</span>
-              </h1>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Top bar end -->
+    <style>
+      header {
+        overflow: hidden;
+      }
+
+      .restaurantSelectionBanner {
+        position: relative;
+        z-index: -1;
+        margin: -5px;
+        height: 360px;
+        background: center
+          url("https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg");
+        background-size: cover;
+        filter: blur(3px);
+      }
+
+      .search-bar .search-bar-outer {
+        margin: 0 auto;
+        max-width: 680px;
+        border-radius: 8px;
+        padding: 20px 30px;
+        border: 0;
+        margin-top: -60px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-bar .search-bar-inner h4 {
+        color: rgb(163, 241, 163);
+      }
+
+      .form-control::placeholder {
+        color: #aaaaaa;
+        font-size: 0.8rem;
+      }
+
+      .card {
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-img-top {
+        max-height: 19vh;
+        object-fit: cover;
+      }
+      .navhover:hover {
+        text-decoration: underline;
+      }
+      .xform:hover {
+        transform: scale(1.06);
+        box-shadow: 0px 0px 20px rgba(0, 0, 0.5);
+      }
+    </style>
 
     <!-- Navbar Start -->
     <nav
-      class="navbar navbar-expand-lg bgBasic1 navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5 sticky-top"
+      class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
     >
-      <div class="navbar-brand d-flex d-lg-none">
-        <h1 class="m-0 display-4">
-          <span class="text-light">Foodie </span>Goodies
+      <div class="navbar-brand d-flex align-items-center">
+        <a href="landingPage.html">
+          <img
+            src="images/logo.png"
+            alt="FoodieGoodies Website Logo"
+            style="height: 80px; width: 80px"
+          />
+        </a>
+        <h1>
+          <span class="basic1">Foodie </span><span class="basic2">Goodies</span>
         </h1>
       </div>
       <button
@@ -74,20 +121,30 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav mx-auto py-0">
-          <a href="landingPage.html" class="nav-item nav-link mx-2">Home</a>
+        <div class="navbar-nav ms-auto py-0">
+          <a
+            href="landingPage.html"
+            class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
+            >Home</a
+          >
           <a
             href="restaurantSelection.html"
-            class="nav-item nav-link mx-2 active"
-            >Restaurant Selection</a
+            class="nav-item nav-link mx-1 navhover active"
+            ><strong>Restaurants</strong></a
           >
-          <a href="shoppingCart.html" class="nav-item nav-link mx-2"
-            >Shopping Cart</a
+          <a
+            href="shoppingCart.html"
+            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+            >Cart</a
           >
-          <a href="orderHistory.html" class="nav-item nav-link mx-2"
+          <a
+            href="orderHistory.html"
+            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
             >Order History</a
           >
-          <a href="personalProfile.html" class="nav-item nav-link mx-2"
+          <a
+            href="personalProfile.html"
+            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
             >Profile</a
           >
         </div>
@@ -95,196 +152,142 @@
     </nav>
     <!-- Navbar End -->
 
-    <!--search bar begin-->
-    <div class="searchBox justify-content-center">
-      <input
-        class="searchInput"
-        type="text"
-        name="searchBox"
-        placeholder="Search for a restaurant's name!"
-      />
-      <button class="searchButton">
-        <!-- search icon -->
-        <i class="material-icons"> search </i>
-      </button>
-    </div>
-    <!--search bar end-->
+    <header>
+      <!-- navigation -->
+      <div class="restaurantSelectionBanner"></div>
+    </header>
 
-    <!--Restaurant Cards Begin-->
-
-    <div class="restaurantListings">
-      <div class="row">
-        <div class="col">
-          <div class="cardContent">
-            <div class="meta">
-              <div
-                class="photo"
-                style="background-image: url(./images/imaSushi.jpeg)"
-              ></div>
-              <ul class="details">
-                <li class="openHours">Open from 9.00am to 9.00pm</li>
-                <li class="openDays">Mondays to Fridays</li>
-              </ul>
-            </div>
-            <div class="description">
-              <h1>Ima-Sushi</h1>
-              <p>
-                IMA-SUSHI is a fast casual sushi restaurant that offers fresh
-                sashimi at affordable prices.
-              </p>
-              <p class="read-more">
-                <a class="btn btn-success" href="restaurantProfile.html"
-                  >View Restaurant</a
-                >
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="cardContent">
-            <div class="meta">
-              <div
-                class="photo"
-                style="background-image: url(./images/jumboSeafood.jpeg)"
-              ></div>
-              <ul class="details">
-                <li class="openHours">Open from 10.00am to 10.00pm</li>
-                <li class="openDays">Closed on Sundays</li>
-              </ul>
-            </div>
-            <div class="description">
-              <h1>Jumbo Seafood</h1>
-              <p>
-                Jumbo Seafood is a Singaporean restaurant chain specialising in
-                the seafood aspects of Singaporean cuisine and dishes, such as
-                Chili crab.
-              </p>
-              <p class="read-more">
-                <a class="btn btn-success" href="restaurantProfile.html"
-                  >View Restaurant</a
-                >
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="cardContent">
-            <div class="meta">
-              <div
-                class="photo"
-                style="background-image: url(./images/jumboSeafood.jpeg)"
-              ></div>
-              <ul class="details">
-                <li class="openHours">Open from 10.00am to 10.00pm</li>
-                <li class="openDays">Closed on Sundays</li>
-              </ul>
-            </div>
-            <div class="description">
-              <h1>Restaurant Name</h1>
-              <p>
-                Jumbo Seafood is a Singaporean restaurant chain specialising in
-                the seafood aspects of Singaporean cuisine and dishes, such as
-                Chili crab.
-              </p>
-              <p class="read-more">
-                <a class="btn btn-success" href="restaurantProfile.html"
-                  >View Restaurant</a
-                >
-              </p>
-            </div>
+    <div id="app">
+      <!-- search bar -->
+      <div class="container search-bar">
+        <div class="search-bar-outer bgBasic1">
+          <div class="search-bar-inner">
+            <form action="/search">
+              <h4 class="mb-2 text-white">Search Restaurant by Name:</h4>
+              <!-- searchParameters submit -->
+              <div class="input-group">
+                <input
+                  type="text"
+                  name="keyword"
+                  class="form-control"
+                  placeholder="Input the restaurant name here!"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-major bgBasic2" id="search-button">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col">
-          <div class="cardContent">
-            <div class="meta">
-              <div
-                class="photo"
-                style="background-image: url(./images/jumboSeafood.jpeg)"
-              ></div>
-              <ul class="details">
-                <li class="openHours">Open from 10.00am to 10.00pm</li>
-                <li class="openDays">Closed on Sundays</li>
-              </ul>
-            </div>
-            <div class="description">
-              <h1>Restaurant Name</h1>
-              <p>
-                Jumbo Seafood is a Singaporean restaurant chain specialising in
-                the seafood aspects of Singaporean cuisine and dishes, such as
-                Chili crab.
-              </p>
-              <p class="read-more">
-                <a class="btn btn-success" href="restaurantProfile.html"
-                  >View Restaurant</a
-                >
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="cardContent">
-            <div class="meta">
-              <div
-                class="photo"
-                style="background-image: url(./images/jumboSeafood.jpeg)"
-              ></div>
-              <ul class="details">
-                <li class="openHours">Open from 10.00am to 10.00pm</li>
-                <li class="openDays">Closd on Sundays</li>
-              </ul>
-            </div>
-            <div class="description">
-              <h1>Restaurant Name</h1>
-              <p>
-                Jumbo Seafood is a Singaporean restaurant chain specialising in
-                the seafood aspects of Singaporean cuisine and dishes, such as
-                Chili crab.
-              </p>
-              <p class="read-more">
-                <a class="btn btn-success" href="restaurantProfile.html"
-                  >View Restaurant</a
-                >
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="cardContent">
-            <div class="meta">
-              <div
-                class="photo"
-                style="background-image: url(./images/jumboSeafood.jpeg)"
-              ></div>
-              <ul class="details">
-                <li class="openHours">Open from 10.00am to 10.00pm</li>
-                <li class="openDays">Closd on Sundays</li>
-              </ul>
-            </div>
-            <div class="description">
-              <h1>Restaurant Name</h1>
-              <p>
-                Jumbo Seafood is a Singaporean restaurant chain specialising in
-                the seafood aspects of Singaporean cuisine and dishes, such as
-                Chili crab.
-              </p>
-              <p class="read-more">
-                <a class="btn btn-success" href="restaurantProfile.html"
-                  >View Restaurant</a
-                >
-              </p>
-            </div>
-          </div>
+      <!-- Newest cards -->
+      <div class="container-fluid mt-3">
+        <div
+          class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3"
+        >
+          <restaurant-card
+            v-for="info,name in restaurantList"
+            :rname="name"
+            :rinfo="info.restaurantInfo.header"
+            :rmetainfo="info.metaInfo.starRating"
+            :rd="`restaurantProfile.html?resname=` + name"
+            :pic="`images/restaurantImages/` + name + `/img2.jpg`"
+            :location="info.restaurantInfo.location"
+          >
+            ></restaurant-card
+          >
         </div>
       </div>
+      <!-- Newest cards end -->
     </div>
-    <!--Restaurant Cards End-->
+
+    <script type="module">
+      import {
+        db,
+        auth,
+        ref,
+        onValue,
+        onAuthStateChanged,
+        update,
+        push,
+        set,
+      } from "./index.js";
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            restaurantList: {},
+          };
+        },
+        methods: {
+          getRestaurants() {
+            onValue(ref(db, `restaurants/`), (snapshot) => {
+              const reslist = snapshot.val();
+              if (reslist) {
+                for (let res in reslist) {
+                  this.restaurantList[res] = reslist[res];
+                }
+              }
+            });
+          },
+        },
+        created() {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              this.uid = user.uid;
+              this.getRestaurants();
+            } else {
+              location.href = "404.html";
+            }
+          });
+        },
+      });
+
+      app.component("restaurant-card", {
+        data() {
+          return {};
+        },
+        template: `
+        <div class="col mt-2 mb-md-5 mb-sm-2">
+            <div
+              class="card"
+              style="width: 23rem; margin-left: auto; margin-right: auto"
+            >
+              <img
+                class="card-img-top h-100 mx-auto p-1 xform img-fluid"
+                v-bind:src="pic"
+              />
+
+              <div class="card-body float-lg-end">
+
+                <h2 class="card-title">{{rname}}</h2>
+
+                <p class="card-text">
+                  {{rinfo}}
+                </p>
+                <h5>
+                  <span id="rating">{{rmetainfo}}</span> / 5<img
+                    style="width: 50px"
+                    src="images/basic-star-flat-vector_78370-1483.avif"
+                  />
+                </h5>
+                <p class="card-text">
+                  {{location}}
+                </p>
+                <a v-bind:href="rd" class="btn bgBasic1 text-white"
+                  >View Restaurant</a
+                >
+              </div>
+            </div>
+          </div>`,
+        props: ["pic", "rname", "rinfo", "rmetainfo", "rd", "pic", "location"],
+      });
+
+      const vm = app.mount("#app");
+    </script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script

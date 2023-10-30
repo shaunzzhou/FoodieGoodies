@@ -49,41 +49,20 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <!-- Topbar Start -->
-    <div class="container-fluid px-5 d-none d-lg-block topBar">
-      <div class="row gx-5 py-3 align-items-center">
-        <div class="col-lg-3">
-          <div class="d-flex align-items-center justify-content-start">
-            <a href="landingPage.html">
-              <img
-                src="images/logo.png"
-                alt="FoodieGoodies Website Logo"
-                style="height: 80px; width: 80px"
-              />
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="d-flex align-items-center justify-content-center">
-            <a href="landingPage.html" class="navbar-brand ms-lg-5">
-              <h1 class="m-0">
-                <span class="basic1">Foodie </span
-                ><span class="basic2">Goodies</span>
-              </h1>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Topbar End -->
-
     <!-- Navbar Start -->
     <nav
-      class="navbar navbar-expand-lg bgBasic1 navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5 sticky-top"
+      class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
     >
-      <div class="navbar-brand d-flex d-lg-none">
-        <h1 class="m-0 display-4">
-          <span class="text-light">Foodie </span>Goodies
+      <div class="navbar-brand d-flex align-items-center">
+        <a href="landingPage.html">
+          <img
+            src="images/logo.png"
+            alt="FoodieGoodies Website Logo"
+            style="height: 80px; width: 80px"
+          />
+        </a>
+        <h1>
+          <span class="basic1">Foodie </span><span class="basic2">Goodies</span>
         </h1>
       </div>
       <button
@@ -95,20 +74,30 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav mx-auto py-0">
-          <a href="landingPage.html" class="nav-item nav-link mx-2">Home</a>
+        <div class="navbar-nav ms-auto py-0">
           <a
-            href="restaurantSelection2.html"
-            class="nav-item nav-link mx-2 active"
-            >Restaurant Selection</a
+            href="landingPage.html"
+            class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
+            >Home</a
           >
-          <a href="shoppingCart.html" class="nav-item nav-link mx-2"
-            >Shopping Cart</a
+          <a
+            href="restaurantSelection.html"
+            class="nav-item nav-link mx-1 navhover active"
+            ><strong>Restaurants</strong></a
           >
-          <a href="orderHistory.html" class="nav-item nav-link mx-2"
+          <a
+            href="shoppingCart.html"
+            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+            >Cart</a
+          >
+          <a
+            href="orderHistory.html"
+            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
             >Order History</a
           >
-          <a href="personalProfile.html" class="nav-item nav-link mx-2"
+          <a
+            href="personalProfile.html"
+            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
             >Profile</a
           >
         </div>
@@ -125,13 +114,16 @@
         <div class="container py-5">
           <div class="row justify-content-start">
             <div class="col-lg-8 text-center text-lg-start">
-              <h1 class="display-1 text-white mb-md-4 fw-bold">
+              <h1
+                class="display-1 text-white mb-md-4 fw-bold"
+                style="text-shadow: 0 0 5px rgb(0, 0, 0)"
+              >
                 {{restaurantName}}
               </h1>
               <!-- 2 buttons -->
               <div class="justify-content-center">
                 <a
-                  href="./restaurantSelection2.html"
+                  href="./restaurantSelection.html"
                   class="btn shadow bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
                   >Return to Restaurant Selection</a
                 >

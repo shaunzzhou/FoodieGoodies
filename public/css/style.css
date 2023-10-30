@@ -42,6 +42,10 @@
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
+.navhover:hover {
+  text-decoration: underline;
+}
+
 ul {
   list-style: none; /* Remove default bullets */
 }
