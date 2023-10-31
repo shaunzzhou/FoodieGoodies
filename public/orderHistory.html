@@ -35,62 +35,69 @@
   </head>
 
   <body style="background-color: rgb(191, 191, 191, 0.3)">
-    <!-- Navbar Start -->
-    <nav
-      class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
-    >
-      <div class="navbar-brand d-flex align-items-center">
-        <a href="landingPage.html">
-          <img
-            src="images/logo.png"
-            alt="FoodieGoodies Website Logo"
-            style="height: 80px; width: 80px"
-          />
-        </a>
-        <h1>
-          <span class="basic1">Foodie </span><span class="basic2">Goodies</span>
-        </h1>
-      </div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto py-0">
-          <a
-            href="landingPage.html"
-            class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
-            >Home</a
-          >
-          <a
-            href="restaurantSelection.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Restaurants</a
-          >
-          <a
-            href="shoppingCart.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Cart</a
-          >
-          <a
-            href="orderHistory.html"
-            class="nav-item nav-link mx-1 navhover active"
-            ><strong>Order History</strong></a
-          >
-          <a
-            href="personalProfile.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Profile</a
-          >
-        </div>
-      </div>
-    </nav>
-    <!-- Navbar End -->
     <div id="app">
+      <!-- Navbar Start -->
+      <nav
+        class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
+      >
+        <div class="navbar-brand d-flex align-items-center">
+          <a href="landingPage.html">
+            <img
+              src="images/logo.png"
+              alt="FoodieGoodies Website Logo"
+              style="height: 80px; width: 80px"
+            />
+          </a>
+          <h1>
+            <span class="basic1">Foodie </span
+            ><span class="basic2">Goodies</span>
+          </h1>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0">
+            <a
+              href="landingPage.html"
+              class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
+              >Home</a
+            >
+            <a
+              href="restaurantSelection.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >Restaurants</a
+            >
+            <a
+              href="shoppingCart.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >Cart</a
+            >
+            <a
+              href="orderHistory.html"
+              class="nav-item nav-link mx-1 navhover active"
+              ><strong>Order History</strong></a
+            >
+            <a
+              href="personalProfile.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >{{userName}}'s Profile</a
+            >
+            <a
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              @click="logOut()"
+              >Sign Out</a
+            >
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar End -->
+
       <div class="container h-100 h-custom">
         <div class="container py-5 h-100">
           <div class="card shadow card-registration card-registration">
@@ -150,6 +157,7 @@
         update,
         push,
         set,
+        signOut,
       } from "./index.js";
 
       const app = Vue.createApp({
@@ -157,6 +165,7 @@
           return {
             orderHistory: [],
             uid: "",
+            userName: "",
           };
         },
         methods: {
@@ -170,12 +179,28 @@
               }
             });
           },
+          logOut() {
+            const confirmation = confirm("Are you sure you want to log out?");
+            if (confirmation) {
+              signOut(auth)
+                .then(() => {
+                  alert("You have signed out.");
+                  location.href = "index.html";
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
+            }
+          },
         },
         created() {
           onAuthStateChanged(auth, (user) => {
             if (user) {
-              this.uid = user.uid;
-              this.getOrderHistory();
+              onValue(ref(db, `users/${user.uid}/name`), (snapshot) => {
+                this.userName = snapshot.val();
+                this.uid = user.uid;
+                this.getOrderHistory();
+              });
             } else {
               location.href = "404.html";
             }

@@ -23,6 +23,7 @@ export {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 export const app = initializeApp(firebaseConfig);
 export const db = getDatabase();

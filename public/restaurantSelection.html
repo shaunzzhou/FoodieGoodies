@@ -41,9 +41,7 @@
 
     <!-- Vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  </head>
 
-  <body>
     <style>
       header {
         overflow: hidden;
@@ -95,69 +93,77 @@
         box-shadow: 0px 0px 20px rgba(0, 0, 0.5);
       }
     </style>
+  </head>
 
-    <!-- Navbar Start -->
-    <nav
-      class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
-    >
-      <div class="navbar-brand d-flex align-items-center">
-        <a href="landingPage.html">
-          <img
-            src="images/logo.png"
-            alt="FoodieGoodies Website Logo"
-            style="height: 80px; width: 80px"
-          />
-        </a>
-        <h1>
-          <span class="basic1">Foodie </span><span class="basic2">Goodies</span>
-        </h1>
-      </div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto py-0">
-          <a
-            href="landingPage.html"
-            class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
-            >Home</a
-          >
-          <a
-            href="restaurantSelection.html"
-            class="nav-item nav-link mx-1 navhover active"
-            ><strong>Restaurants</strong></a
-          >
-          <a
-            href="shoppingCart.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Cart</a
-          >
-          <a
-            href="orderHistory.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Order History</a
-          >
-          <a
-            href="personalProfile.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Profile</a
-          >
-        </div>
-      </div>
-    </nav>
-    <!-- Navbar End -->
-
-    <header>
-      <!-- navigation -->
-      <div class="restaurantSelectionBanner"></div>
-    </header>
-
+  <body>
     <div id="app">
+      <!-- Navbar Start -->
+      <nav
+        class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
+      >
+        <div class="navbar-brand d-flex align-items-center">
+          <a href="landingPage.html">
+            <img
+              src="images/logo.png"
+              alt="FoodieGoodies Website Logo"
+              style="height: 80px; width: 80px"
+            />
+          </a>
+          <h1>
+            <span class="basic1">Foodie </span
+            ><span class="basic2">Goodies</span>
+          </h1>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0">
+            <a
+              href="landingPage.html"
+              class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
+              >Home</a
+            >
+            <a
+              href="restaurantSelection.html"
+              class="nav-item nav-link mx-1 navhover active"
+              ><strong>Restaurants</strong></a
+            >
+            <a
+              href="shoppingCart.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >Cart</a
+            >
+            <a
+              href="orderHistory.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >Order History</a
+            >
+            <a
+              href="personalProfile.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >{{userName}}'s Profile</a
+            >
+            <a
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              @click="logOut()"
+              >Sign Out</a
+            >
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar End -->
+
+      <header>
+        <!-- navigation -->
+        <div class="restaurantSelectionBanner"></div>
+      </header>
+
       <!-- search bar -->
       <div class="container search-bar">
         <div class="search-bar-outer bgBasic1">
@@ -214,12 +220,14 @@
         update,
         push,
         set,
+        signOut,
       } from "./index.js";
 
       const app = Vue.createApp({
         data() {
           return {
             restaurantList: {},
+            userName: "",
           };
         },
         methods: {
@@ -233,12 +241,27 @@
               }
             });
           },
+          logOut() {
+            const confirmation = confirm("Are you sure you want to log out?");
+            if (confirmation) {
+              signOut(auth)
+                .then(() => {
+                  alert("You have signed out.");
+                  location.href = "index.html";
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
+            }
+          },
         },
         created() {
           onAuthStateChanged(auth, (user) => {
             if (user) {
-              this.uid = user.uid;
-              this.getRestaurants();
+              onValue(ref(db, `users/${user.uid}/name`), (snapshot) => {
+                this.userName = snapshot.val();
+                this.getRestaurants();
+              });
             } else {
               location.href = "404.html";
             }
@@ -251,7 +274,7 @@
           return {};
         },
         template: `
-        <div class="col mt-2 mb-md-5 mb-sm-2">
+        <div class="col mt-2 mb-md-5 mb-2">
             <div
               class="card"
               style="width: 23rem; margin-left: auto; margin-right: auto"
@@ -277,7 +300,7 @@
                 <p class="card-text">
                   {{location}}
                 </p>
-                <a v-bind:href="rd" class="btn bgBasic1 text-white"
+                <a v-bind:href="rd" class="btn btn-success bgBasic1 text-white"
                   >View Restaurant</a
                 >
               </div>

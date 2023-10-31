@@ -35,272 +35,297 @@
   </head>
 
   <body style="background-color: rgb(191, 191, 191, 0.3)">
-    <!-- Navbar Start -->
-    <nav
-      class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
-    >
-      <div class="navbar-brand d-flex align-items-center">
-        <a href="landingPage.html">
-          <img
-            src="images/logo.png"
-            alt="FoodieGoodies Website Logo"
-            style="height: 80px; width: 80px"
-          />
-        </a>
-        <h1>
-          <span class="basic1">Foodie </span><span class="basic2">Goodies</span>
-        </h1>
-      </div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+    <div id="app">
+      <!-- Navbar Start -->
+      <nav
+        class="navbar navbar-expand-lg bg-white navbar-light shadow-lg py-2 px-3 sticky-top"
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto py-0">
-          <a
-            href="landingPage.html"
-            class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
-            >Home</a
-          >
-          <a
-            href="restaurantSelection.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Restaurants</a
-          >
-          <a
-            href="shoppingCart.html"
-            class="nav-item nav-link mx-1 navhover active"
-            ><strong>Cart</strong></a
-          >
-          <a
-            href="orderHistory.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Order History</a
-          >
-          <a
-            href="personalProfile.html"
-            class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
-            >Profile</a
-          >
+        <div class="navbar-brand d-flex align-items-center">
+          <a href="landingPage.html">
+            <img
+              src="images/logo.png"
+              alt="FoodieGoodies Website Logo"
+              style="height: 80px; width: 80px"
+            />
+          </a>
+          <h1>
+            <span class="basic1">Foodie </span
+            ><span class="basic2">Goodies</span>
+          </h1>
         </div>
-      </div>
-    </nav>
-    <!-- Navbar End -->
-
-    <!-- shopping cart start -->
-    <div class="container h-100 h-custom">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12">
-            <div
-              class="card shadow card-registration card-registration-2"
-              style="border-radius: 15px"
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0">
+            <a
+              href="landingPage.html"
+              class="nav-item nav-link mx-1 text-secondary-emphasis navhover"
+              >Home</a
             >
-              <div class="card-body p-0">
-                <div class="row g-0">
-                  <div class="col-lg-8">
-                    <div class="p-5">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-5"
-                      >
-                        <h1 class="fw-bold mb-0 text-black">My Cart</h1>
-                        <h6 class="mb-0 text-muted">3 items</h6>
-                      </div>
-                      <hr class="my-4" />
+            <a
+              href="restaurantSelection.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >Restaurants</a
+            >
+            <a
+              href="shoppingCart.html"
+              class="nav-item nav-link mx-1 navhover active"
+              ><strong>Cart</strong></a
+            >
+            <a
+              href="orderHistory.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >Order History</a
+            >
+            <a
+              href="personalProfile.html"
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              >{{userName}}'s Profile</a
+            >
+            <a
+              class="nav-item nav-link mx-1 navhover text-secondary-emphasis"
+              @click="logOut()"
+              >Sign Out</a
+            >
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar End -->
 
-                      <div
-                        class="row mb-4 d-flex justify-content-between align-items-center"
-                      >
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img
-                            src="images/meatballs2.jpg"
-                            class="img-fluid rounded-3 h-100px"
-                            alt="Cotton T-shirt"
-                          />
+      <!-- shopping cart start -->
+      <div class="container h-100 h-custom">
+        <div class="container py-5 h-100">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-12">
+              <div
+                class="card shadow card-registration card-registration-2"
+                style="border-radius: 15px"
+              >
+                <div class="card-body p-0">
+                  <div class="row g-0">
+                    <div class="col-lg-8">
+                      <div class="p-5">
+                        <div
+                          class="d-flex justify-content-between align-items-center mb-5"
+                        >
+                          <h1 class="fw-bold mb-0 text-black">My Cart</h1>
+                          <h6 class="mb-0 text-muted">3 items</h6>
                         </div>
-                        <!-- restaurant name -->
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Restaurant Name</h6>
-                          <h6 class="text-black mb-0">Goodie Bags reserved</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- button to minus -->
-                          <button
-                            class="btn btn-link px-2"
-                            onclick="removeBag()"
-                          >
-                            <i class="fas fa-minus"></i>
-                          </button>
+                        <hr class="my-4" />
 
-                          <!-- button to add -->
-                          <div id="item1" class="mt-2 mx-2">1</div>
+                        <div
+                          class="row mb-4 d-flex justify-content-between align-items-center"
+                        >
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <img
+                              src="images/meatballs2.jpg"
+                              class="img-fluid rounded-3 h-100px"
+                              alt="Cotton T-shirt"
+                            />
+                          </div>
+                          <!-- restaurant name -->
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-muted">Restaurant Name</h6>
+                            <h6 class="text-black mb-0">
+                              Goodie Bags reserved
+                            </h6>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <!-- button to minus -->
+                            <button
+                              class="btn btn-link px-2"
+                              onclick="removeBag()"
+                            >
+                              <i class="fas fa-minus"></i>
+                            </button>
 
-                          <button class="btn btn-link px-2" onclick="addBag()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
+                            <!-- button to add -->
+                            <div id="item1" class="mt-2 mx-2">1</div>
 
-                        <!-- current Number of bags -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">1 Bag</h6>
-                        </div>
+                            <button
+                              class="btn btn-link px-2"
+                              onclick="addBag()"
+                            >
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
 
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <button
-                            onclick="removeItem()"
-                            class="btn text-danger"
-                          >
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </div>
-                      </div>
+                          <!-- current Number of bags -->
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h6 class="mb-0">1 Bag</h6>
+                          </div>
 
-                      <hr class="my-4" />
-
-                      <div
-                        class="row mb-4 d-flex justify-content-between align-items-center"
-                      >
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img
-                            src="images/meatballs2.jpg"
-                            class="img-fluid rounded-3 h-100px"
-                            alt="Cotton T-shirt"
-                          />
-                        </div>
-                        <!-- restaurant name -->
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Restaurant Name</h6>
-                          <h6 class="text-black mb-0">Goodie Bags reserved</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- button to minus -->
-                          <button
-                            class="btn btn-link px-2"
-                            onclick="removeBag()"
-                          >
-                            <i class="fas fa-minus"></i>
-                          </button>
-
-                          <!-- button to add -->
-                          <div id="item1" class="mt-2 mx-2">1</div>
-
-                          <button class="btn btn-link px-2" onclick="addBag()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-
-                        <!-- current Number of bags -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">1 Bag</h6>
-                        </div>
-
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <button
-                            onclick="removeItem()"
-                            class="btn text-danger"
-                          >
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </div>
-                      </div>
-
-                      <hr class="my-4" />
-
-                      <div
-                        class="row mb-4 d-flex justify-content-between align-items-center"
-                      >
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img
-                            src="images/meatballs2.jpg"
-                            class="img-fluid rounded-3 h-100px"
-                            alt="Cotton T-shirt"
-                          />
-                        </div>
-                        <!-- restaurant name -->
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Restaurant Name</h6>
-                          <h6 class="text-black mb-0">Goodie Bags reserved</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <!-- button to minus -->
-                          <button
-                            class="btn btn-link px-2"
-                            onclick="removeBag()"
-                          >
-                            <i class="fas fa-minus"></i>
-                          </button>
-
-                          <!-- button to add -->
-                          <div id="item1" class="mt-2 mx-2">1</div>
-
-                          <button class="btn btn-link px-2" onclick="addBag()">
-                            <i class="fas fa-plus"></i>
-                          </button>
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <button
+                              onclick="removeItem()"
+                              class="btn text-danger"
+                            >
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
                         </div>
 
-                        <!-- current Number of bags -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">1 Bag</h6>
+                        <hr class="my-4" />
+
+                        <div
+                          class="row mb-4 d-flex justify-content-between align-items-center"
+                        >
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <img
+                              src="images/meatballs2.jpg"
+                              class="img-fluid rounded-3 h-100px"
+                              alt="Cotton T-shirt"
+                            />
+                          </div>
+                          <!-- restaurant name -->
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-muted">Restaurant Name</h6>
+                            <h6 class="text-black mb-0">
+                              Goodie Bags reserved
+                            </h6>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <!-- button to minus -->
+                            <button
+                              class="btn btn-link px-2"
+                              onclick="removeBag()"
+                            >
+                              <i class="fas fa-minus"></i>
+                            </button>
+
+                            <!-- button to add -->
+                            <div id="item1" class="mt-2 mx-2">1</div>
+
+                            <button
+                              class="btn btn-link px-2"
+                              onclick="addBag()"
+                            >
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+
+                          <!-- current Number of bags -->
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h6 class="mb-0">1 Bag</h6>
+                          </div>
+
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <button
+                              onclick="removeItem()"
+                              class="btn text-danger"
+                            >
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
                         </div>
 
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <button
-                            onclick="removeItem()"
-                            class="btn text-danger"
-                          >
-                            <i class="fas fa-times"></i>
-                          </button>
+                        <hr class="my-4" />
+
+                        <div
+                          class="row mb-4 d-flex justify-content-between align-items-center"
+                        >
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <img
+                              src="images/meatballs2.jpg"
+                              class="img-fluid rounded-3 h-100px"
+                              alt="Cotton T-shirt"
+                            />
+                          </div>
+                          <!-- restaurant name -->
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-muted">Restaurant Name</h6>
+                            <h6 class="text-black mb-0">
+                              Goodie Bags reserved
+                            </h6>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <!-- button to minus -->
+                            <button
+                              class="btn btn-link px-2"
+                              onclick="removeBag()"
+                            >
+                              <i class="fas fa-minus"></i>
+                            </button>
+
+                            <!-- button to add -->
+                            <div id="item1" class="mt-2 mx-2">1</div>
+
+                            <button
+                              class="btn btn-link px-2"
+                              onclick="addBag()"
+                            >
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+
+                          <!-- current Number of bags -->
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h6 class="mb-0">1 Bag</h6>
+                          </div>
+
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <button
+                              onclick="removeItem()"
+                              class="btn text-danger"
+                            >
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
                         </div>
-                      </div>
 
-                      <hr class="my-4" />
+                        <hr class="my-4" />
 
-                      <div class="pt-5">
-                        <h6 class="mb-0">
-                          <a href="landingPage.html" class="text-body"
-                            ><i class="fas fa-long-arrow-alt-left me-2"></i>Back
-                            to Home</a
-                          >
-                        </h6>
+                        <div class="pt-5">
+                          <h6 class="mb-0">
+                            <a href="landingPage.html" class="text-body"
+                              ><i class="fas fa-long-arrow-alt-left me-2"></i
+                              >Back to Home</a
+                            >
+                          </h6>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-4 bg-grey">
-                    <div class="p-5">
-                      <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                      <hr class="my-4" />
+                    <div class="col-lg-4 bg-grey">
+                      <div class="p-5">
+                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                        <hr class="my-4" />
 
-                      <h5 class="text-uppercase mb-3">Collection Time</h5>
+                        <h5 class="text-uppercase mb-3">Collection Time</h5>
 
-                      <div class="mb-4 pb-2">
-                        <select class="select">
-                          <option value="1">8:00pm-8:30pm</option>
-                          <option value="2">8:30pm-9:00pm</option>
-                          <option value="3">9:00pm-9:30pm</option>
-                          <option value="4">9:30pm-10:00pm</option>
-                          <option value="4">10:00pm-10:30pm</option>
-                          <option value="4">10:30pm-11:00pm</option>
-                        </select>
+                        <div class="mb-4 pb-2">
+                          <select class="select">
+                            <option value="1">8:00pm-8:30pm</option>
+                            <option value="2">8:30pm-9:00pm</option>
+                            <option value="3">9:00pm-9:30pm</option>
+                            <option value="4">9:30pm-10:00pm</option>
+                            <option value="4">10:00pm-10:30pm</option>
+                            <option value="4">10:30pm-11:00pm</option>
+                          </select>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex justify-content-between mb-5">
+                          <h5 class="text-uppercase">Total Items</h5>
+                          <h5>(Total Items)</h5>
+                        </div>
+
+                        <button
+                          type="button"
+                          class="btn btn-dark btn-block btn-lg fw-bold"
+                          data-mdb-ripple-color="dark"
+                        >
+                          Check Out
+                        </button>
                       </div>
-
-                      <hr class="my-4" />
-
-                      <div class="d-flex justify-content-between mb-5">
-                        <h5 class="text-uppercase">Total Items</h5>
-                        <h5>(Total Items)</h5>
-                      </div>
-
-                      <button
-                        type="button"
-                        class="btn btn-dark btn-block btn-lg fw-bold"
-                        data-mdb-ripple-color="dark"
-                      >
-                        Check Out
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -322,24 +347,47 @@
         update,
         onAuthStateChanged,
         onValue,
+        signOut,
       } from "./index.js";
 
       const app = Vue.createApp({
         data() {
           return {
-            key: value,
+            userName: "",
           };
         },
         methods: {
-          name() {},
+          logOut() {
+            const confirmation = confirm("Are you sure you want to log out?");
+            if (confirmation) {
+              signOut(auth)
+                .then(() => {
+                  alert("You have signed out.");
+                  location.href = "index.html";
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
+            }
+          },
+        },
+        created() {
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              onValue(ref(db, `users/${user.uid}/name`), (snapshot) => {
+                this.userName = snapshot.val();
+                this.uid = user.uid;
+              });
+            } else {
+              location.href = "404.html";
+            }
+          });
         },
       });
 
       app.component("cart-item", {
         data() {
-          return {
-            key: value,
-          };
+          return {};
         },
         methods: {
           name() {},
