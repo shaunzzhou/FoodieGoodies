@@ -205,8 +205,9 @@
             if (confirmation) {
               signOut(auth)
                 .then(() => {
-                  alert("You have signed out.");
+                  sessionStorage.clear();
                   location.href = "index.html";
+                  alert("You have signed out.");
                 })
                 .catch((error) => {
                   console.log(error.message);

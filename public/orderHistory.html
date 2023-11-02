@@ -126,7 +126,7 @@
                     </p>
 
                     <order-item
-                      v-for="order of orderHistory"
+                      v-for="order of orderHistory.reverse()"
                       :rname="order.restaurantName"
                       :dt="order.datetime"
                       :rd="`restaurantProfile.html?resname=` + order.restaurantName"
@@ -136,7 +136,7 @@
                       <ul>
                         <li v-for="o,k of order.bagsOrdered">{{k}}: {{o}}</li>
                       </ul>
-                      <h5>Spent: ${{order.totalAmount}}</h5>
+                      <h5>Spent: ${{order.totalPrice.toFixed(2)}}</h5>
                     </order-item>
                   </div>
                 </div>
@@ -184,6 +184,7 @@
             if (confirmation) {
               signOut(auth)
                 .then(() => {
+                  sessionStorage.clear();
                   alert("You have signed out.");
                   location.href = "index.html";
                 })

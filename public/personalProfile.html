@@ -441,6 +441,7 @@
             if (confirmation) {
               signOut(auth)
                 .then(() => {
+                  sessionStorage.clear();
                   alert("You have signed out.");
                   location.href = "index.html";
                 })
