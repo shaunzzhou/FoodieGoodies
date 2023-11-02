@@ -123,7 +123,7 @@
           <header id="header" class="animated">
             <h1>User Savings Leaderboard</h1>
           </header>
-          <section id="leaderboard" class="animated">
+          <div id="leaderboard" class="animated">
             <table>
               <tr
                 v-for="(user,index) in userSavingsLeaderboard"
@@ -154,7 +154,7 @@
                 </td>
               </tr>
             </table>
-          </section>
+          </div>
         </div>
         <div class="graphs-section animated">
           <div class="graph animated">
@@ -163,7 +163,7 @@
           </div>
           <div class="graph animated">
             <h1>Your Carbon Emissions Prevented This Year!</h1>
-            <canvas id="emissionsChart"></canvas>
+            <canvas id="carbonEmissionsLineChart"></canvas>
           </div>
         </div>
       </div>
@@ -184,9 +184,11 @@
       const app = Vue.createApp({
         data() {
           return {
+            orderHistory: "",
             purchaseInfo: "",
             totalSaved: 0,
             userID: "",
+            userName: "",
             userAmountSaved: 0,
             restaurants: "",
             year: null,
@@ -206,7 +208,20 @@
               "December",
             ],
             userSavingsLeaderboard: [],
-            userName: "",
+            ingredientEmissions: {
+              pork: 12.31,
+              beef: 33.3,
+              chicken: 9.87,
+              rice: 4.45,
+              eggs: 4.67,
+              prawn: 26.87,
+              fish: 13.67,
+              vegetables: 0.53,
+              tomato: 2.09,
+              groundnuts: 3.23,
+              cheese: 23.88,
+            },
+            userMonthlyEmissions: "",
           };
         },
 
@@ -221,32 +236,14 @@
               delay: anime.stagger(100), // Delay of 100ms between each element
             });
           },
-          getUserPurchasedInfo() {
+          fetchUserOrderHistory() {
             onValue(
               ref(db, `users/${this.userID}/orderHistory`),
               (snapshot) => {
-                const purchaseHistory = snapshot.val();
-                console.log(purchaseHistory);
-                // console.log(purchaseHistory);
-                const purchaseInfo = {};
-                for (let purchase in purchaseHistory) {
-                  const transaction = purchaseHistory[purchase];
-                  // console.log(transaction);
-                  const restaurant = transaction.restaurantName;
-                  const bagsOrdered = transaction.bagsOrdered;
-                  // console.log(bagsOrdered);
-                  // console.log(restaurant);
-                  //initialize an object for each restaurant
-                  if (!purchaseInfo[restaurant]) {
-                    purchaseInfo[restaurant] = {};
-                  }
-                  for (let bag in bagsOrdered) {
-                    const bagQuantity = bagsOrdered[bag];
-                    purchaseInfo[restaurant][bag] = bagQuantity;
-                  }
-                }
-                this.purchaseInfo = purchaseInfo;
-                this.renderTopRestaurantsPolarChart(this.purchaseInfo);
+                const orderHistory = snapshot.val();
+                this.orderHistory = orderHistory;
+                console.log(orderHistory);
+                this.getUserPurchasedInfo();
               }
             );
           },
@@ -256,8 +253,34 @@
               if (this.restaurants) {
                 console.log(this.restaurants);
                 this.calculateMoneySaved();
+                this.calculateUserCarbonEmissions();
               }
             });
+          },
+          getUserPurchasedInfo() {
+            const purchaseHistory = this.orderHistory;
+            console.log(purchaseHistory);
+            const purchaseInfo = {};
+            for (let purchase in purchaseHistory) {
+              const transaction = purchaseHistory[purchase];
+              const restaurant = transaction.restaurantName;
+              const bagsOrdered = transaction.bagsOrdered;
+
+              //initialize an object for each restaurant
+              if (!purchaseInfo[restaurant]) {
+                purchaseInfo[restaurant] = {};
+              }
+              for (let bag in bagsOrdered) {
+                const bagQuantity = bagsOrdered[bag];
+                if (!purchaseInfo[restaurant][bag]) {
+                  purchaseInfo[restaurant][bag] = bagQuantity;
+                } else {
+                  purchaseInfo[restaurant][bag] += bagQuantity;
+                }
+              }
+            }
+            this.purchaseInfo = purchaseInfo;
+            this.renderTopRestaurantsPolarChart(this.purchaseInfo);
           },
 
           calculateMoneySaved() {
@@ -293,7 +316,6 @@
             console.log(this.userAmountSaved);
             return totalSavings;
           },
-
           updateUserSavings() {
             const savingsPath = `users/${this.userID}/`; // Modify the path as needed
             const updatedSavings = { moneySaved: this.userAmountSaved };
@@ -305,7 +327,6 @@
                 console.error("Error updating user's savings: ", error);
               });
           },
-
           fetchUserSavingsLeaderboard() {
             onValue(ref(db, "users/"), (snapshot) => {
               const users = snapshot.val();
@@ -325,65 +346,137 @@
               console.log(this.userSavingsLeaderboard);
             });
           },
+          calculateUserCarbonEmissions() {
+            const ingredientEmissions = this.ingredientEmissions;
+            const userMonthlyEmissions = {};
+            const purchaseHistory = this.orderHistory;
 
-          //get user's carbon emissions by month
-          getUserCarbonEmissions() {
-            onValue(
-              ref(db, `users/${this.userID}/carbonEmissionsSaved/${this.year}`),
-              (snapshot) => {
-                const emissions = snapshot.val();
-                // console.log(emissions);
-                //if emissions exist, create emissions chart
-                if (emissions) {
-                  this.renderEmissionsChart(emissions, this.year);
-                }
-                // Use the emissions data for that year
+            for (let i = 0; i < purchaseHistory.length; i++) {
+              const transaction = purchaseHistory[i];
+              const datetime = new Date(transaction.datetime);
+              const month = datetime.toLocaleString("default", {
+                month: "long",
+              });
+
+              // Initialize the month's emission to 0 if not set
+              if (!userMonthlyEmissions[month]) {
+                userMonthlyEmissions[month] = 0;
               }
-            );
+
+              const bagsOrdered = transaction.bagsOrdered;
+              const restaurantName = transaction.restaurantName;
+              const restaurantData = this.restaurants[restaurantName];
+
+              for (let bagSize in bagsOrdered) {
+                if (
+                  restaurantData &&
+                  restaurantData.bagsInfo &&
+                  restaurantData.bagsInfo[bagSize]
+                ) {
+                  const bagQuantity = bagsOrdered[bagSize];
+                  const bagDistribution =
+                    restaurantData.bagsInfo[bagSize].distribution;
+
+                  for (let item in bagDistribution) {
+                    const itemType = bagDistribution[item].type;
+                    const itemWeight = bagDistribution[item].weight / 1000; // Convert grams to kg
+                    const itemEmission =
+                      ingredientEmissions[itemType] * itemWeight;
+
+                    userMonthlyEmissions[month] += bagQuantity * itemEmission;
+                  }
+                }
+              }
+            }
+
+            this.userMonthlyEmissions = userMonthlyEmissions;
+            console.log(this.userMonthlyEmissions);
+            this.renderCarbonEmissionsChart();
           },
-          // generate user's carbon emissions graph
-          renderEmissionsChart(emissions, year) {
-            // Extract months from the emissions object that have values
-            const monthsWithData = this.allMonths.filter(
-              (month) => emissions[month] && emissions[month] !== 0
-            );
-            // console.log(monthsWithData); //array of months with data
+          renderCarbonEmissionsChart() {
+            const monthOrder = {
+              January: 0,
+              February: 1,
+              March: 2,
+              April: 3,
+              May: 4,
+              June: 5,
+              July: 6,
+              August: 7,
+              September: 8,
+              October: 9,
+              November: 10,
+              December: 11,
+            };
+            const allMonths = Object.keys(monthOrder);
 
-            // Extract emission values for the months
-            const monthlyEmissions = monthsWithData.map(
-              (month) => emissions[month]
+            const labelsWithData = Object.keys(this.userMonthlyEmissions).sort(
+              (a, b) => monthOrder[a] - monthOrder[b]
             );
-            // console.log(monthlyEmissions); //array of the corresponding emissions with the month
 
-            new Chart("emissionsChart", {
-              type: "line",
-              data: {
-                labels: monthsWithData.map(
-                  (month) => month.charAt(0).toUpperCase() + month.slice(1)
-                ), // Capitalize the first letter of each month
-                datasets: [
-                  {
-                    label: `Carbon Emissions prevented by month (${year})`,
-                    data: monthlyEmissions,
-                    borderColor: "rgb(75, 192, 192)",
-                    fill: false,
-                    tension: 0,
-                  },
-                ],
-              },
+            const startMonth = labelsWithData[0];
+            const endMonth = labelsWithData[labelsWithData.length - 1];
+
+            const startIndex = monthOrder[startMonth];
+            const endIndex = monthOrder[endMonth];
+
+            const monthsToDisplay = allMonths.slice(startIndex, endIndex + 1);
+
+            const dataPoints = monthsToDisplay.map(
+              (month) => this.userMonthlyEmissions[month] || 0
+            );
+
+            const data = {
+              labels: monthsToDisplay,
+              datasets: [
+                {
+                  type: "bar", // Specify the type for this dataset
+                  label: "Monthly Carbon Emissions (kg CO2e) - Bar",
+                  data: dataPoints,
+                  borderColor: "rgba(255, 99, 132, 1)",
+                  backgroundColor: "rgba(255, 99, 132, 0.5)",
+                  fill: true,
+                },
+                {
+                  type: "line",
+                  label: "Monthly Carbon Emissions (kg CO2e) - Line",
+                  data: dataPoints,
+                  borderColor: "rgba(75, 192, 192, 1)",
+                  backgroundColor: "rgba(75, 192, 192, 0.5)",
+                  fill:false,
+                  lineTension: 0.1,
+                },
+              ],
+            };
+
+            const config = {
+              type: "bar",
+              data: data,
               options: {
                 responsive: true,
                 scales: {
-                  yAxes: [
-                    {
-                      ticks: {
-                        beginAtZero: true,
-                      },
+                  x: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: "Month-Year",
                     },
-                  ],
+                  },
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: "Carbon Emissions (kg CO2e)",
+                    },
+                  },
                 },
               },
-            });
+            };
+
+            const ctx = document
+              .getElementById("carbonEmissionsLineChart")
+              .getContext("2d");
+            new Chart(ctx, config);
           },
           renderTopRestaurantsPolarChart(purchaseInfo) {
             const restaurantCounts = {};
@@ -394,11 +487,11 @@
               }
               restaurantCounts[restaurant] = totalBags;
             }
-
-            // Sort restaurants by the number of bags purchased and take the top 5
+            console.log(restaurantCounts);
+            // Sort restaurants by the number of bags purchased and show the polar chart
             const topRestaurants = Object.keys(restaurantCounts)
               .sort((a, b) => restaurantCounts[b] - restaurantCounts[a])
-              .slice(0, 5);
+              .slice(0, 6);
 
             const data = {
               labels: topRestaurants,
@@ -408,7 +501,6 @@
                     (restaurant) => restaurantCounts[restaurant]
                   ),
                   backgroundColor: [
-                    // You can modify these colors
                     "rgba(255, 99, 132, 0.6)",
                     "rgba(75, 192, 192, 0.6)",
                     "rgba(255, 205, 86, 0.6)",
@@ -434,6 +526,7 @@
             const ctx = document
               .getElementById("topRestaurantsPolarChart")
               .getContext("2d");
+
             new Chart(ctx, config);
           },
           logOut() {
@@ -451,6 +544,9 @@
             }
           },
         },
+
+        // Usage: You would call this function on an object that has `orderHistory` and `restaurants` as properties.
+
         created() {
           //check current user's login id
           onAuthStateChanged(auth, (user) => {
@@ -464,10 +560,9 @@
               });
 
               //call functions
-              this.getUserPurchasedInfo();
+              this.fetchUserOrderHistory();
               this.fetchRestaurantsData();
-              this.getUserCarbonEmissions();
-              this.renderTopRestaurantsPolarChart();
+
               // this.fetchUserSavingsLeaderboard();
             } else {
               // User is signed out
