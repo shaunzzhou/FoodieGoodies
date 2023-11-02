@@ -43,6 +43,13 @@
         background: url("./images/moreFood.jpg") center no-repeat;
         background-size: cover;
       }
+      .xform:hover {
+        transform: scale(1.03);
+        box-shadow: 0px 0px 20px rgba(0, 0, 0);
+      }
+      .cd:hover {
+        border: 1px solid green;
+      }
     </style>
 
     <!-- Vue -->
@@ -131,12 +138,12 @@
               <div class="justify-content-center">
                 <a
                   href="./restaurantSelection.html"
-                  class="btn shadow bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light lighten"
+                  class="btn btn-success shadow bgBasic1 py-md-3 px-md-5 me-3 my-3 text-light"
                   >Return to Restaurant Selection</a
                 >
                 <a
                   :href="website"
-                  class="btn shadow bgBasic2 py-md-3 px-md-5 text-light lighten"
+                  class="btn btn-success shadow bgBasic2 py-md-3 px-md-5 text-light"
                   >Check us out! (external website link)</a
                 >
               </div>
@@ -150,16 +157,17 @@
       <div class="container-fluid about bg-white pt-5">
         <!-- inner container to have be manipulated by external bootstrap code -->
         <div class="container">
-          <!-- gx: gutter width to keep the distance between my header info constant -->
+          <!-- Main content up to before reviews -->
           <div class="row gx-5">
+            <!-- gx: gutter width to keep the distance between my header info constant -->
             <!-- about us info  -->
             <div class="col-lg-6 pb-5">
               <!-- Main info div -->
               <div class="mb-3 pb-2">
                 <!-- optional about us small text -->
-                <h6 class="basic1">About Us</h6>
+                <h4 class="basic1">About Us</h4>
                 <!-- main header -->
-                <h3 class="">{{header}}</h3>
+                <h2 class="">{{header}}</h2>
 
                 <!-- main description -->
                 <p id="details" class="mb-4">{{description}}</p>
@@ -167,7 +175,7 @@
               <!-- closure of main info div -->
               <div class="mb-3 pb-2">
                 <!-- optional about us small text -->
-                <h6 class="basic1">Rated</h6>
+                <h4 class="basic1">Rated</h4>
                 <!-- main header -->
                 <h1 class="display-5">
                   <span id="rating">{{rating}}</span> / 5<img
@@ -203,13 +211,10 @@
               <!-- closure of dual features -->
             </div>
             <!-- closure of about us info  -->
-
             <div class="col-lg-6 mb-lg-0">
-              <!-- display flex needed to let my justify content center work -->
-
               <!-- Image2 of restaurant websites, optional -->
               <img
-                class="d-flex shadow-lg justify-content-center my-5 border border-5 border-success w-100"
+                class="d-flex shadow-lg justify-content-center my-5 border border-5 border-success w-100 xform"
                 id="pics1"
                 :src="pic2"
               />
@@ -245,55 +250,125 @@
             <div
               class="row mb-4 d-flex justify-content-between align-items-center"
             >
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img
-                  src="images/logo.png"
-                  class="img-fluid rounded-3 h-100px"
-                  alt="Cotton T-shirt"
-                />
+              <div class="col-2">
+                <img src="images/logo.png" class="img-fluid rounded-3 h-100" />
               </div>
-              <!-- restaurant name -->
 
-              <div class="col d-flex">
-                <div class="row">
-                  <h6 class="text-black mb-0">Quantity:</h6>
-                  <div class="col">
-                    <button class="btn btn-link px-2" onclick="removeBag()">
+              <div class="col">
+                <div class="row d-flex justify-content-start">
+                  <h5 class="text-black mb-0">
+                    Large: ${{largePrice}} (U.P. ${{largeOriginalPrice}})
+                  </h5>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center align-content-center"
+                  >
+                    <button class="btn btn-link px-2" @click="decrementlarge()">
                       <i class="fas fa-minus"></i>
                     </button>
                   </div>
-                  <!-- button to minus -->
-
-                  <!-- current item quantity -->
-                  <div id="qty" class="col mt-2">1</div>
-                  <!-- button to add -->
-                  <div class="col">
-                    <button class="btn btn-link px-2" onclick="addBag()">
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center my-auto"
+                  >
+                    {{largeQuantity}}
+                  </div>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center align-content-center"
+                  >
+                    <button class="btn btn-link px-2" @click="incrementlarge()">
                       <i class="fas fa-plus"></i>
                     </button>
                   </div>
                 </div>
-
-                <div class="row mt-3 ms-3">
-                  <button
-                    onclick="addToCart()"
-                    style="border-radius: 10%"
-                    class="border-0 bgBasic1 text-white"
+                <div class="row d-flex justify-content-start">
+                  <h5 class="text-black mb-0">
+                    Medium: ${{mediumPrice}} (U.P. ${{mediumOriginalPrice}})
+                  </h5>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center align-content-center"
                   >
-                    Add to Cart
-                  </button>
+                    <button
+                      class="btn btn-link px-2"
+                      @click="decrementmedium()"
+                    >
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center my-auto"
+                  >
+                    {{mediumQuantity}}
+                  </div>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center align-content-center"
+                  >
+                    <button
+                      class="btn btn-link px-2"
+                      @click="incrementmedium()"
+                    >
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
                 </div>
+                <div class="row d-flex justify-content-start">
+                  <h5 class="text-black mb-0">
+                    Small: ${{smallPrice}} (U.P. ${{smallOriginalPrice}})
+                  </h5>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center align-content-center"
+                  >
+                    <button class="btn btn-link px-2" @click="decrementsmall()">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center my-auto"
+                  >
+                    {{smallQuantity}}
+                  </div>
+                  <div
+                    class="col-4 col-md-2 d-flex justify-content-center align-content-center"
+                  >
+                    <button class="btn btn-link px-2" @click="incrementsmall()">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col mt-3 ms-3">
+                <button
+                  @click="addToCart()"
+                  style="border-radius: 10%"
+                  class="btn btn-success border-0 bgBasic1 text-white"
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
 
             <hr class="my-4" />
           </div>
-          <!-- closure of internal container -->
+          <!-- Reviews -->
+          <div class="row gx-5 mb-3">
+            <h4 class="basic1">Reviews:</h4>
+            <h4 class="basic1">
+              {{Object.keys(reviews).length}} users; {{count}} reviews
+            </h4>
+          </div>
+          <div class="row gx-5 border border-light-subtle border-top-0">
+            <review-item
+              v-for="review,name in reviews"
+              :uname="name"
+              :indivreview="reviews[name]"
+            >
+            </review-item>
+          </div>
         </div>
-        <!-- closure of external container -->
+        <!-- closure of internal container -->
       </div>
-      <!-- restaurant info end -->
+      <!-- closure of external container -->
     </div>
+    <!-- restaurant info end -->
 
     <script type="module">
       import {
@@ -327,7 +402,30 @@
             pic2: "",
             website: "",
             userName: "",
+            sizes: ["Large", "Medium", "Small"],
+            reviews: {},
+            largeQuantity: 0,
+            largeOriginalPrice: 0,
+            largePrice: 0,
+            mediumQuantity: 0,
+            mediumOriginalPrice: 0,
+            mediumPrice: 0,
+            smallQuantity: 0,
+            smallOriginalPrice: 0,
+            smallPrice: 0,
+            bagsSold: 0,
           };
+        },
+        computed: {
+          count() {
+            var i = 0;
+            for (let item in this.reviews) {
+              for (let r in this.reviews[item]) {
+                i++;
+              }
+            }
+            return i;
+          },
         },
         methods: {
           logOut() {
@@ -335,12 +433,63 @@
             if (confirmation) {
               signOut(auth)
                 .then(() => {
+                  sessionStorage.clear();
                   alert("You have signed out.");
                   location.href = "index.html";
                 })
                 .catch((error) => {
                   console.log(error.message);
                 });
+            }
+          },
+          decrementlarge() {
+            if (this.largeQuantity !== 0) {
+              this.largeQuantity--;
+            }
+          },
+          incrementlarge() {
+            this.largeQuantity++;
+          },
+          decrementmedium() {
+            if (this.mediumQuantity !== 0) {
+              this.mediumQuantity--;
+            }
+          },
+          incrementmedium() {
+            this.mediumQuantity++;
+          },
+          decrementsmall() {
+            if (this.smallQuantity !== 0) {
+              this.smallQuantity--;
+            }
+          },
+          incrementsmall() {
+            this.smallQuantity++;
+          },
+          addToCart() {
+            if (
+              this.largeQuantity === 0 &&
+              this.mediumQuantity === 0 &&
+              this.smallQuantity === 0
+            ) {
+              alert("You have not added anything to cart!");
+              return;
+            } else {
+              alert("Items added to cart!");
+              var i = {};
+              if (this.largeQuantity !== 0) {
+                i["large"] = this.largeQuantity;
+              }
+              if (this.mediumQuantity !== 0) {
+                i["medium"] = this.mediumQuantity;
+              }
+              if (this.smallQuantity !== 0) {
+                i["small"] = this.smallQuantity;
+              }
+              sessionStorage.setItem(
+                `${this.restaurantName}`,
+                JSON.stringify(i)
+              );
             }
           },
         },
@@ -382,6 +531,7 @@
                   const information = snapshot.val();
                   if (information) {
                     this.rating = information["starRating"];
+                    this.reviews = information["reviews"];
                   }
                 }
               );
@@ -413,11 +563,58 @@
                   }
                 }
               );
+              onValue(
+                ref(db, `restaurants/${this.restaurantName}/bagsInfo/`),
+                (snapshot) => {
+                  const information = snapshot.val();
+                  if (information) {
+                    this.bagsSold = information["bagsSold"];
+                    this.largeOriginalPrice =
+                      information["large"]["originalPrice"];
+                    this.largePrice = information["large"]["price"];
+                    this.mediumOriginalPrice =
+                      information["medium"]["originalPrice"];
+                    this.mediumPrice = information["medium"]["price"];
+                    this.smallOriginalPrice =
+                      information["small"]["originalPrice"];
+                    this.smallPrice = information["small"]["price"];
+                  }
+                }
+              );
+              let d = JSON.parse(sessionStorage.getItem(this.restaurantName));
+              if (d) {
+                for (let i in d) {
+                  if (i == "large") {
+                    this.largeQuantity = d[i];
+                  }
+                  if (i == "medium") {
+                    this.mediumQuantity = d[i];
+                  }
+                  if (i == "small") {
+                    this.smallQuantity = d[i];
+                  }
+                }
+              }
             } else {
               location.href = "404.html";
             }
           });
         },
+      });
+
+      app.component("review-item", {
+        template: `
+        <div class="col-12">
+          <div class="card mb-3 cd" v-for='r in indivreview'>
+            <div class="card-body">
+              <h5 class="card-title">{{uname}}:</h5>
+              <p class="card-text">{{r}}</p>
+            </div>
+          </div>
+          <hr />
+        </div>
+        `,
+        props: ["uname", "indivreview"],
       });
 
       const vm = app.mount("#app");
