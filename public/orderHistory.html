@@ -126,7 +126,7 @@
                     </p>
 
                     <order-item
-                      v-for="order of orderHistory.reverse()"
+                      v-for="order in orderHistory"
                       :rname="order.restaurantName"
                       :dt="order.datetime"
                       :rd="`restaurantProfile.html?resname=` + order.restaurantName"
@@ -163,18 +163,18 @@
       const app = Vue.createApp({
         data() {
           return {
-            orderHistory: [],
+            orderHistory: {},
             uid: "",
             userName: "",
           };
         },
         methods: {
           getOrderHistory() {
-            onValue(ref(db, `users/${this.uid}/orderHistory/`), (snapshot) => {
+            onValue(ref(db, `users/${this.uid}/orderHistory`), (snapshot) => {
               const history = snapshot.val();
               if (history) {
-                for (let item of history) {
-                  this.orderHistory.push(item);
+                for (let item in history) {
+                  this.orderHistory[item] = history[item];
                 }
               }
             });

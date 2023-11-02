@@ -220,6 +220,7 @@
         onAuthStateChanged,
         onValue,
         signOut,
+        push,
       } from "./index.js";
 
       const app = Vue.createApp({
@@ -304,11 +305,25 @@
           },
           checkOut() {
             alert("You have checked out!");
-
-            const orderHistoryRef = push(
-              ref(db, `users/${this.uid}/orderHistory`)
-            );
-            set(orderHistoryRef).then((data) => {});
+            for (let rname in this.orders) {
+              let order = {};
+              for (let item in this.orders[rname]) {
+                order[item] = this.orders[rname][item];
+              }
+              const dt = String(new Date());
+              const newdt = dt.slice(0, 24);
+              var obj = {
+                bagsOrdered: order,
+                datetime: newdt,
+                restaurantName: rname,
+                totalPrice: this.totalPrice,
+              };
+              console.log(obj);
+              const orderHistoryRef = push(
+                ref(db, `users/${this.uid}/orderHistory`)
+              );
+              set(orderHistoryRef, obj).then((data) => {});
+            }
           },
         },
         created() {
