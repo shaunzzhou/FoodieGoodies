@@ -344,6 +344,69 @@
             }
           },
         },
+
+        fetchReviewDataFromDb() {
+          const reviewData = onValue(ref(db, `restaurants/`), (snapshot) => {
+            this.restaurants = snapshot.val();
+            if (this.restaurants) {
+              this.sentimentAnalysis(reviewData);
+            }
+          })
+        },
+
+        async sentimentAnalysis(reviewText) {
+          const apiKey = 'AIzaSyBZlXeGZE8SdP6qo-cda6pa7oQH86UuXeE';
+          const url = `https://language.googleapis.com/v1/documents:analyzeSentiment?key=${apiKey}`;
+          
+          try {
+            const response = await axios.post(url, {
+              document: {
+                content: reviews,
+                type: 'PLAIN_TEXT',
+              },
+            });
+            
+            let totalSentimentAnalysis = 0.0;
+            let sumSentimentScore = 0.0;
+            for(let restaurantName in restaurants) {
+              if (this.restaurants[restaurantName]) {
+                let totalReviews = reviews.length(); // Get total number of reviews in db
+                
+                // Loop through each review and analyse the sentiment
+                for (let reviews in restaurants[restaurantName]) {
+                  const sentimentScore = response.data.documentSentiment.score; // Get sentiment score of each review
+
+                  sumSentimentScore += sentimentScore;
+                }
+              }
+            }
+            
+            totalSentimentAnalysis = sumSentimentScore / totalReviews;
+
+          } catch (error) {
+            console.error('Error: Sentiment Analysis API Issues', error);
+          }
+
+          //Update the resturant ratings
+          this.rating = totalSentimentAnalysis.toFixed(2);
+          if (this.rating) {
+              this.saveStarRating();
+            }
+            return totalSentimentAnalysis;
+        },
+        
+        saveStarRating() {
+            const starRatingPath = `restaurants/${this.restaurantName}/`; 
+            const updatedStarRating = { starRating: this.rating};
+            update(ref(db, starRatingPath), updatedStarRating)
+              .then(() => {
+                console.log("Star Ratings saved successfully!");
+              })
+              .catch((error) => {
+                console.error("Error saving star ratings to DB: ", error);
+              });
+        },
+
         created() {
           onAuthStateChanged(auth, (user) => {
             if (user) {
