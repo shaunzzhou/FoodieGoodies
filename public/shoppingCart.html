@@ -324,6 +324,9 @@
               );
               set(orderHistoryRef, obj).then((data) => {});
             }
+            sessionStorage.clear();
+            this.orders = {};
+            location.href = "orderHistory.html";
           },
         },
         created() {
