@@ -181,7 +181,8 @@
                 <h4 class="basic1">Rated</h4>
                 <!-- main header -->
                 <h1 class="display-5">
-                  <span id="rating">{{rating}}</span> / 5<img
+                  <span id="rating">{{r}}</span>
+                  / 5<img
                     style="width: 100px"
                     src="images/basic-star-flat-vector_78370-1483.avif"
                   />
@@ -369,6 +370,7 @@
         </div>
         <!-- closure of internal container -->
       </div>
+
       <!-- closure of external container -->
     </div>
     <!-- restaurant info end -->
@@ -398,7 +400,6 @@
             feature2Info: "",
             location: "",
             header: "",
-            rating: "",
             goodies: [],
             allergen: [],
             pic1: "",
@@ -417,6 +418,8 @@
             smallOriginalPrice: 0,
             smallPrice: 0,
             bagsSold: 0,
+            tempnum: 0,
+            tempreview: 0,
           };
         },
         computed: {
@@ -429,8 +432,65 @@
             }
             return i;
           },
+          r() {
+            var a = (
+              ((this.tempnum + this.count) / (this.count * 2)) *
+              5
+            ).toFixed(2);
+            if (this.restaurantName) {
+              update(ref(db, `restaurants/${this.restaurantName}/metaInfo/`), {
+                starRating: a,
+              });
+            }
+            return a;
+          },
         },
         methods: {
+          async sentimentReview() {
+            let reviewPromises = [];
+            for (let name in this.reviews) {
+              for (let r in this.reviews[name]) {
+                let review = this.reviews[name][r];
+                let promise = fetch(
+                  "https://language.googleapis.com/v1/documents:analyzeSentiment?key=AIzaSyBZlXeGZE8SdP6qo-cda6pa7oQH86UuXeE",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      document: {
+                        content: review,
+                        type: "PLAIN_TEXT",
+                      },
+                    }),
+                  }
+                )
+                  .then((response) => response.json())
+                  .then((data) => {
+                    // Extract sentiment score and label from API response
+                    console.log(data.documentSentiment.score);
+                    return data.documentSentiment.score; // Resolve with the score
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                    return 0; // Resolve with 0 in case of error
+                  });
+
+                reviewPromises.push(promise);
+              }
+            }
+            try {
+              // Wait for all the promises to resolve
+              const scores = await Promise.all(reviewPromises);
+              // Sum up all the scores
+              const a = scores.reduce((acc, score) => acc + score, 0);
+              this.tempnum = a;
+            } catch (error) {
+              console.error("Error in processing reviews:", error);
+            }
+          },
+
           logOut() {
             const confirmation = confirm("Are you sure you want to log out?");
             if (confirmation) {
@@ -533,8 +593,9 @@
                 (snapshot) => {
                   const information = snapshot.val();
                   if (information) {
-                    this.rating = information["starRating"];
+                    this.tempnum = information["starRating"];
                     this.reviews = information["reviews"];
+                    this.sentimentReview();
                   }
                 }
               );
@@ -584,6 +645,7 @@
                   }
                 }
               );
+
               let d = JSON.parse(sessionStorage.getItem(this.restaurantName));
               if (d) {
                 for (let i in d) {
