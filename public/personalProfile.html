@@ -351,47 +351,50 @@
             const userMonthlyEmissions = {};
             const purchaseHistory = this.orderHistory;
 
-            for (let i = 0; i < purchaseHistory.length; i++) {
-              const transaction = purchaseHistory[i];
-              const datetime = new Date(transaction.datetime);
-              const month = datetime.toLocaleString("default", {
-                month: "long",
-              });
+            if (purchaseHistory) {
+              for (let i = 0; i < purchaseHistory.length; i++) {
+                const transaction = purchaseHistory[i];
+                const datetime = new Date(transaction.datetime);
+                const month = datetime.toLocaleString("default", {
+                  month: "long",
+                });
 
-              // Initialize the month's emission to 0 if not set
-              if (!userMonthlyEmissions[month]) {
-                userMonthlyEmissions[month] = 0;
-              }
+                // Initialize the month's emission to 0 if not set
+                if (!userMonthlyEmissions[month]) {
+                  userMonthlyEmissions[month] = 0;
+                }
 
-              const bagsOrdered = transaction.bagsOrdered;
-              const restaurantName = transaction.restaurantName;
-              const restaurantData = this.restaurants[restaurantName];
+                const bagsOrdered = transaction.bagsOrdered;
+                const restaurantName = transaction.restaurantName;
+                const restaurantData = this.restaurants[restaurantName];
 
-              for (let bagSize in bagsOrdered) {
-                if (
-                  restaurantData &&
-                  restaurantData.bagsInfo &&
-                  restaurantData.bagsInfo[bagSize]
-                ) {
-                  const bagQuantity = bagsOrdered[bagSize];
-                  const bagDistribution =
-                    restaurantData.bagsInfo[bagSize].distribution;
+                for (let bagSize in bagsOrdered) {
+                  if (
+                    restaurantData &&
+                    restaurantData.bagsInfo &&
+                    restaurantData.bagsInfo[bagSize]
+                  ) {
+                    const bagQuantity = bagsOrdered[bagSize];
+                    const bagDistribution =
+                      restaurantData.bagsInfo[bagSize].distribution;
 
-                  for (let item in bagDistribution) {
-                    const itemType = bagDistribution[item].type;
-                    const itemWeight = bagDistribution[item].weight / 1000; // Convert grams to kg
-                    const itemEmission =
-                      ingredientEmissions[itemType] * itemWeight;
+                    for (let item in bagDistribution) {
+                      const itemType = bagDistribution[item].type;
+                      const itemWeight = bagDistribution[item].weight / 1000; // Convert grams to kg
+                      const itemEmission =
+                        ingredientEmissions[itemType] * itemWeight;
 
-                    userMonthlyEmissions[month] += bagQuantity * itemEmission;
+                      userMonthlyEmissions[month] += bagQuantity * itemEmission;
+                    }
                   }
                 }
               }
+              this.userMonthlyEmissions = userMonthlyEmissions;
+              console.log(this.userMonthlyEmissions);
+              this.renderCarbonEmissionsChart();
+            } else {
+              this.userMonthlyEmissions = 0;
             }
-
-            this.userMonthlyEmissions = userMonthlyEmissions;
-            console.log(this.userMonthlyEmissions);
-            this.renderCarbonEmissionsChart();
           },
           renderCarbonEmissionsChart() {
             const monthOrder = {
@@ -443,7 +446,7 @@
                   data: dataPoints,
                   borderColor: "rgba(75, 192, 192, 1)",
                   backgroundColor: "rgba(75, 192, 192, 0.5)",
-                  fill:false,
+                  fill: false,
                   lineTension: 0.1,
                 },
               ],
@@ -544,8 +547,6 @@
             }
           },
         },
-
-        // Usage: You would call this function on an object that has `orderHistory` and `restaurants` as properties.
 
         created() {
           //check current user's login id

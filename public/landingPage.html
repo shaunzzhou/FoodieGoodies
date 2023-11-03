@@ -134,10 +134,12 @@
           <div class="row justify-content-start">
             <div class="col-lg-4 text-white ps-4 mb-5">
               <h5 class="">Bags of goodies sold</h5>
-              <h1 class="display-5 mb-0" data-toggle="counter-up">6071 bags</h1>
+              <h1 class="display-5 mb-0" data-toggle="counter-up">
+                {{totalBagsSold}} bags
+              </h1>
               <br />
               <h5 class="">Carbon Emssions offset</h5>
-              <h1 class="display-5 mb-0" data-toggle="counter-up">371 tons</h1>
+              <h1 class="display-5 mb-0" data-toggle="counter-up">371 kg</h1>
             </div>
 
             <div class="col-lg-8 text-lg-start text-white">
@@ -197,6 +199,8 @@
         data() {
           return {
             userName: "",
+            restaurants: "",
+            totalBagsSold: 0,
           };
         },
         methods: {
@@ -215,10 +219,21 @@
             }
           },
           calculateTotalBagsSold() {
-            onValue(ref(db,))
+            var totalBagsSold = 0;
+            onValue(ref(db, `restaurants/`), (snapshot) => {
+              this.restaurants = snapshot.val();
+              const restaurants = this.restaurants;
+              console.log(restaurants);
+              for (let restaurant in restaurants) {
+                const bagsSold = restaurants[restaurant].bagsInfo.bagsSold;
+                totalBagsSold += bagsSold;
+              }
+              this.totalBagsSold = totalBagsSold;
+              return totalBagsSold;
+            });
           },
           calculateTotalEmissionsOffset() {
-            onValue(ref(db,))
+            onValue(ref(db));
           },
         },
         created() {
@@ -226,6 +241,8 @@
             if (user) {
               onValue(ref(db, `users/${user.uid}/name`), (snapshot) => {
                 this.userName = snapshot.val();
+                this.calculateTotalBagsSold();
+                // this.calculateTotalEmissionsOffset();
               });
             } else {
               location.href = "404.html";
