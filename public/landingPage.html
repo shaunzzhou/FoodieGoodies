@@ -201,6 +201,20 @@
             userName: "",
             restaurants: "",
             totalBagsSold: 0,
+            orderHistory: "",
+            ingredientEmissions: {
+              pork: 12.31,
+              beef: 33.3,
+              chicken: 9.87,
+              rice: 4.45,
+              eggs: 4.67,
+              prawn: 26.87,
+              fish: 13.67,
+              vegetables: 0.53,
+              tomato: 2.09,
+              groundnuts: 3.23,
+              cheese: 23.88,
+            },
           };
         },
         methods: {
@@ -218,12 +232,12 @@
                 });
             }
           },
+
           calculateTotalBagsSold() {
             var totalBagsSold = 0;
             onValue(ref(db, `restaurants/`), (snapshot) => {
               this.restaurants = snapshot.val();
               const restaurants = this.restaurants;
-              console.log(restaurants);
               for (let restaurant in restaurants) {
                 const bagsSold = restaurants[restaurant].bagsInfo.bagsSold;
                 totalBagsSold += bagsSold;
@@ -233,7 +247,47 @@
             });
           },
           calculateTotalEmissionsOffset() {
-            onValue(ref(db));
+            const ingredientEmissions = this.ingredientEmissions;
+            onValue(ref(db, `users/`), (snapshot) => {
+              this.users = snapshot.val();
+              const users = this.users;
+              let totalUsersEmissions = 0;
+              for (let uid in users) {
+                let userTotalEmissions = 0;
+                const user = users[uid];
+                const orderHistory = user.orderHistory;
+                // console.log(orderHistory);
+                for (let order in orderHistory) {
+                  const orderInfo = orderHistory[order];
+                  // console.log(orderInfo);
+                  const bagsOrdered = orderInfo.bagsOrdered;
+                  const restaurantName = orderInfo.restaurantName;
+                  const restaurantData = this.restaurants[restaurantName];
+                  console.log(restaurantData);
+                  for (let bagSize in bagsOrdered) {
+                    if (
+                      restaurantData &&
+                      restaurantData.bagsInfo &&
+                      restaurantData.bagsInfo[bagSize]
+                    ) {
+                      const bagQuantity = bagsOrdered[bagSize];
+                      // console.log(bagQuantity);
+                      const bagDistribution =
+                        restaurantData.bagsInfo[bagSize].distribution;
+                      for (let item in bagDistribution) {
+                        const itemType = bagDistribution[item].type;
+                        const itemWeight = bagDistribution[item].weight / 1000; // Convert grams to kg
+                        const itemEmission =
+                          ingredientEmissions[itemType] * itemWeight;
+                        userTotalEmissions += itemEmission;
+                      }
+                    }
+                  }
+                }
+                totalUsersEmissions += userTotalEmissions;
+              }
+              console.log(totalUsersEmissions);
+            });
           },
         },
         created() {
@@ -242,6 +296,7 @@
               onValue(ref(db, `users/${user.uid}/name`), (snapshot) => {
                 this.userName = snapshot.val();
                 this.calculateTotalBagsSold();
+                this.calculateTotalEmissionsOffset();
                 // this.calculateTotalEmissionsOffset();
               });
             } else {

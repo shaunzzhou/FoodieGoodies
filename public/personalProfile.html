@@ -240,10 +240,12 @@
             onValue(
               ref(db, `users/${this.userID}/orderHistory`),
               (snapshot) => {
-                const orderHistory = snapshot.val();
-                this.orderHistory = orderHistory;
-                console.log(orderHistory);
-                this.getUserPurchasedInfo();
+                if (snapshot.val()) {
+                  const orderHistory = snapshot.val();
+                  this.orderHistory = orderHistory;
+                  console.log(orderHistory);
+                  this.getUserPurchasedInfo();
+                }
               }
             );
           },
@@ -350,10 +352,11 @@
             const ingredientEmissions = this.ingredientEmissions;
             const userMonthlyEmissions = {};
             const purchaseHistory = this.orderHistory;
+            console.log(purchaseHistory);
 
             if (purchaseHistory) {
-              for (let i = 0; i < purchaseHistory.length; i++) {
-                const transaction = purchaseHistory[i];
+              for (let purchase in purchaseHistory) {
+                const transaction = purchaseHistory[purchase];
                 const datetime = new Date(transaction.datetime);
                 const month = datetime.toLocaleString("default", {
                   month: "long",
@@ -390,8 +393,9 @@
                 }
               }
               this.userMonthlyEmissions = userMonthlyEmissions;
-              console.log(this.userMonthlyEmissions);
+              console.log(userMonthlyEmissions);
               this.renderCarbonEmissionsChart();
+              return userMonthlyEmissions
             } else {
               this.userMonthlyEmissions = 0;
             }
@@ -458,20 +462,28 @@
               options: {
                 responsive: true,
                 scales: {
-                  x: {
-                    beginAtZero: true,
-                    title: {
-                      display: true,
-                      text: "Month-Year",
+                  xAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                      title: {
+                        display: true,
+                        text: "Month-Year",
+                      },
                     },
-                  },
-                  y: {
-                    beginAtZero: true,
-                    title: {
-                      display: true,
-                      text: "Carbon Emissions (kg CO2e)",
+                  ],
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                      },
+                      title: {
+                        display: true,
+                        text: "Carbon Emissions (kg CO2e)",
+                      },
                     },
-                  },
+                  ],
                 },
               },
             };
