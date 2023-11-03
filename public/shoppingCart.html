@@ -161,7 +161,7 @@
                         <h3 class="fw-bold mb-3 mt-2">Summary</h3>
                         <hr class="my-4" />
 
-                        <div class="d-flex justify-content-between mb-5">
+                        <div class="justify-content-between mb-5">
                           <h5>Total Bags: {{totalItem}}</h5>
                           <h5>Total Price: ${{totalPrice.toFixed(2)}}</h5>
                         </div>
@@ -221,6 +221,7 @@
         onValue,
         signOut,
         push,
+        get,
       } from "./index.js";
 
       const app = Vue.createApp({
@@ -303,29 +304,94 @@
               }
             );
           },
-          checkOut() {
-            alert("You have checked out!");
+          // checkOut() {
+          //   // alert("You have checked out!");
+          //   for (let rname in this.orders) {
+          //     var pth = `restaurants/${rname}/bagsInfo/`;
+          //     var order = {};
+          //     var orderCount = 0;
+          //     var num = 0;
+          //     const dt = String(new Date());
+          //     const newdt = dt.slice(0, 24);
+          //     get(ref(db, pth))
+          //       .then((snapshot) => {
+          //         if (snapshot.exists()) {
+          //           var info = snapshot.val();
+          //           num += Number(info["bagsSold"]);
+          //           for (let item in this.orders[rname]) {
+          //             order[item] = this.orders[rname][item];
+          //             orderCount += Number(this.orders[rname][item]);
+          //           }
+          //           num += orderCount;
+          //           console.log(pth);
+          //           console.log(num);
+          //         }
+          //       })
+          //       .then((data) => {
+          //         // update(ref(db, pth), { bagsSold: num });
+          //       })
+          //       .then((data) => {
+          //         var obj = {
+          //           bagsOrdered: order,
+          //           datetime: newdt,
+          //           restaurantName: rname,
+          //           totalPrice: this.totalPrice,
+          //         };
+          //         // const orderHistoryRef = push(
+          //         //   ref(db, `users/${this.uid}/orderHistory`)
+          //         // );
+          //         // set(orderHistoryRef, obj).then((data) => {});
+          //       });
+          //   }
+          //   // sessionStorage.clear();
+          //   // location.href = "orderHistory.html";
+          // },
+          async checkOut() {
             for (let rname in this.orders) {
-              let order = {};
-              for (let item in this.orders[rname]) {
-                order[item] = this.orders[rname][item];
-              }
+              const pth = `restaurants/${rname}/bagsInfo/`;
+              var order = {};
+              var orderCount = 0;
+              var p = 0;
               const dt = String(new Date());
               const newdt = dt.slice(0, 24);
-              var obj = {
-                bagsOrdered: order,
-                datetime: newdt,
-                restaurantName: rname,
-                totalPrice: this.totalPrice,
-              };
-              console.log(obj);
-              const orderHistoryRef = push(
-                ref(db, `users/${this.uid}/orderHistory`)
-              );
-              set(orderHistoryRef, obj).then((data) => {});
+              try {
+                for (let size in this.orders[rname]) {
+                  await onValue(
+                    ref(db, `restaurants/${rname}/bagsInfo/${size}/price`),
+                    (snapshot) => {
+                      const info = snapshot.val();
+                      p += info * this.orders[rname][size];
+                    }
+                  );
+                }
+                const snapshot = await get(ref(db, pth));
+                let num = 0;
+                if (snapshot.exists()) {
+                  const info = snapshot.val();
+                  num = Number(info["bagsSold"]);
+                  for (let item in this.orders[rname]) {
+                    order[item] = this.orders[rname][item];
+                    orderCount += Number(this.orders[rname][item]);
+                  }
+                  num += orderCount;
+                }
+                await update(ref(db, pth), { bagsSold: num });
+                var obj = {
+                  bagsOrdered: order,
+                  datetime: newdt,
+                  restaurantName: rname,
+                  totalPrice: p,
+                };
+                const orderHistoryRef = push(
+                  ref(db, `users/${this.uid}/orderHistory`)
+                );
+                await set(orderHistoryRef, obj);
+              } catch (error) {
+                console.error("Error during checkout:", error);
+              }
             }
+            alert("You have checked out!");
             sessionStorage.clear();
-            this.orders = {};
             location.href = "orderHistory.html";
           },
         },

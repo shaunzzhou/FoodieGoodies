@@ -34,4 +34,5 @@ export {
   update,
   onValue,
   push,
+  get,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
