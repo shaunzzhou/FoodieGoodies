@@ -139,7 +139,9 @@
               </h1>
               <br />
               <h5 class="">Carbon Emssions offset</h5>
-              <h1 class="display-5 mb-0" data-toggle="counter-up">371 kg</h1>
+              <h1 class="display-5 mb-0" data-toggle="counter-up">
+                {{totalUsersEmissions}} kg
+              </h1>
             </div>
 
             <div class="col-lg-8 text-lg-start text-white">
@@ -201,6 +203,7 @@
             userName: "",
             restaurants: "",
             totalBagsSold: 0,
+            totalUsersEmissions: 0,
             orderHistory: "",
             ingredientEmissions: {
               pork: 12.31,
@@ -271,7 +274,6 @@
                       restaurantData.bagsInfo[bagSize]
                     ) {
                       const bagQuantity = bagsOrdered[bagSize];
-                      // console.log(bagQuantity);
                       const bagDistribution =
                         restaurantData.bagsInfo[bagSize].distribution;
                       for (let item in bagDistribution) {
@@ -284,9 +286,13 @@
                     }
                   }
                 }
+                console.log(userTotalEmissions);
                 totalUsersEmissions += userTotalEmissions;
               }
+              totalUsersEmissions = Math.ceil(totalUsersEmissions);
               console.log(totalUsersEmissions);
+              this.totalUsersEmissions = totalUsersEmissions;
+              return totalUsersEmissions;
             });
           },
         },
