@@ -243,7 +243,6 @@
                 if (snapshot.val()) {
                   const orderHistory = snapshot.val();
                   this.orderHistory = orderHistory;
-                  console.log(orderHistory);
                   this.getUserPurchasedInfo();
                 }
               }
@@ -254,7 +253,6 @@
             onValue(ref(db, `restaurants/`), (snapshot) => {
               this.restaurants = snapshot.val();
               if (this.restaurants) {
-                console.log(this.restaurants);
                 this.calculateMoneySaved();
                 this.calculateUserCarbonEmissions();
               }
@@ -262,7 +260,6 @@
           },
           getUserPurchasedInfo() {
             const purchaseHistory = this.orderHistory;
-            console.log(purchaseHistory);
             const purchaseInfo = {};
             for (let purchase in purchaseHistory) {
               const transaction = purchaseHistory[purchase];
@@ -316,16 +313,13 @@
               this.updateUserSavings();
               this.fetchUserSavingsLeaderboard();
             }
-            console.log(this.userAmountSaved);
             return totalSavings;
           },
           updateUserSavings() {
             const savingsPath = `users/${this.userID}/`; // Modify the path as needed
             const updatedSavings = { moneySaved: this.userAmountSaved };
             update(ref(db, savingsPath), updatedSavings)
-              .then(() => {
-                console.log("User savings updated successfully!");
-              })
+              .then(() => {})
               .catch((error) => {
                 console.error("Error updating user's savings: ", error);
               });
@@ -346,14 +340,12 @@
               this.userSavingsLeaderboard = leaderboard
                 .sort((a, b) => b.savings - a.savings) // Sort users by savings, in descending order
                 .slice(0, 8); // Take top 8 users
-              console.log(this.userSavingsLeaderboard);
             });
           },
           calculateUserCarbonEmissions() {
             const ingredientEmissions = this.ingredientEmissions;
             const userMonthlyEmissions = {};
             const purchaseHistory = this.orderHistory;
-            console.log(purchaseHistory);
 
             if (purchaseHistory) {
               for (let purchase in purchaseHistory) {
@@ -394,7 +386,6 @@
                 }
               }
               this.userMonthlyEmissions = userMonthlyEmissions;
-              console.log(userMonthlyEmissions);
               this.renderCarbonEmissionsChart();
               return userMonthlyEmissions;
             } else {
@@ -503,7 +494,6 @@
               }
               restaurantCounts[restaurant] = totalBags;
             }
-            console.log(restaurantCounts);
             // Sort restaurants by the number of bags purchased and show the polar chart
             const topRestaurants = Object.keys(restaurantCounts)
               .sort((a, b) => restaurantCounts[b] - restaurantCounts[a])
@@ -566,7 +556,6 @@
           onAuthStateChanged(auth, (user) => {
             if (user) {
               // User is signed in
-              console.log(user);
               this.userID = user.uid; //retrieve uid
               this.year = new Date().getFullYear();
               onValue(ref(db, `users/${this.userID}/name`), (snapshot) => {

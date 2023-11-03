@@ -137,12 +137,12 @@
           <div class="row justify-content-start">
             <div class="col-lg-4 text-white ps-4 mb-5">
               <h5 class="">Bags of goodies sold</h5>
-              <h1 class="display-5 mb-0" data-toggle="counter-up" id="countUp">
+              <h1 class="display-5 mb-0" data-toggle="counter-up">
                 {{totalBagsSold}} bags
               </h1>
               <br />
               <h5 class="">Carbon Emssions offset</h5>
-              <h1 class="display-5 mb-0" data-toggle="counter-up" id="countUp">
+              <h1 class="display-5 mb-0" data-toggle="counter-up">
                 {{totalUsersEmissions}} kg
               </h1>
             </div>
@@ -238,15 +238,6 @@
                 });
             }
           },
-          countUpAnimation() {
-            anime({
-              targets: el,
-              textContent: endValue,
-              round: incrementor ? 1 / incrementor : 1 / 5,
-              easing: "easeInOutQuad",
-              duration: duration ? duration : 4000,
-            });
-          },
 
           calculateTotalBagsSold() {
             var totalBagsSold = 0;
@@ -301,10 +292,8 @@
                     }
                   }
                 }
-                console.log(userTotalEmissions);
                 totalUsersEmissions += userTotalEmissions;
               }
-              console.log(totalUsersEmissions);
               this.totalUsersEmissions = totalUsersEmissions.toFixed(2);
               return totalUsersEmissions;
             });
@@ -317,8 +306,6 @@
                 this.userName = snapshot.val();
                 this.calculateTotalBagsSold();
                 this.calculateTotalEmissionsOffset();
-                this.countUpAnimation();
-                // this.calculateTotalEmissionsOffset();
               });
             } else {
               location.href = "404.html";
