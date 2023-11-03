@@ -249,6 +249,7 @@
               }
             );
           },
+
           fetchRestaurantsData() {
             onValue(ref(db, `restaurants/`), (snapshot) => {
               this.restaurants = snapshot.val();
@@ -395,7 +396,7 @@
               this.userMonthlyEmissions = userMonthlyEmissions;
               console.log(userMonthlyEmissions);
               this.renderCarbonEmissionsChart();
-              return userMonthlyEmissions
+              return userMonthlyEmissions;
             } else {
               this.userMonthlyEmissions = 0;
             }
