@@ -2,8 +2,8 @@
 
 G4T6 WAD2 Project Foodie Goodies
 
-Deployed on cloud: https://wad2t6.web.app/
-GitHub URL:
+Deployed on cloud: https://wad2t6.web.app/ </br>
+GitHub URL: 
 
 Credits:
 
