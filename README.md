@@ -2,6 +2,8 @@
 
 G4T6 WAD2 Project Foodie Goodies
 
+Done by: Shaun Zhou, John Tan, Alexis Seow, Darius Ng
+
 Deployed on cloud: https://wad2t6.web.app/ </br>
 GitHub URL: https://github.com/shaunzzhou/FoodieGoodies.git </br>
 
