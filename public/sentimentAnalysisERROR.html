@@ -329,6 +329,7 @@
             userName: "",
           };
         },
+        
         methods: {
           logOut() {
             const confirmation = confirm("Are you sure you want to log out?");
@@ -343,37 +344,34 @@
                 });
             }
           },
-          
-          analyseSentiment(reviews) {
-            // Iterate over each review
-            for (let review of reviews) {
-              // Make API call to Google Cloud Natural Language API
-              fetch('https://language.googleapis.com/v1/documents:analyzeSentiment?key=AIzaSyBZlXeGZE8SdP6qo-cda6pa7oQH86UuXeE', {
-                method: 'POST',
-                headers: {
-                  'Content-Type' : 'application/json',
-                },
 
-                body: JSON.stringify({
-                  document: {
-                    content: review,
-                    type: 'PLAIN_TEXT',
-                  },
-                }),
-              })
-              .then(response => response.json())
-              .then(data => {
-                // Extract sentiment score from API response
-                const sentimentScore = data.documentSentiment.score;
-                
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
-            }
+          fetchReviewDataFromDb() {
+            const reviewData = onValue(ref(db, `restaurants/`), (snapshot) => {
+              this.restaurants = snapshot.val();
+              if (this.restaurants) {
+                this.sentimentAnalysis(reviewData);
+              }
+            })
+          },
+
+          saveStarRating() {
+            const starRatingPath = `restaurants/${this.restaurantName}/`; 
+            const updatedStarRating = { starRating: this.rating};
+            update(ref(db, starRatingPath), updatedStarRating)
+            .then(() => {
+              console.log("Star Ratings saved successfully!");
+            })
+            .catch((error) => {
+              console.error("Error saving star ratings to DB: ", error);
+            });
+          },
+
+          function analyzeSentiment() {
+            // Retrieve review from the database
+            const review = document.getElementById('userInput').value;
           }
-        },
-
+        },    
+        
         created() {
           onAuthStateChanged(auth, (user) => {
             if (user) {
