@@ -469,7 +469,6 @@
                   .then((response) => response.json())
                   .then((data) => {
                     // Extract sentiment score and label from API response
-                    console.log(data.documentSentiment.score);
                     return data.documentSentiment.score; // Resolve with the score
                   })
                   .catch((error) => {

@@ -191,9 +191,7 @@
                   alert("You have signed out.");
                   location.href = "index.html";
                 })
-                .catch((error) => {
-                  console.log(error.message);
-                });
+                .catch((error) => {});
             }
           },
           reverseObj(obj) {
@@ -238,7 +236,6 @@
               if (user) {
                 onValue(ref(db, `users/${user.uid}/name/`), (snapshot) => {
                   this.uname = snapshot.val();
-                  console.log(this.uname);
 
                   const resref = push(
                     ref(

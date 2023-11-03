@@ -276,7 +276,7 @@
           <div class="content m-3">
             <hr />
             <p class="text-secondary">Overview</p>
-            <h3>Why foodie goodies?</h3>
+            <h3>Why Foodie Goodies?</h3>
             <p>
               Every single day, hundreds of tonnes of food are wasted
               unnecessarily. But it doesn't have to be that way! With just a few
@@ -320,7 +320,7 @@
       <div class="row my-4 ms-3 px-5">
         <div class="col-lg-6">
           <h3 class="mb-3">Step 2:</h3>
-          <h3>Select your goodies</h3>
+          <h3>Select your Goodies</h3>
         </div>
         <div class="col-lg-6">
           Pick from 3 sizes of goodie bags: Large, Medium and Small. What is
@@ -372,7 +372,7 @@
 
           <ol class="m-5" style="text-align: justify">
             <li>
-              Simply log on to FoodieGoodies and search for your preferred
+              Simply log on to Foodie Goodies and search for your preferred
               restaurant.
             </li>
             <li>
@@ -426,7 +426,7 @@
                 const dt = String(new Date());
                 const newdt = dt.slice(0, 24);
                 const user = userCredential.user;
-                console.log(user);
+                // console.log(user);
                 update(ref(db, "users/" + user.uid), {
                   last_login: newdt,
                 }).then((data) => {

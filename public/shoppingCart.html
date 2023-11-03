@@ -304,48 +304,6 @@
               }
             );
           },
-          // checkOut() {
-          //   // alert("You have checked out!");
-          //   for (let rname in this.orders) {
-          //     var pth = `restaurants/${rname}/bagsInfo/`;
-          //     var order = {};
-          //     var orderCount = 0;
-          //     var num = 0;
-          //     const dt = String(new Date());
-          //     const newdt = dt.slice(0, 24);
-          //     get(ref(db, pth))
-          //       .then((snapshot) => {
-          //         if (snapshot.exists()) {
-          //           var info = snapshot.val();
-          //           num += Number(info["bagsSold"]);
-          //           for (let item in this.orders[rname]) {
-          //             order[item] = this.orders[rname][item];
-          //             orderCount += Number(this.orders[rname][item]);
-          //           }
-          //           num += orderCount;
-          //           console.log(pth);
-          //           console.log(num);
-          //         }
-          //       })
-          //       .then((data) => {
-          //         // update(ref(db, pth), { bagsSold: num });
-          //       })
-          //       .then((data) => {
-          //         var obj = {
-          //           bagsOrdered: order,
-          //           datetime: newdt,
-          //           restaurantName: rname,
-          //           totalPrice: this.totalPrice,
-          //         };
-          //         // const orderHistoryRef = push(
-          //         //   ref(db, `users/${this.uid}/orderHistory`)
-          //         // );
-          //         // set(orderHistoryRef, obj).then((data) => {});
-          //       });
-          //   }
-          //   // sessionStorage.clear();
-          //   // location.href = "orderHistory.html";
-          // },
           async checkOut() {
             for (let rname in this.orders) {
               const pth = `restaurants/${rname}/bagsInfo/`;
