@@ -17,7 +17,7 @@ Credits:
 1. Website Logo - Created using Canva
 2. Default Background - Created using Canva
 
-Preload Page Resources:
+Image References:
 
 1. Retailer's food waste percentage: https://www.mse.gov.sg/cos/resources/cos-annex-e.pdf
 2. Food Box - Photo by Kindel Media: https://www.pexels.com/photo/brown-box-with-green-leafy-vegetables-6994271/
