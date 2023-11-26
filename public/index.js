@@ -7,7 +7,7 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDa8KSaPoutvNzQyCKC-1QBOLzWBhCmhyY",
+  apiKey: "",
   authDomain: "wad2-project-eb2e7.firebaseapp.com",
   databaseURL:
     "https://wad2-project-eb2e7-default-rtdb.asia-southeast1.firebasedatabase.app",
